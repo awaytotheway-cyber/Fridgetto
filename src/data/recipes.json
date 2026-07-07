@@ -1,0 +1,235 @@
+[
+  {
+    "id": "truffle-mushroom-risotto",
+    "name": "Black Truffle Mushroom Risotto",
+    "image": "https://images.unsplash.com/photo-1476124369493-e7bd5e1c0318?w=1200&q=80",
+    "prepTime": 35,
+    "dietaryTags": ["Vegetarian", "Gluten-Free"],
+    "ingredients": [
+      { "name": "arborio rice", "amount": "1.5 cups" },
+      { "name": "mushrooms", "amount": "8 oz" },
+      { "name": "vegetable broth", "amount": "4 cups" },
+      { "name": "white onion", "amount": "1 medium" },
+      { "name": "parmesan cheese", "amount": "0.5 cup" },
+      { "name": "white wine", "amount": "0.5 cup" },
+      { "name": "butter", "amount": "3 tbsp" },
+      { "name": "black truffle", "amount": "1 tsp" },
+      { "name": "garlic", "amount": "2 cloves" },
+      { "name": "olive oil", "amount": "2 tbsp" }
+    ],
+    "steps": [
+      { "instruction": "Warm the vegetable broth in a saucepan and keep it on low heat.", "durationSeconds": 120 },
+      { "instruction": "Finely dice the white onion and mince the garlic cloves.", "durationSeconds": 180 },
+      { "instruction": "Sauté onion and garlic in olive oil over medium heat until translucent.", "durationSeconds": 240 },
+      { "instruction": "Add arborio rice and toast for 2 minutes, stirring constantly.", "durationSeconds": 120 },
+      { "instruction": "Deglaze with white wine, stirring until fully absorbed.", "durationSeconds": 90 },
+      { "instruction": "Add warm broth one ladle at a time, stirring until absorbed before adding more.", "durationSeconds": 900 },
+      { "instruction": "Sear sliced mushrooms in butter separately until golden brown.", "durationSeconds": 300 },
+      { "instruction": "Fold in mushrooms, parmesan, and shaved black truffle. Rest for 2 minutes before serving.", "durationSeconds": 120 }
+    ],
+    "macros": {
+      "calories": 520,
+      "protein": 14,
+      "carbs": 72,
+      "fat": 18
+    }
+  },
+  {
+    "id": "miso-glazed-salmon",
+    "name": "Miso Glazed Salmon",
+    "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1200&q=80",
+    "prepTime": 25,
+    "dietaryTags": ["Keto", "Gluten-Free", "Pescatarian"],
+    "ingredients": [
+      { "name": "salmon fillet", "amount": "6 oz" },
+      { "name": "white miso paste", "amount": "2 tbsp" },
+      { "name": "soy sauce", "amount": "1 tbsp" },
+      { "name": "mirin", "amount": "2 tbsp" },
+      { "name": "sake", "amount": "1 tbsp" },
+      { "name": "ginger", "amount": "1 inch" },
+      { "name": "garlic", "amount": "1 clove" },
+      { "name": "sesame seeds", "amount": "1 tsp" },
+      { "name": "green onion", "amount": "2 stalks" }
+    ],
+    "steps": [
+      { "instruction": "Whisk together miso paste, soy sauce, mirin, sake, grated ginger, and minced garlic to create the glaze.", "durationSeconds": 120 },
+      { "instruction": "Pat salmon fillet dry and coat generously with the miso glaze. Marinate for 15 minutes.", "durationSeconds": 900 },
+      { "instruction": "Preheat broiler to high and line a baking sheet with foil.", "durationSeconds": 60 },
+      { "instruction": "Place salmon skin-side down on the sheet and broil for 6-8 minutes until caramelized.", "durationSeconds": 420 },
+      { "instruction": "Garnish with toasted sesame seeds and sliced green onion.", "durationSeconds": 30 }
+    ],
+    "macros": {
+      "calories": 380,
+      "protein": 34,
+      "carbs": 12,
+      "fat": 22
+    }
+  },
+  {
+    "id": "avocado-cocoa-mousse",
+    "name": "Vegan Avocado Chocolate Mousse",
+    "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=1200&q=80",
+    "prepTime": 15,
+    "dietaryTags": ["Vegan", "Keto", "Gluten-Free", "Dairy-Free"],
+    "ingredients": [
+      { "name": "avocado", "amount": "2 ripe" },
+      { "name": "cocoa powder", "amount": "0.3 cup" },
+      { "name": "maple syrup", "amount": "0.25 cup" },
+      { "name": "coconut milk", "amount": "0.25 cup" },
+      { "name": "vanilla extract", "amount": "1 tsp" },
+      { "name": "salt", "amount": "1 pinch" },
+      { "name": "raspberries", "amount": "0.5 cup" }
+    ],
+    "steps": [
+      { "instruction": "Scoop the flesh from 2 ripe avocados into a food processor.", "durationSeconds": 60 },
+      { "instruction": "Add cocoa powder, maple syrup, coconut milk, vanilla extract, and a pinch of salt.", "durationSeconds": 60 },
+      { "instruction": "Blend until completely smooth and creamy, scraping down the sides as needed.", "durationSeconds": 120 },
+      { "instruction": "Transfer to serving glasses and chill in the refrigerator for 30 minutes.", "durationSeconds": 1800 },
+      { "instruction": "Top with fresh raspberries before serving.", "durationSeconds": 30 }
+    ],
+    "macros": {
+      "calories": 290,
+      "protein": 5,
+      "carbs": 28,
+      "fat": 20
+    }
+  },
+  {
+    "id": "thai-coconut-curry",
+    "name": "Thai Coconut Curry with Tofu",
+    "image": "https://images.unsplash.com/photo-1455619452474-d18be1517e2e?w=1200&q=80",
+    "prepTime": 30,
+    "dietaryTags": ["Vegan", "Gluten-Free", "Dairy-Free"],
+    "ingredients": [
+      { "name": "tofu", "amount": "14 oz block" },
+      { "name": "coconut milk", "amount": "1 can" },
+      { "name": "red curry paste", "amount": "2 tbsp" },
+      { "name": "bell pepper", "amount": "1 large" },
+      { "name": "broccoli", "amount": "1 crown" },
+      { "name": "basil", "amount": "1 bunch" },
+      { "name": "lime", "amount": "1" },
+      { "name": "garlic", "amount": "3 cloves" },
+      { "name": "ginger", "amount": "1 inch" },
+      { "name": "soy sauce", "amount": "1 tbsp" },
+      { "name": "brown rice", "amount": "1 cup" }
+    ],
+    "steps": [
+      { "instruction": "Press tofu for 15 minutes, then cube into bite-sized pieces.", "durationSeconds": 900 },
+      { "instruction": "Cook brown rice according to package directions.", "durationSeconds": 1500 },
+      { "instruction": "Pan-fry tofu cubes until golden on all sides. Set aside.", "durationSeconds": 360 },
+      { "instruction": "Sauté minced garlic and grated ginger in a wok until fragrant.", "durationSeconds": 60 },
+      { "instruction": "Add red curry paste and cook for 1 minute to bloom the spices.", "durationSeconds": 60 },
+      { "instruction": "Pour in coconut milk and bring to a gentle simmer.", "durationSeconds": 120 },
+      { "instruction": "Add sliced bell pepper and broccoli florets. Cook until tender-crisp.", "durationSeconds": 300 },
+      { "instruction": "Return tofu to the wok, add soy sauce and lime juice. Stir in fresh basil.", "durationSeconds": 60 }
+    ],
+    "macros": {
+      "calories": 460,
+      "protein": 18,
+      "carbs": 55,
+      "fat": 20
+    }
+  },
+  {
+    "id": "korean-bibimbap-bowl",
+    "name": "Korean Bibimbap Bowl",
+    "image": "https://images.unsplash.com/photo-1543168340-8c71fcafbe2c?w=1200&q=80",
+    "prepTime": 40,
+    "dietaryTags": ["Vegetarian", "Gluten-Free"],
+    "ingredients": [
+      { "name": "white rice", "amount": "2 cups" },
+      { "name": "spinach", "amount": "2 cups" },
+      { "name": "carrots", "amount": "2 large" },
+      { "name": "mushrooms", "amount": "4 oz" },
+      { "name": "bean sprouts", "amount": "1 cup" },
+      { "name": "eggs", "amount": "2" },
+      { "name": "soy sauce", "amount": "3 tbsp" },
+      { "name": "sesame oil", "amount": "1 tbsp" },
+      { "name": "garlic", "amount": "2 cloves" },
+      { "name": "gochujang", "amount": "2 tbsp" },
+      { "name": "sesame seeds", "amount": "1 tsp" }
+    ],
+    "steps": [
+      { "instruction": "Cook white rice and keep warm.", "durationSeconds": 1200 },
+      { "instruction": "Blanch spinach, squeeze out water, and season with sesame oil and minced garlic.", "durationSeconds": 180 },
+      { "instruction": "Julienne carrots and sauté briefly with a pinch of salt.", "durationSeconds": 180 },
+      { "instruction": "Sauté sliced mushrooms with soy sauce until softened.", "durationSeconds": 240 },
+      { "instruction": "Blanch bean sprouts and season with sesame oil and salt.", "durationSeconds": 120 },
+      { "instruction": "Fry eggs sunny-side up in a hot oiled pan.", "durationSeconds": 180 },
+      { "instruction": "Assemble bowls: rice on the bottom, arranged vegetables on top, egg in center.", "durationSeconds": 120 },
+      { "instruction": "Add a dollop of gochujang and sprinkle with sesame seeds. Mix before eating.", "durationSeconds": 30 }
+    ],
+    "macros": {
+      "calories": 540,
+      "protein": 16,
+      "carbs": 88,
+      "fat": 14
+    }
+  },
+  {
+    "id": "mediterranean-shakshuka",
+    "name": "Mediterranean Shakshuka",
+    "image": "https://images.unsplash.com/photo-1590412200988-a436970781fa?w=1200&q=80",
+    "prepTime": 25,
+    "dietaryTags": ["Vegetarian", "Gluten-Free", "Keto"],
+    "ingredients": [
+      { "name": "eggs", "amount": "4" },
+      { "name": "crushed tomatoes", "amount": "1 can" },
+      { "name": "red onion", "amount": "1 medium" },
+      { "name": "bell pepper", "amount": "1 large" },
+      { "name": "garlic", "amount": "3 cloves" },
+      { "name": "feta cheese", "amount": "0.5 cup" },
+      { "name": "paprika", "amount": "1 tsp" },
+      { "name": "cumin", "amount": "1 tsp" },
+      { "name": "olive oil", "amount": "2 tbsp" },
+      { "name": "parsley", "amount": "0.25 cup" }
+    ],
+    "steps": [
+      { "instruction": "Dice the red onion and bell pepper.", "durationSeconds": 120 },
+      { "instruction": "Heat olive oil in a cast-iron skillet and sauté onion and pepper until soft.", "durationSeconds": 300 },
+      { "instruction": "Add minced garlic, paprika, and cumin. Cook until fragrant.", "durationSeconds": 60 },
+      { "instruction": "Pour in crushed tomatoes, season with salt and pepper, and simmer for 10 minutes.", "durationSeconds": 600 },
+      { "instruction": "Create 4 wells in the sauce and crack an egg into each.", "durationSeconds": 30 },
+      { "instruction": "Cover and cook until egg whites are set but yolks are still runny, about 5-7 minutes.", "durationSeconds": 360 },
+      { "instruction": "Crumble feta on top and garnish with chopped parsley.", "durationSeconds": 30 }
+    ],
+    "macros": {
+      "calories": 310,
+      "protein": 18,
+      "carbs": 16,
+      "fat": 20
+    }
+  },
+  {
+    "id": "caesar-grilled-chicken",
+    "name": "Grilled Chicken Caesar Salad",
+    "image": "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=1200&q=80",
+    "prepTime": 20,
+    "dietaryTags": ["Keto", "Gluten-Free", "High-Protein"],
+    "ingredients": [
+      { "name": "chicken breast", "amount": "8 oz" },
+      { "name": "romaine lettuce", "amount": "1 head" },
+      { "name": "parmesan cheese", "amount": "0.3 cup" },
+      { "name": "lemon", "amount": "1" },
+      { "name": "garlic", "amount": "2 cloves" },
+      { "name": "anchovy fillets", "amount": "3" },
+      { "name": "olive oil", "amount": "3 tbsp" },
+      { "name": "dijon mustard", "amount": "1 tsp" },
+      { "name": "black pepper", "amount": "0.5 tsp" }
+    ],
+    "steps": [
+      { "instruction": "Season chicken breast with salt, pepper, and olive oil. Grill over high heat for 6-7 minutes per side.", "durationSeconds": 840 },
+      { "instruction": "Mince garlic and mash anchovy fillets into a paste.", "durationSeconds": 60 },
+      { "instruction": "Whisk together anchovy paste, minced garlic, Dijon mustard, lemon juice, and olive oil to make the dressing.", "durationSeconds": 120 },
+      { "instruction": "Chop romaine lettuce and toss with the dressing in a large bowl.", "durationSeconds": 60 },
+      { "instruction": "Slice grilled chicken and arrange on top of the salad.", "durationSeconds": 60 },
+      { "instruction": "Shave parmesan cheese over the top and finish with cracked black pepper.", "durationSeconds": 30 }
+    ],
+    "macros": {
+      "calories": 340,
+      "protein": 38,
+      "carbs": 8,
+      "fat": 18
+    }
+  }
+]
