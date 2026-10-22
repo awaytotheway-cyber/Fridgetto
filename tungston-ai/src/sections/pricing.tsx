@@ -34,7 +34,7 @@ export function Pricing() {
               </div>
               <p className="mt-3 text-ash">{plan.pitch}</p>
               <p className="mt-8 flex items-baseline gap-2">
-                <span className="font-display text-[clamp(2.75rem,2.2rem+1.6vw,3.75rem)] leading-none font-semibold tracking-[-0.05em] text-bone">
+                <span className="font-display text-[clamp(2.75rem,2.2rem+1.6vw,3.75rem)] leading-none font-semibold tracking-[-0.02em] text-bone">
                   {plan.price}
                 </span>
                 <span className="text-sm text-smoke">{plan.cadence}</span>

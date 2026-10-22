@@ -109,7 +109,7 @@ export function Header() {
               key={item.href}
               href={item.href}
               aria-current={pathname === item.href ? "page" : undefined}
-              className="flex items-baseline justify-between border-b border-white/[0.07] py-5 font-display text-4xl font-medium tracking-[-0.04em] text-bone aria-[current=page]:text-filament"
+              className="flex items-baseline justify-between border-b border-white/[0.07] py-5 font-display text-4xl font-medium tracking-[-0.01em] text-bone aria-[current=page]:text-filament"
               style={{ animation: open ? `menu-in 0.6s ${0.05 * i}s var(--ease-out-expo) both` : undefined }}
             >
               {item.label}

@@ -41,7 +41,7 @@ function Manifesto() {
   return (
     <p
       ref={ref}
-      className="font-display text-[clamp(1.75rem,1.15rem+2.3vw,3.4rem)] leading-[1.08] font-medium tracking-[-0.035em] text-bone"
+      className="font-display text-[clamp(1.75rem,1.15rem+2.3vw,3.4rem)] leading-[1.08] font-medium tracking-[-0.005em] text-bone"
     >
       {manifesto.split(" ").map((word, i) => (
         <span

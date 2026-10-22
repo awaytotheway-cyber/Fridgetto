@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/site.config";
 import { Header } from "@/components/layout/header";
@@ -9,15 +9,17 @@ import { Cursor } from "@/components/fx/cursor";
 import { Preloader } from "@/components/fx/preloader";
 import { services } from "@/lib/content";
 
-const display = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+// Fontshare variable fonts, downloaded by scripts/fetch-fonts.mjs (see the note there on licensing)
+const display = localFont({
+  src: "../assets/fonts/fontshare/ClashDisplay-Variable.woff2",
+  variable: "--font-clash-display",
+  weight: "200 700",
 });
 
-const sans = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+const sans = localFont({
+  src: "../assets/fonts/fontshare/GeneralSans-Variable.woff2",
+  variable: "--font-general-sans",
+  weight: "200 700",
 });
 
 export const metadata: Metadata = {

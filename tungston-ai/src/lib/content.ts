@@ -18,6 +18,8 @@ export type Service = {
   hook: string;
   points: string[];
   art: ServiceArt;
+  /** Rendered illustration in /public/assets. Without one the card draws `art` as SVG. */
+  image?: string;
   /** Bento footprint on large screens. */
   size: "hero" | "wide" | "single";
 };
@@ -33,6 +35,7 @@ export const services: Service[] = [
       "Hand off to a person the moment judgment is needed",
     ],
     art: "agents",
+    image: "/assets/service-ai-agents.webp",
     size: "hero",
   },
   {
@@ -45,6 +48,7 @@ export const services: Service[] = [
       "Every call transcribed, summarized and logged",
     ],
     art: "voice",
+    image: "/assets/service-voice-agents.webp",
     size: "wide",
   },
   {
@@ -57,6 +61,7 @@ export const services: Service[] = [
       "Escalates to your team with the full conversation",
     ],
     art: "chat",
+    image: "/assets/service-website-chatbots.webp",
     size: "single",
   },
   {
@@ -69,6 +74,7 @@ export const services: Service[] = [
       "Monitored, with an alert the minute something breaks",
     ],
     art: "automation",
+    image: "/assets/service-custom-automations.webp",
     size: "single",
   },
   {
@@ -81,6 +87,7 @@ export const services: Service[] = [
       "Evaluations and guardrails before anything goes live",
     ],
     art: "advanced",
+    image: "/assets/service-advanced-agents.webp",
     size: "single",
   },
   {
@@ -93,6 +100,7 @@ export const services: Service[] = [
       "A human review step built into every pipeline",
     ],
     art: "content",
+    image: "/assets/service-content-automation.webp",
     size: "single",
   },
   {
@@ -105,6 +113,7 @@ export const services: Service[] = [
       "Designed, built and launched by one team",
     ],
     art: "build",
+    image: "/assets/service-web-and-app.webp",
     size: "wide",
   },
 ];

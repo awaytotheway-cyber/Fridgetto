@@ -20,6 +20,9 @@
 # production
 /build
 
+# brand fonts: licensed for self-hosting, not redistribution (fetched by scripts/fetch-fonts.mjs)
+/src/assets/fonts/fontshare/
+
 # misc
 .DS_Store
 *.pem

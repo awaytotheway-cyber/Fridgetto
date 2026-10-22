@@ -21,10 +21,10 @@ export function Results({ withIntro = true }: { withIntro?: boolean }) {
               key={study.client}
               className={`group/case relative flex flex-col py-10 lg:px-10 lg:py-12 ${i > 0 ? "border-t border-white/[0.08] lg:border-t-0 lg:border-l" : "lg:pl-0"} ${i === caseStudies.length - 1 ? "lg:pr-0" : ""}`}
             >
-              <h3 className="font-display text-xl font-semibold tracking-[-0.03em] text-bone">{study.client}</h3>
+              <h3 className="font-display text-xl font-semibold tracking-[-0.005em] text-bone">{study.client}</h3>
               <p className="mt-1 text-sm text-smoke">{study.sector}</p>
 
-              <p className="mt-10 font-display text-[clamp(3.5rem,2.5rem+3.5vw,6rem)] leading-none font-semibold tracking-[-0.06em] text-volt [text-shadow:0_0_40px_rgb(255_212_0/0.25)]">
+              <p className="mt-10 font-display text-[clamp(3.5rem,2.5rem+3.5vw,6rem)] leading-none font-semibold tracking-[-0.025em] text-volt [text-shadow:0_0_40px_rgb(255_212_0/0.25)]">
                 {study.metric}
               </p>
               <p className="mt-3 max-w-[22ch] text-lede leading-snug text-bone">{study.metricLabel}</p>

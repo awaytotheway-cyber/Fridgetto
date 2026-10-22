@@ -19,18 +19,18 @@
   --color-ember: #5c0a0e;
   --color-volt: #ffd400;
 
-  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-clash-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-general-sans), ui-sans-serif, system-ui, sans-serif;
 
   --text-hero: clamp(3.1rem, 0.9rem + 8.6vw, 10.5rem);
   --text-hero--line-height: 0.9;
-  --text-hero--letter-spacing: -0.055em;
+  --text-hero--letter-spacing: -0.02em;
   --text-display: clamp(2.4rem, 1.3rem + 4.4vw, 6rem);
   --text-display--line-height: 0.95;
-  --text-display--letter-spacing: -0.045em;
+  --text-display--letter-spacing: -0.015em;
   --text-title: clamp(1.45rem, 1.15rem + 0.9vw, 2.1rem);
   --text-title--line-height: 1.05;
-  --text-title--letter-spacing: -0.03em;
+  --text-title--letter-spacing: -0.005em;
   --text-lede: clamp(1.1rem, 1rem + 0.45vw, 1.4rem);
   --text-lede--line-height: 1.5;
 

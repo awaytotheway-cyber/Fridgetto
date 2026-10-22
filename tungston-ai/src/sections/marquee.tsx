@@ -6,7 +6,7 @@ function Run({ hidden }: { hidden?: boolean }) {
       {marqueeItems.map((item, i) => (
         <li key={item} className="flex items-center">
           <span
-            className={`px-6 font-display text-[clamp(2.25rem,1.6rem+3vw,4.75rem)] leading-none font-semibold tracking-[-0.045em] whitespace-nowrap uppercase sm:px-10 ${
+            className={`px-6 font-display text-[clamp(2.25rem,1.6rem+3vw,4.75rem)] leading-none font-semibold tracking-[-0.015em] whitespace-nowrap uppercase sm:px-10 ${
               i % 2 ? "text-void [paint-order:stroke_fill] [-webkit-text-stroke:2.5px_rgb(243_241_238/0.55)]" : "text-bone"
             }`}
           >

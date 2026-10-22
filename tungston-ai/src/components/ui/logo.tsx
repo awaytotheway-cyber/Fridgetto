@@ -31,7 +31,7 @@ export function Logo({ className }: { className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2.5 ${className ?? ""}`}>
       <LogoMark className="size-7" />
-      <span className="font-display text-[1.3rem] leading-none font-semibold tracking-[-0.04em] text-bone">
+      <span className="font-display text-[1.3rem] leading-none font-semibold tracking-[-0.01em] text-bone">
         {siteConfig.shortName}
         <span className="text-filament">{siteConfig.nameSuffix}</span>
       </span>

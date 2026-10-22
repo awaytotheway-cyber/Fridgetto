@@ -7,9 +7,9 @@ export const alt = `${siteConfig.name}: We build AI that works while you sleep`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const fontDir = join(process.cwd(), "src/assets/fonts");
-const bold = readFile(join(fontDir, "SpaceGrotesk-Bold.ttf"));
-const medium = readFile(join(fontDir, "SpaceGrotesk-Medium.ttf"));
+const fontDir = join(process.cwd(), "src/assets/fonts/fontshare");
+const semibold = readFile(join(fontDir, "ClashDisplay-Semibold.ttf"));
+const medium = readFile(join(fontDir, "ClashDisplay-Medium.ttf"));
 
 /** The T mark: top row plus the centre column of a 5×5 grid. */
 const MARK = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [2, 1], [2, 2], [2, 3], [2, 4]];
@@ -32,10 +32,10 @@ function dots() {
 }
 
 export default async function OpengraphImage() {
-  const [boldData, mediumData] = await Promise.all([bold, medium]);
+  const [semiboldData, mediumData] = await Promise.all([semibold, medium]);
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", background: "#050505", position: "relative", fontFamily: "Space Grotesk" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", background: "#050505", position: "relative", fontFamily: "Clash Display" }}>
         {dots().map((d, i) => (
           <div
             key={i}
@@ -75,7 +75,7 @@ export default async function OpengraphImage() {
               />
             ))}
           </div>
-          <div style={{ display: "flex", fontSize: 34, fontWeight: 500, color: "#f3f1ee", letterSpacing: "-0.03em" }}>
+          <div style={{ display: "flex", fontSize: 34, fontWeight: 500, color: "#f3f1ee", letterSpacing: "-0.005em" }}>
             <span>{siteConfig.shortName}</span>
             <span style={{ color: "#e8101a" }}>{siteConfig.nameSuffix}</span>
           </div>
@@ -88,9 +88,9 @@ export default async function OpengraphImage() {
             display: "flex",
             flexDirection: "column",
             fontSize: 92,
-            fontWeight: 700,
+            fontWeight: 600,
             lineHeight: 0.92,
-            letterSpacing: "-0.055em",
+            letterSpacing: "-0.02em",
             color: "#f3f1ee",
           }}
         >
@@ -105,8 +105,8 @@ export default async function OpengraphImage() {
     {
       ...size,
       fonts: [
-        { name: "Space Grotesk", data: boldData, weight: 700, style: "normal" },
-        { name: "Space Grotesk", data: mediumData, weight: 500, style: "normal" },
+        { name: "Clash Display", data: semiboldData, weight: 600, style: "normal" },
+        { name: "Clash Display", data: mediumData, weight: 500, style: "normal" },
       ],
     },
   );

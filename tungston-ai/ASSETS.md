@@ -1,65 +1,45 @@
 # Visual assets
 
-The site ships without any raster images. Every visual is drawn in code so the page is fast and stays on-brand:
+The rendered art lives in `public/assets/` as WebP. Each piece has a code-drawn fallback, so removing an image never leaves a hole:
 
-| Asset | Shipped as | Where |
-| --- | --- | --- |
-| Hero background | Live water-ripple dot grid (canvas) with CSS ambient glows | `src/sections/hero.tsx`, `src/lib/ripple-field.ts` |
-| 7 service illustrations | One SVG series: hairline strokes, a red working part, one yellow hot point. They animate on hover; the voice waveform always moves. | `src/sections/service-art.tsx` |
-| About image (human and machine) | Dot-matrix head in profile, built on the ripple grid with a rim light | `src/sections/about.tsx` |
-| OG share image, 1200×630 | Generated at build time with `next/og` | `src/app/opengraph-image.tsx` |
-| Favicon and logo mark | SVG: a 5×5 dot matrix with a T burned in, yellow at the junction | `src/app/icon.svg`, `src/app/apple-icon.tsx`, `src/components/ui/logo.tsx` |
+| Asset | File | Size | Made with | Wired in | Without it |
+| --- | --- | --- | --- | --- | --- |
+| Hero texture | `hero-texture.webp` | 1680×944 | Canva AI | `assets.heroTexture` in `src/site.config.ts`, drawn at low opacity behind the dot grid in `src/sections/hero.tsx` | The live dot grid alone |
+| About image (human and machine) | `about-human-machine.webp` | 1136×1408 | Canva AI | `assets.aboutImage` in `src/site.config.ts` | Dot-matrix portrait on the ripple grid |
+| AI Agents | `service-ai-agents.webp` | 1264×1264 | Canva AI | `image` on the service in `src/lib/content.ts` | SVG from `src/sections/service-art.tsx` |
+| Voice Agents | `service-voice-agents.webp` | 1680×944 | Canva AI | same | same |
+| Website Chatbots | `service-website-chatbots.webp` | 1680×944 | Canva AI | same | same |
+| Custom Automations | `service-custom-automations.webp` | 1680×944 | Canva AI | same | same |
+| Advanced AI Agents | `service-advanced-agents.webp` | 1376×768 | Figma AI (Gemini) | same | same |
+| Content Automation | `service-content-automation.webp` | 1376×768 | Figma AI (Gemini) | same | same |
+| Websites & Apps | `service-web-and-app.webp` | 1376×768 | Figma AI (Gemini) | same | same |
 
-If you want AI-rendered art on top of that, generate it with the prompts below, export it as WebP, put it in `public/assets/`, and wire it in where noted.
+Still drawn in code: the OG share image (`src/app/opengraph-image.tsx`), the favicon and logo mark (`src/app/icon.svg`, `src/app/apple-icon.tsx`, `src/components/ui/logo.tsx`) and the footer wordmark.
 
-## Generation status
+The Canva credits ran out after six renders, so the last three service illustrations came from Figma's generator with the same prompts. The originals are in the connected Canva account (media IDs `MAHYvza84Gg`, `MAHYwRMyLZ4`, `MAHYwXWCTXU`, `MAHYwSFAYUs`, `MAHYwTsagrc`, `MAHYwb2BzU0`) and the Figma file "Tungston.ai site art".
 
-This environment had Canva's image generator connected, but the network policy blocked downloading the full-resolution files from Canva. One test render of the hero texture exists in the connected Canva account under media ID `MAHYvza84Gg`. Nothing else was generated, so the slots below are still open.
+## Swapping or adding art
 
-Recommended tools, in order: Midjourney (via an API wrapper such as Apiframe) for hero-quality abstract 3D, Flux (fal.ai or Replicate) for the illustration series, OpenAI GPT Image or Google Imagen 4 when text has to render, and Recraft for vector versions of the mark.
+1. Export at the size above (or larger, same aspect ratio) on a pure black background.
+2. Convert to WebP and save it in `public/assets/`. `next/image` serves resized copies, so the source can be large.
+3. Point the config or the service's `image` at it. Set the value to `null` (config) or delete the `image` line (service) to go back to the drawn version.
+
+Service cards crop with `object-cover` into boxes from roughly 1.7:1 (small cards) to 2.5:1 (wide cards) and portrait on the large AI Agents card, so keep the subject small and centered with black margins. An elliptical mask fades the edges into the card.
 
 ## Shared style prompt
 
-> Ultra-premium dark 3D render on pure black background, [SUBJECT], liquid chrome and glass material, dramatic electric red #E50914 rim lighting, subtle vivid yellow #FFD400 accent glow, cinematic depth of field, minimal, expensive, award-winning digital art, 8k, no text
+> Ultra-premium dark 3D render on a pure black background, [SUBJECT], liquid chrome and glass material, dramatic electric red #E8101A rim lighting, subtle vivid yellow #FFD400 accent glow, cinematic depth of field, minimal, expensive, award-winning digital art, no text
 
-Keep 85–90% of each frame pure black. Yellow should appear once per image, at the hottest point.
+Keep 85–90% of each frame pure black. Yellow appears once per image, at the hottest point. For the service series, add "Subject centered and compact in the middle third of the frame, wide empty pure black margins."
 
-## Slots
-
-### 1. Hero ambient texture
-
-- **File:** `public/assets/hero-texture.webp`, 2560×1440
-- **Subject:** abstract slow liquid-metal surface with faint glowing neural filament threads, like a tungsten filament heating up, extremely dark, one hot yellow point
-- **Wire-in:** set `assets.heroTexture` in `src/site.config.ts`, then add an `<Image fill className="object-cover opacity-30 -z-20" />` behind the `DotGrid` in `src/sections/hero.tsx`. Keep its opacity low so the dots stay the focus.
-
-### 2–8. Service illustrations (one series)
-
-- **Files:** `public/assets/service-<slug>.webp`, 1200×900, transparent or pure black background
-- **Wire-in:** replace the `<ServiceArt>` call in `src/sections/services.tsx` with an `<Image>` for that slug.
-
-| Slug | Subject |
+| Asset | Subject |
 | --- | --- |
-| `ai-agents` | a single glowing chrome orb at the center of orbiting task nodes, thin red light trails connecting them |
-| `voice-agents` | a sculpted sound wave of liquid chrome bars rising from black glass, the loudest bar glowing yellow |
-| `website-chatbots` | three floating glass speech bubbles stacked in depth, the front one lit red from inside |
-| `custom-automations` | interlocking chrome pipes and valves with red light flowing through them, one yellow output node |
-| `advanced-agents` | stacked translucent glass slabs like an index of documents, a red beam retrieving one slab upward |
-| `content-automation` | a grid of floating glass tiles assembling into a mosaic, one tile edged in yellow |
-| `web-and-app` | a glass browser window and a phone floating in depth, wireframe UI drawn in red light |
-
-### 9. About image (human and machine)
-
-- **File:** `public/assets/about-human-machine.webp`, 1200×1500 (4:5)
-- **Subject:** a human head in profile made of thousands of tiny glowing dots that dissolve into a precise machine grid at the back of the skull, red rim light along the face, a single yellow point at the temple
-- **Wire-in:** set `assets.aboutImage: "/assets/about-human-machine.webp"` in `src/site.config.ts`. The About section switches to the image automatically.
-
-### 10. OG share image (optional replacement)
-
-- **File:** `src/app/opengraph-image.png`, 1200×630 (delete `opengraph-image.tsx` if you use a file)
-- **Prompt:** use the hero texture prompt, then set the headline "We Build AI That Works While You Sleep." in Space Grotesk Bold on the left third. Ideogram or Imagen 4 handle the text best.
-
-### 11. Logo mark (optional vector refinement)
-
-- **Tool:** Recraft (vector)
-- **Prompt:** minimal geometric logo mark, 5×5 grid of circular dots on black, the top row and center column lit electric red #E8101A forming a letter T, the junction dot vivid yellow #FFD400, flat vector, no gradients, no text
-- **Wire-in:** replace `src/app/icon.svg` and the `LogoMark` SVG in `src/components/ui/logo.tsx`.
+| Hero texture | an abstract, slow liquid-metal surface with faint glowing neural filament threads, like a tungsten filament heating up, one hot yellow point on the right |
+| About | a human head in profile facing right, made of thousands of tiny glowing dots that dissolve into a precise machine grid at the back of the skull, red rim light along the face, a single yellow point at the temple |
+| `ai-agents` | a glowing liquid-chrome orb surrounded by glass task nodes in orbit, connected by thin red light trails, the orb's core yellow |
+| `voice-agents` | a sculpted sound wave of liquid-chrome bars rising from black glass, the tallest bar glowing yellow |
+| `website-chatbots` | three frosted-glass speech bubbles stacked in depth, the front one lit red from inside, a tiny yellow dot on its corner |
+| `custom-automations` | interlocking chrome pipes and valves with red light flowing through glass sections, ending in one yellow output node |
+| `advanced-agents` | a stack of thin translucent glass slabs like an index of documents, a red beam lifting one slab up, its edge glowing yellow |
+| `content-automation` | a grid of floating dark glass tiles assembling into a mosaic, edged in red, exactly one tile edged in yellow |
+| `web-and-app` | a glass browser window and a glass phone floating in depth, wireframe UI drawn in thin red light, one yellow dot on the browser |

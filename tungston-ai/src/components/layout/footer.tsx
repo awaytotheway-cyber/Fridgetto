@@ -17,7 +17,7 @@ export function Footer() {
           </p>
           <a
             href={`mailto:${siteConfig.contact.email}`}
-            className="mt-8 inline-block font-display text-2xl font-medium tracking-[-0.03em] text-bone underline decoration-filament/50 decoration-2 underline-offset-8 transition-colors hover:decoration-volt sm:text-3xl"
+            className="mt-8 inline-block font-display text-2xl font-medium tracking-[-0.005em] text-bone underline decoration-filament/50 decoration-2 underline-offset-8 transition-colors hover:decoration-volt sm:text-3xl"
           >
             {siteConfig.contact.email}
           </a>

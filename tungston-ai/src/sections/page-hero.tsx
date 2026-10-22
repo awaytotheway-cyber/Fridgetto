@@ -20,7 +20,7 @@ export function PageHero({ title, children }: PageHeroProps) {
         <RevealText
           as="h1"
           id="page-title"
-          className="font-display text-[clamp(3rem,1.6rem+5.6vw,8rem)] leading-[0.92] font-semibold tracking-[-0.055em] text-bone lg:col-span-8"
+          className="font-display text-[clamp(3rem,1.6rem+5.6vw,8rem)] leading-[0.92] font-semibold tracking-[-0.02em] text-bone lg:col-span-8"
         >
           {title}
         </RevealText>

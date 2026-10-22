@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLayoutEffect, useRef, type ReactNode } from "react";
 import { DotGrid, type DotGridHandle } from "@/components/fx/dot-grid";
 import { ButtonLink } from "@/components/ui/button";
@@ -77,6 +78,16 @@ export function Hero() {
 
   return (
     <section aria-labelledby="hero-title" className="relative isolate min-h-svh overflow-hidden">
+      {siteConfig.assets.heroTexture && (
+        <Image
+          src={siteConfig.assets.heroTexture}
+          alt=""
+          fill
+          preload
+          sizes="100vw"
+          className="-z-20 object-cover object-[70%_50%] opacity-35 [mask-image:linear-gradient(100deg,transparent_30%,#000_80%)]"
+        />
+      )}
       <DotGrid
         ref={gridRef}
         className="absolute inset-0 -z-10 h-full w-full [mask-image:radial-gradient(140%_100%_at_60%_35%,#000_45%,transparent_100%)]"
@@ -126,7 +137,7 @@ export function Hero() {
           {heroStats.map((stat, i) => (
             <div key={stat.label} className="flex flex-col-reverse gap-1">
               <dt className="text-[0.8125rem] leading-snug text-smoke sm:text-sm">{stat.label}</dt>
-              <dd className="font-display text-3xl font-medium tracking-[-0.04em] text-bone tabular-nums sm:text-5xl">
+              <dd className="font-display text-3xl font-medium tracking-[-0.01em] text-bone tabular-nums sm:text-5xl">
                 <Counter value={stat.value} suffix={stat.suffix} delay={0.9 + i * 0.12} />
               </dd>
             </div>

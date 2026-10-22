@@ -293,7 +293,7 @@ export class RippleField {
     }
 
     const family =
-      getComputedStyle(document.documentElement).getPropertyValue("--font-space-grotesk").trim() || "sans-serif";
+      getComputedStyle(document.documentElement).getPropertyValue("--font-clash-display").trim() || "sans-serif";
     let size = rows;
     g.font = `700 ${size}px ${family}`;
     const width = g.measureText(text).width;

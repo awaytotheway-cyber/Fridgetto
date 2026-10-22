@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { TiltCard } from "@/components/fx/tilt-card";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { services, type Service } from "@/lib/content";
@@ -13,6 +14,12 @@ const artHeight: Record<Service["size"], string> = {
   hero: "h-56 sm:h-72 lg:h-auto lg:flex-1 lg:min-h-64",
   wide: "h-36 sm:h-40 lg:h-auto lg:min-h-40 lg:flex-1",
   single: "h-36 sm:h-40",
+};
+
+const artSizes: Record<Service["size"], string> = {
+  hero: "(min-width: 1024px) 50vw, 100vw",
+  wide: "(min-width: 1024px) 50vw, 100vw",
+  single: "(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw",
 };
 
 function ServiceCard({ service }: { service: Service }) {
@@ -40,12 +47,23 @@ function ServiceCard({ service }: { service: Service }) {
         </div>
 
         <div className={`relative -mx-2 ${artHeight[service.size]}`}>
-          <ServiceArt kind={service.art} live={service.art === "voice"} />
+          {service.image ? (
+            // Renders sit on pure black; the elliptical mask melts their edges into the card
+            <Image
+              src={service.image}
+              alt=""
+              fill
+              sizes={artSizes[service.size]}
+              className="object-cover brightness-90 transition-[scale,filter] duration-700 ease-out-expo [mask-image:radial-gradient(closest-side,#000_62%,transparent)] group-hover/card:scale-[1.04] group-hover/card:brightness-110 motion-reduce:transition-none"
+            />
+          ) : (
+            <ServiceArt kind={service.art} live={service.art === "voice"} />
+          )}
         </div>
 
         <div className={`relative mt-6 ${flagship ? "lg:mt-8" : ""}`}>
           <h3
-            className={`font-display font-semibold text-bone ${flagship ? "text-[clamp(2rem,1.4rem+2vw,3.25rem)] leading-[0.95] tracking-[-0.045em]" : "text-title"}`}
+            className={`font-display font-semibold text-bone ${flagship ? "text-[clamp(2rem,1.4rem+2vw,3.25rem)] leading-[0.95] tracking-[-0.015em]" : "text-title"}`}
           >
             {service.title}
           </h3>

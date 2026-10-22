@@ -44,12 +44,12 @@ export const siteConfig = {
     { label: "Contact", href: "/contact" },
   ],
   /**
-   * Optional final art. Leave as null to use the built-in generative visuals,
-   * or drop a file in /public/assets and point to it (see ASSETS.md).
+   * Rendered art in /public/assets (see ASSETS.md). Set either to null to fall back
+   * to the built-in generative visuals: the dot-matrix portrait, or the bare dot grid.
    */
   assets: {
-    aboutImage: null as string | null,
-    heroTexture: null as string | null,
+    aboutImage: "/assets/about-human-machine.webp" as string | null,
+    heroTexture: "/assets/hero-texture.webp" as string | null,
   },
 } as const;
 
