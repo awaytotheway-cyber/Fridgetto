@@ -1,0 +1,8 @@
+# OS and editor clutter, shared by every project in this repo.
+# Each project keeps its own .gitignore for build output and dependencies.
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.log

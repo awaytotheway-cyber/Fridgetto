@@ -1,0 +1,112 @@
+import type { Metadata, Viewport } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
+import "./globals.css";
+import { siteConfig } from "@/site.config";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { SmoothScroll } from "@/components/fx/smooth-scroll";
+import { Cursor } from "@/components/fx/cursor";
+import { Preloader } from "@/components/fx/preloader";
+import { services } from "@/lib/content";
+
+const display = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const sans = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: `${siteConfig.name}: AI agents, voice AI and automation that ship in weeks`,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: [...siteConfig.keywords],
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.legalName, url: siteConfig.url }],
+  creator: siteConfig.legalName,
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    url: siteConfig.url,
+    title: `${siteConfig.name}: We build AI that works while you sleep`,
+    description: siteConfig.description,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name}: We build AI that works while you sleep`,
+    description: siteConfig.description,
+  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  colorScheme: "dark",
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${siteConfig.url}/#organization`,
+  name: siteConfig.name,
+  legalName: siteConfig.legalName,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/icon.svg`,
+  image: `${siteConfig.url}/opengraph-image`,
+  description: siteConfig.description,
+  email: siteConfig.contact.email,
+  telephone: siteConfig.contact.phone,
+  areaServed: "Worldwide",
+  sameAs: siteConfig.socials.map((s) => s.href),
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "AI services",
+    itemListElement: services.map((s) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: s.title, description: s.hook },
+    })),
+  },
+};
+
+/**
+ * Runs before paint: marks JS as available (so intro elements can start hidden)
+ * and skips the preloader for the rest of the session once it has played.
+ */
+const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('tungston:preloaded'))d.dataset.preloaded='true'}catch(e){}setTimeout(function(){d.classList.add('intro-failsafe')},4000)})();`;
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+      </head>
+      <body className="min-h-svh overflow-x-clip">
+        <a
+          href="#main"
+          className="fixed top-3 left-3 z-[90] -translate-y-20 rounded-full bg-volt px-4 py-2 font-medium text-void focus:translate-y-0"
+        >
+          Skip to content
+        </a>
+        <Preloader />
+        <SmoothScroll />
+        <Header />
+        <main id="main">{children}</main>
+        <Footer />
+        <Cursor />
+        <div aria-hidden="true" className="grain" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }}
+        />
+      </body>
+    </html>
+  );
+}
