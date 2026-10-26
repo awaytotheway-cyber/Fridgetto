@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/sections/page-hero";
 import { Services } from "@/sections/services";
+import { SavingsEstimator } from "@/sections/savings-estimator";
 import { Process } from "@/sections/process";
 import { Pricing } from "@/sections/pricing";
 import { FinalCta } from "@/sections/final-cta";
@@ -19,6 +20,7 @@ export default function ServicesPage() {
         Pick the one that saves the most hours first. We&apos;ll scope it, build it and hand it over running.
       </PageHero>
       <Services withIntro={false} />
+      <SavingsEstimator />
       <Process />
       <Pricing />
       <FinalCta />

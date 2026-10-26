@@ -42,10 +42,11 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Fonts | `src/app/layout.tsx` (`next/font/local`) and `scripts/fetch-fonts.mjs`. The OG image reads the static Clash Display TTFs from the same folder. See [Fonts](#fonts). |
 | All page copy: services, stats, process, case studies, pricing, manifesto | `src/lib/content.ts` |
 | Demo chatbot answers | `src/lib/demo-bot.ts` (keyword intents, first match wins) |
+| Savings estimator: what each service saves, slider defaults | `src/lib/estimator.ts` (`serviceModels`, `defaultInputs`) |
 | Images | Rendered art is in `public/assets/`, set in `src/site.config.ts` (hero, About) and `src/lib/content.ts` (service cards). See [ASSETS.md](./ASSETS.md) for sizes, prompts and how to fall back to the drawn versions. |
 | Dot-grid physics (wave speed, damping, heat) | Constants at the top of `src/lib/ripple-field.ts` |
 
-> **Before launch:** the stats in the hero, the three case studies and the prices are placeholders written to show the layout. Replace them in `src/lib/content.ts` with real numbers.
+> **Before launch:** the stats in the hero, the three case studies and the prices are placeholders written to show the layout. Replace them in `src/lib/content.ts` with real numbers. The savings estimator's per-service rates in `src/lib/estimator.ts` are placeholders too: tune them to real client results.
 
 ## Project structure
 
@@ -54,7 +55,7 @@ src/
   app/                 routes, metadata, sitemap, robots, icons, OG image, server action
     page.tsx           home page (the priority page)
     services/ work/ about/ contact/
-  sections/            page sections (hero, marquee, services bento, process, demo, results, pricing, about, CTA)
+  sections/            page sections (hero, marquee, services bento, savings estimator, process, demo, results, pricing, about, CTA)
   components/
     fx/                motion and interaction: dot grid, cursor, magnetic, tilt, reveals, preloader, smooth scroll
     layout/            header and footer
@@ -63,6 +64,7 @@ src/
     ripple-field.ts    the water-ripple dot grid engine (framework-free canvas)
     content.ts         site copy
     demo-bot.ts        scripted demo chatbot
+    estimator.ts       savings estimator rates and maths
     gsap.ts            plugin registration and the "site ready" event
   site.config.ts       brand configuration
 ```
