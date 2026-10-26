@@ -7,9 +7,9 @@ import { Process } from "@/sections/process";
 import { FinalCta } from "@/sections/final-cta";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About",
+  title: "About Our AI Automation Studio",
   description:
-    "Why we build AI agents and automations, and how we work: shipped in weeks, measured in hours and revenue.",
+    "Why we build AI agents and automations, and how we work: shipped in weeks, measured in hours saved and revenue won.",
   path: "/about",
 });
 

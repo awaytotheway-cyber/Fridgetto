@@ -25,9 +25,10 @@ const sans = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  // Titles stay under Google's ~580px and leave the domain out (search results show it anyway)
   title: {
-    default: `${siteConfig.name}: AI agents, voice AI and automation that ship in weeks`,
-    template: `%s | ${siteConfig.name}`,
+    default: `AI Agents, Chatbots & Automation in Weeks | ${siteConfig.shortName}`,
+    template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
@@ -38,13 +39,13 @@ export const metadata: Metadata = {
     type: "website",
     siteName: siteConfig.name,
     url: siteConfig.url,
-    title: `${siteConfig.name}: We build AI that works while you sleep`,
+    title: `We Build AI That Works While You Sleep | ${siteConfig.shortName}`,
     description: siteConfig.description,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name}: We build AI that works while you sleep`,
+    title: `We Build AI That Works While You Sleep | ${siteConfig.shortName}`,
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },

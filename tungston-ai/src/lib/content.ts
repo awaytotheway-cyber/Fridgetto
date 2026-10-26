@@ -20,6 +20,8 @@ export type Service = {
   art: ServiceArt;
   /** Rendered illustration in /public/assets. Without one the card draws `art` as SVG. */
   image?: string;
+  /** What the illustration shows, for its alt text. */
+  imageAlt?: string;
   /** Bento footprint on large screens. */
   size: "hero" | "wide" | "single";
 };
@@ -36,6 +38,7 @@ export const services: Service[] = [
     ],
     art: "agents",
     image: "/assets/service-ai-agents.webp",
+    imageAlt: "A glowing chrome orb with glass task nodes in orbit, joined by red light trails",
     size: "hero",
   },
   {
@@ -49,6 +52,7 @@ export const services: Service[] = [
     ],
     art: "voice",
     image: "/assets/service-voice-agents.webp",
+    imageAlt: "A sound wave of chrome bars rising from black glass, the tallest glowing yellow",
     size: "wide",
   },
   {
@@ -62,6 +66,7 @@ export const services: Service[] = [
     ],
     art: "chat",
     image: "/assets/service-website-chatbots.webp",
+    imageAlt: "Three frosted-glass speech bubbles stacked in depth, the front one lit red",
     size: "single",
   },
   {
@@ -75,6 +80,7 @@ export const services: Service[] = [
     ],
     art: "automation",
     image: "/assets/service-custom-automations.webp",
+    imageAlt: "Chrome pipes and valves with red light flowing through glass to a yellow output",
     size: "single",
   },
   {
@@ -88,6 +94,7 @@ export const services: Service[] = [
     ],
     art: "advanced",
     image: "/assets/service-advanced-agents.webp",
+    imageAlt: "A stack of glass slabs like indexed documents, one lifted by a red beam",
     size: "single",
   },
   {
@@ -101,6 +108,7 @@ export const services: Service[] = [
     ],
     art: "content",
     image: "/assets/service-content-automation.webp",
+    imageAlt: "Dark glass tiles assembling into a mosaic, edged in red",
     size: "single",
   },
   {
@@ -114,6 +122,7 @@ export const services: Service[] = [
     ],
     art: "build",
     image: "/assets/service-web-and-app.webp",
+    imageAlt: "A glass browser window and phone floating in depth, with wireframes drawn in red light",
     size: "wide",
   },
 ];

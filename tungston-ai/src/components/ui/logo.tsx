@@ -7,13 +7,15 @@ export function LogoMark({
   className,
   height = 36,
   loading = "eager",
+  alt = `${siteConfig.shortName} logo`,
 }: {
   className?: string;
   height?: number;
   loading?: "eager" | "lazy";
+  alt?: string;
 }) {
   const width = Math.round((mark.width / mark.height) * height);
-  return <Image src={mark} alt="" width={width} height={height} loading={loading} className={className} />;
+  return <Image src={mark} alt={alt} width={width} height={height} loading={loading} className={className} />;
 }
 
 export function Logo({ className }: { className?: string }) {

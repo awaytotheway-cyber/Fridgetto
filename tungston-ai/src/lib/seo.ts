@@ -22,7 +22,7 @@ const shareImage = {
  * so each page sets all of it.
  */
 export function pageMetadata({ title, description, path }: PageSeo): Metadata {
-  const fullTitle = `${title} | ${siteConfig.name}`;
+  const fullTitle = `${title} | ${siteConfig.shortName}`;
   return {
     title,
     description,

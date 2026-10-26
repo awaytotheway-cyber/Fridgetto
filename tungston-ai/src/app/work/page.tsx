@@ -7,9 +7,9 @@ import { LiveDemo } from "@/sections/live-demo";
 import { FinalCta } from "@/sections/final-cta";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Work",
+  title: "Case Studies: AI Systems That Paid Off",
   description:
-    "Case studies: voice agents, chatbots and AI agents that moved bookings, support load and hours saved.",
+    "Case studies: voice agents, chatbots and AI agents that moved bookings, support load and hours saved for real businesses.",
   path: "/work",
 });
 

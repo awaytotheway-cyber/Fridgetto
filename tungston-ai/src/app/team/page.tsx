@@ -8,9 +8,9 @@ import { team } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Team",
+  title: "Meet the Team: Pratik V N & Shrawani",
   description:
-    "Meet the people behind Protomation.ai: the orchestrator who plans and runs every build, and the designer who shapes how it looks and feels.",
+    "Meet Pratik V N, our orchestrator who plans and runs every build, and Shrawani, our designer who shapes how it looks and feels.",
   path: "/team",
 });
 

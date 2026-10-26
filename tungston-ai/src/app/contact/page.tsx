@@ -7,7 +7,7 @@ import { processSteps } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Book a free AI audit",
+  title: "Book a Free AI Audit",
   description:
     "Tell us one task that eats your week. We'll reply within one business day with how we'd automate it, free.",
   path: "/contact",

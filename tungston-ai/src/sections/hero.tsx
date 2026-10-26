@@ -55,7 +55,7 @@ export function Hero() {
       {siteConfig.assets.heroTexture && texture !== "off" && (
         <Image
           src={siteConfig.assets.heroTexture}
-          alt=""
+          alt="Liquid-metal texture with glowing red filament threads"
           fill
           sizes="100vw"
           loading="lazy"
@@ -85,9 +85,15 @@ export function Hero() {
             You{" "}
             <span className="relative inline-block">
               <span className="text-void [paint-order:stroke_fill] [-webkit-text-stroke:2px_rgb(158_10_18/0.9)]">Sleep.</span>
-              <span ref={hotRef} data-ignite aria-hidden="true" className="filament-text absolute inset-0">
+              {/* The glowing copy comes from CSS content, so the heading text (what search engines read) says "Sleep." once */}
+              <span
+                ref={hotRef}
+                data-ignite
+                data-text="Sleep."
+                aria-hidden="true"
+                className="filament-text absolute inset-0 after:content-[attr(data-text)]"
+              >
                 <span className="absolute -inset-x-[0.25em] inset-y-[0.05em] -z-10 rounded-full bg-[radial-gradient(closest-side,rgb(232_16_26/0.4),transparent)] blur-2xl" />
-                Sleep.
               </span>
             </span>
           </Line>

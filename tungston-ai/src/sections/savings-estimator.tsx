@@ -403,7 +403,7 @@ export function SavingsEstimator() {
           <div className="lg:col-span-5">
             <div className="rounded-card bg-[linear-gradient(180deg,rgb(232_16_26/0.16),rgb(232_16_26/0.03)_55%)] p-7 shadow-[var(--shadow-glow)] sm:p-9 lg:top-28 lg:[@media(min-height:50rem)]:sticky">
               <div className="flex items-center justify-between gap-4">
-                <h3 className="text-sm font-medium text-signal">Your estimate</h3>
+                <p className="text-sm font-medium text-signal">Your estimate</p>
                 <span className="flex items-center gap-1.5 text-[0.8125rem] text-ash">
                   <span aria-hidden="true" className="size-1.5 animate-pulse rounded-full bg-volt motion-reduce:animate-none" />
                   Live

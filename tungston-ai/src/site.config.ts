@@ -9,10 +9,12 @@ export const siteConfig = {
   /** Suffix rendered in a muted tone next to the short name in the logo. */
   nameSuffix: ".ai",
   legalName: "Protomation AI",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://protomation.ai",
+  /** The one canonical address. The site is served on www; the bare domain should 301 to it. */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.protomation.ai",
   tagline: "We build AI that works while you sleep.",
+  /** Meta description: keep it under about 150 characters so search results show all of it. */
   description:
-    "Protomation.ai designs and ships AI agents, voice agents, website chatbots, custom automations and end-to-end content systems for growing businesses, in weeks instead of quarters.",
+    "Protomation.ai builds AI agents, voice agents, chatbots and automations that save your team hours and win more leads, live in weeks, not quarters.",
   keywords: [
     "AI agency",
     "AI agents",

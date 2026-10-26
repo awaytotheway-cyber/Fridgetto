@@ -30,7 +30,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 
 | Variable | What it does |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL used for metadata, the sitemap, robots.txt and JSON-LD. Defaults to `https://protomation.ai`. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL used for metadata, the sitemap, robots.txt and JSON-LD. Defaults to `https://www.protomation.ai`; the bare domain redirects there (see `next.config.ts`). |
 | `CONTACT_WEBHOOK_URL` | Where the "Book a free AI audit" form posts submissions as JSON (Slack, Zapier, n8n, Make, a CRM webhook). Without it, submissions are written to the server log. |
 
 ## Where to change things

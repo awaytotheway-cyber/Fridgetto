@@ -51,7 +51,7 @@ function ServiceCard({ service, eager }: { service: Service; eager?: boolean }) 
             // Renders sit on pure black; the elliptical mask melts their edges into the card
             <Image
               src={service.image}
-              alt=""
+              alt={service.imageAlt ?? ""}
               fill
               sizes={artSizes[service.size]}
               loading={eager ? "eager" : "lazy"}

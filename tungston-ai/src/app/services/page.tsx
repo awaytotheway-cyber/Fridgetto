@@ -9,9 +9,9 @@ import { Pricing } from "@/sections/pricing";
 import { FinalCta } from "@/sections/final-cta";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Services",
+  title: "AI Agent, Chatbot & Automation Services",
   description:
-    "AI agents, voice agents, website chatbots, custom automations, RAG agents, content automation and web and app development, built and shipped in weeks.",
+    "AI agents, voice agents, website chatbots, automations, RAG agents, content systems, websites and apps. Scoped, built and shipped in weeks.",
   path: "/services",
 });
 
