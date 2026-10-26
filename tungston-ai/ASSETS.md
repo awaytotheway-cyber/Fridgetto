@@ -13,10 +13,23 @@ The rendered art lives in `public/assets/` as WebP. Each piece has a code-drawn 
 | Advanced AI Agents | `service-advanced-agents.webp` | 1376×768 | Figma AI (Gemini) | same | same |
 | Content Automation | `service-content-automation.webp` | 1376×768 | Figma AI (Gemini) | same | same |
 | Websites & Apps | `service-web-and-app.webp` | 1376×768 | Figma AI (Gemini) | same | same |
+| Team: Orchestrator (Pratik V N) | `team-orchestrator.webp` | 1136×1408 | Canva AI | `image` on the member in `team`, `src/lib/content.ts` | No drawn fallback: keep the file |
+| Team: Designer (Shrawani) | `team-designer.webp` | 1136×1408 | Canva AI | same | same |
 
 Still drawn in code: the OG share image (`src/app/opengraph-image.tsx`), the favicon and logo mark (`src/app/icon.svg`, `src/app/apple-icon.tsx`, `src/components/ui/logo.tsx`) and the footer wordmark.
 
 The Canva credits ran out after six renders, so the last three service illustrations came from Figma's generator with the same prompts. The originals are in the connected Canva account (media IDs `MAHYvza84Gg`, `MAHYwRMyLZ4`, `MAHYwXWCTXU`, `MAHYwSFAYUs`, `MAHYwTsagrc`, `MAHYwb2BzU0`) and the Figma file "Tungston.ai site art".
+
+## Team portraits
+
+Claymorphic cartoon characters, not photos. They were generated with Canva AI, then placed full-bleed on pages 3 and 4 of the Canva design "Protomation.ai team page" and exported from there at full size (Canva media IDs `MAHZIzRQ78I` for the Orchestrator and `MAHZG8DOQhE` for the Designer). To add a teammate, generate a portrait with the prompt below at 4:5, export it at 1136×1408 on black, convert it to WebP and add an entry to `team`.
+
+> Professional claymorphic 3D cartoon character, waist-up portrait of [ROLE AND LOOK], soft matte modelling-clay material with subtle hand-sculpted texture, realistic studio lighting, Pixar-quality clay render, [PROP THAT SHOWS THE ROLE], three-quarter view, subject centered with empty margins, pure black background, dramatic electric red #E8101A rim light, one small vivid yellow #FFD400 glow at the prop's tip, cinematic shallow depth of field, premium, minimal, no text, no logos
+
+| Portrait | Role and prop |
+| --- | --- |
+| Orchestrator | charcoal blazer over a black tee, conducting with a slim baton; an arc of six frosted-glass tiles lit red from inside, each with a line icon for an agent's job (chat bubble, microphone with sound wave, envelope, calendar, document, gear with a flow arrow), joined to the baton tip by thin red light threads |
+| Designer | oversized off-white knit sweater, round glasses, hair in a bun, sketching with a glowing stylus on a tablet that shows colour swatches and a wireframe in red light |
 
 ## Swapping or adding art
 
