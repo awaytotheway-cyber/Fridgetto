@@ -75,8 +75,11 @@ export function Header() {
           })}
         </nav>
 
-        <div className="hidden md:block">
-          <ButtonLink href={siteConfig.contact.bookingUrl}>Book a free AI audit</ButtonLink>
+        {/* Below ~900px the nav links need the room; the audit is one click away via Contact */}
+        <div className="hidden min-[56rem]:block">
+          <ButtonLink href={siteConfig.contact.bookingUrl} className="whitespace-nowrap">
+            Book a free AI audit
+          </ButtonLink>
         </div>
 
         <button

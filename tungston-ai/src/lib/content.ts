@@ -235,6 +235,35 @@ export const pricingPlans = [
   },
 ];
 
+export type TeamMember = {
+  name: string;
+  role: string;
+  /** Clay portrait in /public/assets (see ASSETS.md). */
+  image: string;
+  alt: string;
+  bio: string;
+  focus: string[];
+};
+
+export const team: TeamMember[] = [
+  {
+    name: "Pratik V N",
+    role: "Orchestrator",
+    image: "/assets/team-orchestrator.webp",
+    alt: "Clay illustration of Pratik V N conducting glowing AI agent tiles for chat, voice, email, calendar, documents and workflows with a baton",
+    bio: "Plans every build from first call to launch: maps how work moves through your business, picks the agents and tools for the job, and conducts them until the system runs on its own.",
+    focus: ["Solution architecture", "AI agents and automations", "Delivery"],
+  },
+  {
+    name: "Shrawani",
+    role: "Designer",
+    image: "/assets/team-designer.webp",
+    alt: "Clay illustration of Shrawani sketching a layout on a tablet with a glowing stylus",
+    bio: "Shapes how every system looks and feels, from websites and dashboards to the way a chatbot talks to your customers, so the technology feels like part of your brand.",
+    focus: ["Brand and UI design", "Conversation design", "Websites and apps"],
+  },
+];
+
 export const manifesto =
   "Most businesses don't need more software. They need fewer hours lost to work a machine could do. So we build the machines: agents that answer, book, follow up and report, quietly, around the clock, so your people get to do the work only people can do.";
 

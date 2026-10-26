@@ -43,6 +43,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | All page copy: services, stats, process, case studies, pricing, manifesto | `src/lib/content.ts` |
 | Demo chatbot answers | `src/lib/demo-bot.ts` (keyword intents, first match wins) |
 | Savings estimator: what each service saves, slider defaults | `src/lib/estimator.ts` (`serviceModels`, `defaultInputs`) |
+| Team members: names, roles, bios, portraits | `team` in `src/lib/content.ts`. Portraits are in `public/assets/` (see [ASSETS.md](./ASSETS.md#team-portraits)). |
 | Images | Rendered art is in `public/assets/`, set in `src/site.config.ts` (hero, About) and `src/lib/content.ts` (service cards). See [ASSETS.md](./ASSETS.md) for sizes, prompts and how to fall back to the drawn versions. |
 | Dot-grid physics (wave speed, damping, heat) | Constants at the top of `src/lib/ripple-field.ts` |
 | Liquid "Reach out to us" button: grab distance, release distance, blob size | Constants at the top of `src/components/fx/liquid-button.tsx`. Keep its padded field clear of other controls. |
@@ -55,7 +56,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 src/
   app/                 routes, metadata, sitemap, robots, icons, OG image, server action
     page.tsx           home page (the priority page)
-    services/ work/ about/ contact/
+    services/ work/ about/ team/ contact/
   sections/            page sections (hero, marquee, services bento, savings estimator, process, demo, results, pricing, about, CTA)
   components/
     fx/                motion and interaction: dot grid, cursor, magnetic, liquid button, tilt, reveals, preloader, smooth scroll
