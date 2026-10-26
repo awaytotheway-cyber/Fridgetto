@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/button";
 import { SectionIntro } from "@/components/ui/section-intro";
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { loadGsap, prefersReducedMotion } from "@/lib/gsap";
 import {
   defaultInputs,
   defaultServices,
@@ -44,18 +44,24 @@ function AnimatedNumber({ value, format }: { value: number; format: (n: number) 
       el.textContent = format(value);
       return;
     }
-    const state = { n: shown.current };
-    const tween = gsap.to(state, {
-      n: value,
-      duration: 0.7,
-      ease: "power3.out",
-      onUpdate: () => {
-        shown.current = state.n;
-        el.textContent = format(state.n);
-      },
+    let tween: { kill(): unknown } | null = null;
+    let cancelled = false;
+    loadGsap().then(({ gsap }) => {
+      if (cancelled) return;
+      const state = { n: shown.current };
+      tween = gsap.to(state, {
+        n: value,
+        duration: 0.7,
+        ease: "power3.out",
+        onUpdate: () => {
+          shown.current = state.n;
+          el.textContent = format(state.n);
+        },
+      });
     });
     return () => {
-      tween.kill();
+      cancelled = true;
+      tween?.kill();
     };
   }, [value, format]);
 

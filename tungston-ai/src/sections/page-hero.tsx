@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { DotGrid } from "@/components/fx/dot-grid";
-import { RevealText } from "@/components/fx/reveal-text";
 
 type PageHeroProps = {
   title: ReactNode;
@@ -17,13 +16,13 @@ export function PageHero({ title, children }: PageHeroProps) {
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-void" />
       <div className="shell grid items-end gap-8 lg:grid-cols-12">
-        <RevealText
-          as="h1"
+        {/* Not a RevealText: this headline is the page's largest paint, so it shows from the first frame */}
+        <h1
           id="page-title"
-          className="font-display text-[clamp(3rem,1.6rem+5.6vw,8rem)] leading-[0.92] font-semibold tracking-[-0.02em] text-bone lg:col-span-8"
+          className="page-intro font-display text-[clamp(3rem,1.6rem+5.6vw,8rem)] leading-[0.92] font-semibold tracking-[-0.02em] text-bone lg:col-span-8"
         >
           {title}
-        </RevealText>
+        </h1>
         {children && <div className="max-w-md text-lede text-ash lg:col-span-4 lg:justify-self-end">{children}</div>}
       </div>
     </section>

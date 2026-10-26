@@ -8,10 +8,10 @@ import { markSiteReady } from "@/lib/gsap";
 const DURATION = 950;
 
 /**
- * The logo powers up, then the curtain lifts. Under a second, once per session.
- * The animation is pure CSS, so it plays and clears even before the JavaScript
- * arrives; the inline script in the root layout sets `data-preloaded` on <html>
- * for returning visits so this never shows twice.
+ * The logo powers up, then the curtain lifts. Under a second, once per session, and
+ * only with a mouse: phones go straight to the page. The animation is pure CSS, so it
+ * plays and clears even before the JavaScript arrives; the inline script in the root
+ * layout sets `data-preloaded` on <html> before paint whenever it should be skipped.
  */
 export function Preloader() {
   const [done, setDone] = useState(false);
@@ -55,7 +55,8 @@ export function Preloader() {
     >
       <div className="preloader-mark relative">
         <div className="preloader-glow absolute inset-[-70%] rounded-full bg-[radial-gradient(closest-side,rgb(232_16_26/0.4),transparent)]" />
-        <LogoMark height={80} className="relative h-20 w-auto" />
+        {/* Lazy, so it is never fetched where the preloader is skipped (and so never displayed) */}
+        <LogoMark height={80} loading="lazy" className="relative h-20 w-auto" />
       </div>
     </div>
   );

@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap, onSiteReady, prefersReducedMotion } from "@/lib/gsap";
+import { onSiteReady, prefersReducedMotion } from "@/lib/gsap";
+
+const DURATION = 1200;
+/** Same curve as GSAP's power3.out. */
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 type CounterProps = {
   value: number;
@@ -18,20 +22,20 @@ export function Counter({ value, suffix = "", className, delay = 0 }: CounterPro
   useEffect(() => {
     const el = ref.current;
     if (!el || prefersReducedMotion()) return;
-    const state = { n: 0 };
     el.textContent = "0";
-    let tween: gsap.core.Tween | null = null;
+    let raf = 0;
+    let wait: ReturnType<typeof setTimeout> | undefined;
 
     const run = () => {
-      tween = gsap.to(state, {
-        n: value,
-        duration: 1.8,
-        delay,
-        ease: "power3.out",
-        onUpdate: () => {
-          el.textContent = String(Math.round(state.n));
-        },
-      });
+      wait = setTimeout(() => {
+        const start = performance.now();
+        const step = (now: number) => {
+          const t = Math.min(1, (now - start) / DURATION);
+          el.textContent = String(Math.round(value * easeOut(t)));
+          if (t < 1) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+      }, delay * 1000);
     };
 
     let off = () => {};
@@ -47,7 +51,8 @@ export function Counter({ value, suffix = "", className, delay = 0 }: CounterPro
     return () => {
       io.disconnect();
       off();
-      tween?.kill();
+      clearTimeout(wait);
+      cancelAnimationFrame(raf);
     };
   }, [value, delay]);
 

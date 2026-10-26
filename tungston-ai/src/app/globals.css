@@ -184,15 +184,19 @@ html:not(.js) [data-preloader] {
 /*
  * Hero intro. The headline and lede are never hidden (they are the page's largest paint),
  * they just settle into place; buttons and stats fade up; the filament flickers on.
- * It waits for the preloader on a first visit and starts at once on later ones.
+ * Inner pages' headlines (.page-intro) settle the same way. It waits for the preloader
+ * on a first visit and starts at once on later ones.
  */
-.hero-intro {
+html {
   --intro: 0.7s;
 }
-html.quick-intro .hero-intro {
+html.quick-intro {
   --intro: 0.1s;
 }
 @media (prefers-reduced-motion: no-preference) {
+  .page-intro {
+    animation: hero-rise 1.1s var(--ease-out-expo) var(--intro) both;
+  }
   .hero-intro [data-line] {
     animation: hero-rise 1.1s var(--ease-out-expo) calc(var(--intro) + var(--i, 0) * 0.09s) both;
   }

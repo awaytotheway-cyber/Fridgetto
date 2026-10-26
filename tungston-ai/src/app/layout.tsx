@@ -91,10 +91,11 @@ const websiteJsonLd = {
 };
 
 /**
- * Runs before paint: marks JS as available, and once the preloader has played this
- * session, skips it and starts the hero intro straight away.
+ * Runs before paint: marks JS as available, and skips the preloader (starting the hero
+ * intro straight away) once it has played this session, or on touch screens, where
+ * the page should show up as fast as the phone allows.
  */
-const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('protomation:preloaded')){d.dataset.preloaded='true';d.classList.add('quick-intro')}}catch(e){}})();`;
+const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');var s=function(){d.dataset.preloaded='true';d.classList.add('quick-intro')};try{if(!matchMedia('(hover: hover) and (pointer: fine)').matches||sessionStorage.getItem('protomation:preloaded'))s()}catch(e){s()}})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

@@ -3,11 +3,17 @@ import mark from "@/assets/brand/logo-mark.png";
 import { siteConfig } from "@/site.config";
 
 /** The mark: a P that leaves a trail of circuit lines, set in a gear. */
-export function LogoMark({ className, height = 36 }: { className?: string; height?: number }) {
+export function LogoMark({
+  className,
+  height = 36,
+  loading = "eager",
+}: {
+  className?: string;
+  height?: number;
+  loading?: "eager" | "lazy";
+}) {
   const width = Math.round((mark.width / mark.height) * height);
-  return (
-    <Image src={mark} alt="" width={width} height={height} loading="eager" className={className} />
-  );
+  return <Image src={mark} alt="" width={width} height={height} loading={loading} className={className} />;
 }
 
 export function Logo({ className }: { className?: string }) {

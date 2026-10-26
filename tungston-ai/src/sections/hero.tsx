@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { DotGrid, type DotGridHandle } from "@/components/fx/dot-grid";
 import { ButtonLink } from "@/components/ui/button";
 import { Counter } from "@/components/fx/counter";
@@ -24,6 +24,14 @@ function Line({ children, index }: { children: ReactNode; index: number }) {
 export function Hero() {
   const gridRef = useRef<DotGridHandle>(null);
   const hotRef = useRef<HTMLSpanElement>(null);
+  // The texture is decoration: fetch it once the page is up, so it never competes with the first paint.
+  // Phones skip it (it is lazy and hidden there, so never fetched).
+  const [texture, setTexture] = useState<"off" | "loading" | "shown">("off");
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setTexture("loading"));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   // Once the filament has flickered on, the water answers
   useEffect(() => {
@@ -44,14 +52,15 @@ export function Hero() {
 
   return (
     <section aria-labelledby="hero-title" className="relative isolate min-h-svh overflow-hidden">
-      {siteConfig.assets.heroTexture && (
+      {siteConfig.assets.heroTexture && texture !== "off" && (
         <Image
           src={siteConfig.assets.heroTexture}
           alt=""
           fill
-          preload
           sizes="100vw"
-          className="-z-20 object-cover object-[70%_50%] opacity-35 [mask-image:linear-gradient(100deg,transparent_30%,#000_80%)]"
+          loading="lazy"
+          onLoad={() => setTexture("shown")}
+          className={`-z-20 hidden object-cover md:block object-[70%_50%] transition-opacity duration-1000 [mask-image:linear-gradient(100deg,transparent_30%,#000_80%)] ${texture === "shown" ? "opacity-35" : "opacity-0"}`}
         />
       )}
       <DotGrid
@@ -104,7 +113,7 @@ export function Hero() {
             <div key={stat.label} className="flex flex-col-reverse gap-1">
               <dt className="text-[0.8125rem] leading-snug text-smoke sm:text-sm">{stat.label}</dt>
               <dd className="font-display text-3xl font-medium tracking-[-0.01em] text-bone tabular-nums sm:text-5xl">
-                <Counter value={stat.value} suffix={stat.suffix} delay={0.9 + i * 0.12} />
+                <Counter value={stat.value} suffix={stat.suffix} delay={0.25 + i * 0.1} />
               </dd>
             </div>
           ))}

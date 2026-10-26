@@ -8,8 +8,8 @@ The centerpiece is the hero's **water-ripple dot grid**: a canvas of dots that b
 
 - Next.js 16 (App Router, Turbopack, Cache Components), React 19, TypeScript
 - Tailwind CSS 4 (tokens in `src/app/globals.css`)
-- GSAP 3 with ScrollTrigger and SplitText for the intro, heading reveals and scroll-linked effects
-- Lenis for smooth scrolling
+- GSAP 3 with ScrollTrigger and SplitText for heading reveals and scroll-linked effects, loaded on demand (the preloader and hero intro are CSS)
+- Lenis for smooth scrolling with a mouse (touch screens scroll natively)
 - Lucide icons
 - Clash Display (display) and General Sans (body) from Fontshare, self-hosted with `next/font/local`
 
@@ -38,6 +38,8 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | To change | Edit |
 | --- | --- |
 | Brand name, URL, email, phone, socials, nav, booking link | `src/site.config.ts` |
+| Logo | `src/assets/brand/logo-mark.png` (header, footer, chat, preloader, share image). Icons are in `src/app/` (`favicon.ico`, `icon.png`, `apple-icon.png`) and `public/` (manifest icons, `logo.png` for structured data). See [ASSETS.md](./ASSETS.md#logo). |
+| Page titles, descriptions and social cards | `pageMetadata()` in each page (from `src/lib/seo.ts`). Site-wide defaults and structured data are in `src/app/layout.tsx`. |
 | Colors, type scale, radii, glows | The `@theme` block in `src/app/globals.css`. The canvas effects read `--color-ember`, `--color-filament-deep`, `--color-filament` and `--color-volt` at runtime, so they follow automatically. |
 | Fonts | `src/app/layout.tsx` (`next/font/local`) and `scripts/fetch-fonts.mjs`. The OG image reads the static Clash Display TTFs from the same folder. See [Fonts](#fonts). |
 | All page copy: services, stats, process, case studies, pricing, manifesto | `src/lib/content.ts` |
@@ -67,7 +69,8 @@ src/
     content.ts         site copy
     demo-bot.ts        scripted demo chatbot
     estimator.ts       savings estimator rates and maths
-    gsap.ts            plugin registration and the "site ready" event
+    gsap.ts            on-demand GSAP loader, the "site ready" event and whenNear()
+    seo.ts             per-page metadata and breadcrumb structured data
   site.config.ts       brand configuration
 ```
 
@@ -81,12 +84,24 @@ Performance guards:
 - Fixed-timestep physics, with at most 4 steps per frame.
 - The loop sleeps when the surface is flat and wakes on input.
 - It pauses when the tab is hidden or the canvas is off screen.
-- Touch devices get gentle automatic ripples every few seconds instead of cursor input.
+- Touch devices get gentle automatic ripples every few seconds instead of cursor input, starting with the first touch or scroll so the page loads without the canvas animating.
 - With `prefers-reduced-motion`, it draws a still grid and nothing animates.
+
+## Performance and SEO
+
+Lighthouse scores 97–100 for performance on phones and 100 on desktop on every page, and 100 for accessibility, best practices and SEO, measured over HTTP/2 with Brotli the way a host like Vercel serves it. What keeps it there:
+
+- Nothing above the fold waits for JavaScript. The preloader and the hero intro are CSS, and page headlines are never hidden, so the largest paint lands with the first frame.
+- GSAP loads only when an effect needs it (see `loadGsap()` and `whenNear()` in `src/lib/gsap.ts`). On phones nothing loads it until you scroll; the desktop-only effects never load it there.
+- Decorative extras wait: the hero texture is fetched after the page is up (and skipped on phones), and the dot grid's ambient ripples on touch screens start with the first touch.
+- Images are served as AVIF where supported, and images on screen at load are fetched eagerly with high priority.
+
+Every page has its own title, description, canonical URL and social card (`src/lib/seo.ts`), and structured data covers the business, the website, breadcrumbs and the team. Keep those in place when adding a page: export `pageMetadata({ title, description, path })`, render `<JsonLd data={breadcrumbJsonLd(...)} />` and add the route to `src/app/sitemap.ts`.
 
 ## Accessibility and motion
 
 - Semantic landmarks, a skip link, labelled forms with inline errors, visible focus rings (yellow), and color contrast at WCAG AA for text.
+- The preloader (the logo powering up) plays once per session, with a mouse only; phones go straight to the page.
 - `prefers-reduced-motion` turns off the preloader, the intro, reveals, the marquee and the canvas animation, and leaves all content visible.
 - Without JavaScript, the preloader is hidden and every section renders.
 - The custom cursor appears only on devices with a fine pointer. Touch devices keep native behavior.
