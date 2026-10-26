@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import { PageHero } from "@/sections/page-hero";
 import { ContactForm } from "@/components/contact-form";
 import { processSteps } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Book a free AI audit",
   description:
     "Tell us one task that eats your week. We'll reply within one business day with how we'd automate it, free.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   const audit = processSteps[0];
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd("Contact", "/contact")} />
       <PageHero title="Book a free AI audit.">
         Tell us one task that eats your week. We&apos;ll reply within one business day with how we&apos;d automate it.
       </PageHero>

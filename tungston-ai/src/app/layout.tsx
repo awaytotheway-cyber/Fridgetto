@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/fx/smooth-scroll";
 import { Cursor } from "@/components/fx/cursor";
 import { Preloader } from "@/components/fx/preloader";
+import { JsonLd } from "@/components/json-ld";
 import { services } from "@/lib/content";
 
 // Fontshare variable fonts, downloaded by scripts/fetch-fonts.mjs (see the note there on licensing)
@@ -61,7 +62,7 @@ const organizationJsonLd = {
   name: siteConfig.name,
   legalName: siteConfig.legalName,
   url: siteConfig.url,
-  logo: `${siteConfig.url}/icon.svg`,
+  logo: `${siteConfig.url}/logo.png`,
   image: `${siteConfig.url}/opengraph-image`,
   description: siteConfig.description,
   email: siteConfig.contact.email,
@@ -78,11 +79,22 @@ const organizationJsonLd = {
   },
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteConfig.url}/#website`,
+  url: siteConfig.url,
+  name: siteConfig.name,
+  description: siteConfig.description,
+  inLanguage: "en",
+  publisher: { "@id": `${siteConfig.url}/#organization` },
+};
+
 /**
- * Runs before paint: marks JS as available (so intro elements can start hidden)
- * and skips the preloader for the rest of the session once it has played.
+ * Runs before paint: marks JS as available, and once the preloader has played this
+ * session, skips it and starts the hero intro straight away.
  */
-const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('protomation:preloaded'))d.dataset.preloaded='true'}catch(e){}setTimeout(function(){d.classList.add('intro-failsafe')},4000)})();`;
+const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('protomation:preloaded')){d.dataset.preloaded='true';d.classList.add('quick-intro')}}catch(e){}})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -104,10 +116,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <Cursor />
         <div aria-hidden="true" className="grain" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }}
-        />
+        <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
       </body>
     </html>
   );

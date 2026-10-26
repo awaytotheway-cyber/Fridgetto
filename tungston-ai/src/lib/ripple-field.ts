@@ -101,6 +101,8 @@ export class RippleField {
   private lampLevel = 0;
   private lastMove = 0;
   private dripTimer: ReturnType<typeof setTimeout> | null = null;
+  /** On touch screens, starts the ambient drips on the first touch or scroll. */
+  private armDrips: (() => void) | null = null;
 
   private resizeObserver: ResizeObserver;
   private intersectionObserver: IntersectionObserver;
@@ -160,8 +162,25 @@ export class RippleField {
       });
     }
     if (!this.reducedMotion) {
-      this.scheduleDrip(900);
+      if (this.coarse) {
+        // Phones wait for the first touch or scroll, so the page loads without the grid animating
+        this.armDrips = () => {
+          this.disarmDrips();
+          this.scheduleDrip(300);
+        };
+        window.addEventListener("touchstart", this.armDrips, { passive: true });
+        window.addEventListener("scroll", this.armDrips, { passive: true });
+      } else {
+        this.scheduleDrip(900);
+      }
     }
+  }
+
+  private disarmDrips() {
+    if (!this.armDrips) return;
+    window.removeEventListener("touchstart", this.armDrips);
+    window.removeEventListener("scroll", this.armDrips);
+    this.armDrips = null;
   }
 
   /** Push the surface down at (x, y) in canvas CSS pixels. */
@@ -189,6 +208,7 @@ export class RippleField {
   destroy() {
     this.stop();
     if (this.dripTimer) clearTimeout(this.dripTimer);
+    this.disarmDrips();
     this.resizeObserver.disconnect();
     this.intersectionObserver.disconnect();
     document.removeEventListener("visibilitychange", this.onVisibility);

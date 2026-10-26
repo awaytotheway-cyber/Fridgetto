@@ -42,7 +42,8 @@ export function SmoothScroll() {
   const firstRender = useRef(true);
 
   useEffect(() => {
-    if (prefersReducedMotion()) return;
+    // Touch screens already scroll smoothly, and Lenis would only add work on every frame
+    if (prefersReducedMotion() || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     const instance = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

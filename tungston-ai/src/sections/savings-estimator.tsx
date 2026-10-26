@@ -38,6 +38,7 @@ function AnimatedNumber({ value, format }: { value: number; format: (n: number) 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (shown.current === value) return;
     if (prefersReducedMotion()) {
       shown.current = value;
       el.textContent = format(value);
