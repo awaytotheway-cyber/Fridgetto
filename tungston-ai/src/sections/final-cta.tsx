@@ -1,4 +1,6 @@
+import { ArrowUpRight } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
+import { LiquidButton } from "@/components/fx/liquid-button";
 import { RevealText } from "@/components/fx/reveal-text";
 import { siteConfig } from "@/site.config";
 
@@ -19,7 +21,16 @@ export function FinalCta() {
             Tell us one task that eats your week. We&apos;ll come back within one business day with how we&apos;d
             automate it, free.
           </p>
-          <dl className="mt-12 grid gap-6 border-t border-white/[0.08] pt-8 sm:grid-cols-2">
+          {/*
+            The liquid button reaches for the cursor, so it sits in its own padded field with no other
+            controls inside it. The negative margin lines the pill up with the text above.
+          */}
+          <div className="mt-2 -ml-12">
+            <LiquidButton href={`mailto:${siteConfig.contact.email}`}>
+              Reach out to us <ArrowUpRight aria-hidden="true" className="size-5" strokeWidth={2.25} />
+            </LiquidButton>
+          </div>
+          <dl className="mt-2 grid gap-6 border-t border-white/[0.08] pt-8 sm:grid-cols-2">
             <div>
               <dt className="text-sm text-smoke">Email</dt>
               <dd className="mt-1">

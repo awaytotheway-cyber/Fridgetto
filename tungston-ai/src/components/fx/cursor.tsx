@@ -68,9 +68,10 @@ export function Cursor() {
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[70] hidden [@media(hover:hover)_and_(pointer:fine)]:block">
       <div
         ref={ringRef}
+        data-cursor-ring
         className="group/cursor fixed top-0 left-0 size-9 rounded-full border border-filament/70 transition-[width,height,border-color,background-color,opacity] duration-300 ease-out-expo data-[state=hot]:size-16 data-[state=hot]:border-volt data-[state=hot]:bg-volt/10 data-[state=hover]:size-14 data-[state=hover]:border-filament data-[state=hover]:bg-filament/10 data-[state=text]:size-3 data-[state=text]:opacity-0"
       />
-      <div ref={dotRef} className="fixed top-0 left-0 size-1.5 rounded-full bg-filament shadow-[0_0_12px_2px_rgb(232_16_26/0.7)]" />
+      <div ref={dotRef} data-cursor-dot className="fixed top-0 left-0 size-1.5 rounded-full bg-filament shadow-[0_0_12px_2px_rgb(232_16_26/0.7)]" />
     </div>
   );
 }

@@ -45,6 +45,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Savings estimator: what each service saves, slider defaults | `src/lib/estimator.ts` (`serviceModels`, `defaultInputs`) |
 | Images | Rendered art is in `public/assets/`, set in `src/site.config.ts` (hero, About) and `src/lib/content.ts` (service cards). See [ASSETS.md](./ASSETS.md) for sizes, prompts and how to fall back to the drawn versions. |
 | Dot-grid physics (wave speed, damping, heat) | Constants at the top of `src/lib/ripple-field.ts` |
+| Liquid "Reach out to us" button: grab distance, release distance, blob size | Constants at the top of `src/components/fx/liquid-button.tsx`. Keep its padded field clear of other controls. |
 
 > **Before launch:** the stats in the hero, the three case studies and the prices are placeholders written to show the layout. Replace them in `src/lib/content.ts` with real numbers. The savings estimator's per-service rates in `src/lib/estimator.ts` are placeholders too: tune them to real client results.
 
@@ -57,7 +58,7 @@ src/
     services/ work/ about/ contact/
   sections/            page sections (hero, marquee, services bento, savings estimator, process, demo, results, pricing, about, CTA)
   components/
-    fx/                motion and interaction: dot grid, cursor, magnetic, tilt, reveals, preloader, smooth scroll
+    fx/                motion and interaction: dot grid, cursor, magnetic, liquid button, tilt, reveals, preloader, smooth scroll
     layout/            header and footer
     ui/                buttons, logo, section intro
   lib/
@@ -88,6 +89,7 @@ Performance guards:
 - `prefers-reduced-motion` turns off the preloader, the intro, reveals, the marquee and the canvas animation, and leaves all content visible.
 - Without JavaScript, the preloader is hidden and every section renders.
 - The custom cursor appears only on devices with a fine pointer. Touch devices keep native behavior.
+- The liquid "Reach out to us" button is a plain link underneath. Touch devices and reduced motion get a normal pill, and the slime lets go of the cursor the moment it is over any other control.
 
 ## Fonts
 
