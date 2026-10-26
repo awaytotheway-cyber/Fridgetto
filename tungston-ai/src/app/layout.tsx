@@ -65,7 +65,7 @@ const organizationJsonLd = {
   image: `${siteConfig.url}/opengraph-image`,
   description: siteConfig.description,
   email: siteConfig.contact.email,
-  telephone: siteConfig.contact.phone,
+  telephone: siteConfig.contact.phone ?? undefined,
   areaServed: "Worldwide",
   sameAs: siteConfig.socials.map((s) => s.href),
   hasOfferCatalog: {
@@ -82,7 +82,7 @@ const organizationJsonLd = {
  * Runs before paint: marks JS as available (so intro elements can start hidden)
  * and skips the preloader for the rest of the session once it has played.
  */
-const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('tungston:preloaded'))d.dataset.preloaded='true'}catch(e){}setTimeout(function(){d.classList.add('intro-failsafe')},4000)})();`;
+const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('protomation:preloaded'))d.dataset.preloaded='true'}catch(e){}setTimeout(function(){d.classList.add('intro-failsafe')},4000)})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

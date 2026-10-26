@@ -5,10 +5,11 @@ import { gsap, markSiteReady } from "@/lib/gsap";
 
 const SIZE = 7;
 const cells = Array.from({ length: SIZE * SIZE }, (_, i) => ({ row: Math.floor(i / SIZE), col: i % SIZE }));
-const inT = (row: number, col: number) => (row === 1 && col >= 1 && col <= 5) || (col === 3 && row >= 1 && row <= 5);
+const inP = (row: number, col: number) =>
+  (col === 1 && row >= 1 && row <= 5) || ((row === 1 || row === 3) && col >= 1 && col <= 4) || (row === 2 && col === 5);
 
 /**
- * A dot field that burns the T mark into itself, then lifts away. Under 1.5s,
+ * A dot field that burns the P mark into itself, then lifts away. Under 1.5s,
  * once per session. The inline script in the root layout sets `data-preloaded`
  * on <html> for returning visits so this never flashes.
  */
@@ -34,7 +35,7 @@ export function Preloader() {
     const tl = gsap.timeline({
       onComplete: () => {
         try {
-          sessionStorage.setItem("tungston:preloaded", "1");
+          sessionStorage.setItem("protomation:preloaded", "1");
         } catch {}
         html.dataset.preloaded = "true";
         setDone(true);
@@ -70,8 +71,8 @@ export function Preloader() {
         />
         <svg viewBox="0 0 112 112" className="relative size-28">
           {cells.map(({ row, col }) => {
-            const lit = inT(row, col);
-            const isCore = row === 1 && col === 3;
+            const lit = inP(row, col);
+            const isCore = row === 1 && col === 1;
             return (
               <circle
                 key={`${row}-${col}`}

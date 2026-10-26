@@ -12,11 +12,11 @@ export const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** Fired once the preloader has finished (or was skipped). */
-export const READY_EVENT = "tungston:ready";
+export const READY_EVENT = "protomation:ready";
 
 export function onSiteReady(callback: () => void) {
-  const w = window as Window & { __tungstonReady?: boolean };
-  if (w.__tungstonReady) {
+  const w = window as Window & { __protomationReady?: boolean };
+  if (w.__protomationReady) {
     callback();
     return () => {};
   }
@@ -25,9 +25,9 @@ export function onSiteReady(callback: () => void) {
 }
 
 export function markSiteReady() {
-  const w = window as Window & { __tungstonReady?: boolean };
-  if (w.__tungstonReady) return;
-  w.__tungstonReady = true;
+  const w = window as Window & { __protomationReady?: boolean };
+  if (w.__protomationReady) return;
+  w.__protomationReady = true;
   window.dispatchEvent(new Event(READY_EVENT));
 }
 

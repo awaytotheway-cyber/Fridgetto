@@ -5,7 +5,7 @@
  * 2D wave equation (neighbour Laplacian + a weak spring back to rest), so a
  * disturbance spreads outward as rings and settles. Dots are drawn displaced
  * along the local surface slope, and their "heat" (how far the surface moved)
- * maps from dim ember red up to filament yellow, like tungsten warming up.
+ * maps from dim ember red up to filament yellow, like a filament warming up.
  */
 
 export type RippleFieldOptions = {

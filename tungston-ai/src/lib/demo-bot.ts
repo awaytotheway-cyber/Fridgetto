@@ -99,7 +99,7 @@ export function replyTo(message: string): BotReply {
 }
 
 export const greeting =
-  "Hi, I'm the Tungston demo assistant. Ask me what we build, what it costs or how fast we ship.";
+  "Hi, I'm the Protomation demo assistant. Ask me what we build, what it costs or how fast we ship.";
 
 export const suggestions = [
   "What can you automate?",

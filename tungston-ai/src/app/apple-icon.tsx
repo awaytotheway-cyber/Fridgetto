@@ -3,17 +3,20 @@ import { ImageResponse } from "next/og";
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-const T = [
-  [0, 0], [1, 0], [2, 0], [3, 0], [4, 0],
-  [2, 1], [2, 2], [2, 3], [2, 4],
+const P = [
+  [0, 0], [1, 0], [2, 0], [3, 0],
+  [0, 1], [4, 1],
+  [0, 2], [1, 2], [2, 2], [3, 2],
+  [0, 3],
+  [0, 4],
 ];
 
 export default function AppleIcon() {
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", background: "#050505", position: "relative" }}>
-        {T.map(([col, row]) => {
-          const hot = col === 2 && row === 0;
+        {P.map(([col, row]) => {
+          const hot = col === 0 && row === 0;
           return (
             <div
               key={`${col}-${row}`}

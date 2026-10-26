@@ -1,8 +1,8 @@
-# Tungston.ai website
+# Protomation.ai website
 
-Marketing site for Tungston.ai, an AI agency that builds AI agents, voice agents, website chatbots, automations, content systems, and websites and apps.
+Marketing site for Protomation.ai, an AI agency that builds AI agents, voice agents, website chatbots, automations, content systems, and websites and apps.
 
-The centerpiece is the hero's **water-ripple dot grid**: a canvas of dots that behaves like a liquid surface. Moving the cursor pushes ripples through it, and disturbed dots heat up from dim ember red to filament yellow, the way tungsten glows. The same engine draws the dot-matrix portrait in the About section and the "TUNGSTON" wordmark in the footer.
+The centerpiece is the hero's **water-ripple dot grid**: a canvas of dots that behaves like a liquid surface. Moving the cursor pushes ripples through it, and disturbed dots heat up from dim ember red to filament yellow, the way a filament glows. The same engine draws the dot-matrix portrait in the About section and the "PROTOMATION" wordmark in the footer.
 
 ## Stack
 
@@ -30,7 +30,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 
 | Variable | What it does |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL used for metadata, the sitemap, robots.txt and JSON-LD. Defaults to `https://tungston.ai`. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL used for metadata, the sitemap, robots.txt and JSON-LD. Defaults to `https://protomation.ai`. |
 | `CONTACT_WEBHOOK_URL` | Where the "Book a free AI audit" form posts submissions as JSON (Slack, Zapier, n8n, Make, a CRM webhook). Without it, submissions are written to the server log. |
 
 ## Where to change things

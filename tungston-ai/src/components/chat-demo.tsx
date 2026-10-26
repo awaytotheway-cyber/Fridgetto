@@ -79,7 +79,7 @@ export function ChatDemo() {
           <LogoMark className="size-5" dim={false} />
         </span>
         <div className="min-w-0">
-          <p className="font-medium text-bone">Tungston assistant</p>
+          <p className="font-medium text-bone">Protomation assistant</p>
           <p className="flex items-center gap-1.5 text-[0.8125rem] text-ash">
             <span aria-hidden="true" className="size-1.5 rounded-full bg-volt shadow-[0_0_8px_rgb(255_212_0/0.8)]" />
             Live demo with scripted replies

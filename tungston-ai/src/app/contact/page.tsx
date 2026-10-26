@@ -38,14 +38,16 @@ export default function ContactPage() {
                   </a>
                 </dd>
               </div>
-              <div>
-                <dt className="text-sm text-smoke">Phone</dt>
-                <dd className="mt-1">
-                  <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="text-bone hover:text-volt">
-                    {siteConfig.contact.phone}
-                  </a>
-                </dd>
-              </div>
+              {siteConfig.contact.phone && (
+                <div>
+                  <dt className="text-sm text-smoke">Phone</dt>
+                  <dd className="mt-1">
+                    <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="text-bone hover:text-volt">
+                      {siteConfig.contact.phone}
+                    </a>
+                  </dd>
+                </div>
+              )}
               <div>
                 <dt className="text-sm text-smoke">Where</dt>
                 <dd className="mt-1 text-bone">{siteConfig.contact.location}</dd>

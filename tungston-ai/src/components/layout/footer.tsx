@@ -66,10 +66,14 @@ export function Footer() {
             </ul>
             <p className="mt-8 text-sm text-smoke">
               {siteConfig.contact.location}
-              <br />
-              <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="hover:text-bone">
-                {siteConfig.contact.phone}
-              </a>
+              {siteConfig.contact.phone && (
+                <>
+                  <br />
+                  <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="hover:text-bone">
+                    {siteConfig.contact.phone}
+                  </a>
+                </>
+              )}
             </p>
           </div>
         </nav>

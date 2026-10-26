@@ -11,8 +11,8 @@ const fontDir = join(process.cwd(), "src/assets/fonts/fontshare");
 const semibold = readFile(join(fontDir, "ClashDisplay-Semibold.ttf"));
 const medium = readFile(join(fontDir, "ClashDisplay-Medium.ttf"));
 
-/** The T mark: top row plus the centre column of a 5×5 grid. */
-const MARK = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [2, 1], [2, 2], [2, 3], [2, 4]];
+/** The P mark: left column, top and middle bars, and the bowl's outer edge on a 5×5 grid. */
+const MARK = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 1], [1, 2], [2, 2], [3, 2], [0, 1], [0, 2], [0, 3], [0, 4]];
 
 /** Deterministic "ripple" so the share card shows the hero's water grid, frozen mid-wave. */
 function dots() {
@@ -70,7 +70,7 @@ export default async function OpengraphImage() {
                   width: 6,
                   height: 6,
                   borderRadius: 999,
-                  background: col === 2 && row === 0 ? "#ffd400" : "#e8101a",
+                  background: col === 0 && row === 0 ? "#ffd400" : "#e8101a",
                 }}
               />
             ))}
