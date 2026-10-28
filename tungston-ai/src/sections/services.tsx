@@ -22,7 +22,7 @@ const artSizes: Record<Service["size"], string> = {
   single: "(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw",
 };
 
-function ServiceCard({ service }: { service: Service }) {
+function ServiceCard({ service, eager }: { service: Service; eager?: boolean }) {
   const flagship = service.size === "hero";
   return (
     <TiltCard className={footprint[service.size]} max={flagship ? 3 : 5}>
@@ -51,9 +51,11 @@ function ServiceCard({ service }: { service: Service }) {
             // Renders sit on pure black; the elliptical mask melts their edges into the card
             <Image
               src={service.image}
-              alt=""
+              alt={service.imageAlt ?? ""}
               fill
               sizes={artSizes[service.size]}
+              loading={eager ? "eager" : "lazy"}
+              fetchPriority={eager ? "high" : undefined}
               className="object-cover brightness-90 transition-[scale,filter] duration-700 ease-out-expo [mask-image:radial-gradient(closest-side,#000_62%,transparent)] group-hover/card:scale-[1.04] group-hover/card:brightness-110 motion-reduce:transition-none"
             />
           ) : (
@@ -97,8 +99,9 @@ export function Services({ withIntro = true }: { withIntro?: boolean }) {
           </h2>
         )}
         <div className="mt-14 grid gap-4 sm:mt-20 md:grid-cols-2 lg:grid-cols-4">
-          {services.map((service) => (
-            <ServiceCard key={service.slug} service={service} />
+          {services.map((service, i) => (
+            // Without the intro (the Services page) the flagship card is on screen at load
+            <ServiceCard key={service.slug} service={service} eager={!withIntro && i === 0} />
           ))}
         </div>
       </div>

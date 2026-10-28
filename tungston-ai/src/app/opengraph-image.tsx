@@ -10,9 +10,10 @@ export const contentType = "image/png";
 const fontDir = join(process.cwd(), "src/assets/fonts/fontshare");
 const semibold = readFile(join(fontDir, "ClashDisplay-Semibold.ttf"));
 const medium = readFile(join(fontDir, "ClashDisplay-Medium.ttf"));
+const logo = readFile(join(process.cwd(), "src/assets/brand/logo-mark.png"));
 
-/** The T mark: top row plus the centre column of a 5×5 grid. */
-const MARK = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [2, 1], [2, 2], [2, 3], [2, 4]];
+/** Size of src/assets/brand/logo-mark.png, drawn at 64px tall. */
+const LOGO_RATIO = 186 / 160;
 
 /** Deterministic "ripple" so the share card shows the hero's water grid, frozen mid-wave. */
 function dots() {
@@ -32,7 +33,8 @@ function dots() {
 }
 
 export default async function OpengraphImage() {
-  const [semiboldData, mediumData] = await Promise.all([semibold, medium]);
+  const [semiboldData, mediumData, logoData] = await Promise.all([semibold, medium, logo]);
+  const logoSrc = `data:image/png;base64,${logoData.toString("base64")}`;
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", background: "#050505", position: "relative", fontFamily: "Clash Display" }}>
@@ -58,26 +60,11 @@ export default async function OpengraphImage() {
             background: "linear-gradient(90deg, rgba(5,5,5,0.96) 0%, rgba(5,5,5,0.85) 45%, rgba(5,5,5,0) 75%)",
           }}
         />
-        <div style={{ position: "absolute", left: 72, top: 60, display: "flex", alignItems: "center", gap: 18 }}>
-          <div style={{ display: "flex", position: "relative", width: 40, height: 40 }}>
-            {MARK.map(([col, row]) => (
-              <div
-                key={`${col}-${row}`}
-                style={{
-                  position: "absolute",
-                  left: col * 8 + 1,
-                  top: row * 8 + 1,
-                  width: 6,
-                  height: 6,
-                  borderRadius: 999,
-                  background: col === 2 && row === 0 ? "#ffd400" : "#e8101a",
-                }}
-              />
-            ))}
-          </div>
+        <div style={{ position: "absolute", left: 72, top: 52, display: "flex", alignItems: "center", gap: 18 }}>
+          <img src={logoSrc} width={Math.round(64 * LOGO_RATIO)} height={64} alt="" />
           <div style={{ display: "flex", fontSize: 34, fontWeight: 500, color: "#f3f1ee", letterSpacing: "-0.005em" }}>
             <span>{siteConfig.shortName}</span>
-            <span style={{ color: "#e8101a" }}>{siteConfig.nameSuffix}</span>
+            <span style={{ color: "#ff4a4f" }}>{siteConfig.nameSuffix}</span>
           </div>
         </div>
         <div

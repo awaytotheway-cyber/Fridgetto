@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { DotGrid } from "@/components/fx/dot-grid";
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { loadGsap, prefersReducedMotion, whenNear, type GsapModule } from "@/lib/gsap";
 import { manifesto, manifestoHot, principles } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
@@ -21,20 +21,29 @@ function Manifesto() {
     const styles = getComputedStyle(document.documentElement);
     const lit = styles.getPropertyValue("--color-bone").trim();
     const hot = styles.getPropertyValue("--color-filament").trim();
-    // Unread words sit at a dim grey that still clears 3:1 contrast, then warm up as you scroll
-    const tween = gsap.fromTo(
-      words,
-      { color: "#666563" },
-      {
-        color: (_: number, word: HTMLElement) => (word.dataset.hot ? hot : lit),
-        ease: "none",
-        stagger: 0.12,
-        scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 50%", scrub: 0.5 },
-      },
+    let tween: ReturnType<GsapModule["gsap"]["fromTo"]> | null = null;
+    let cancelled = false;
+    const stop = whenNear(el, () =>
+      loadGsap().then(({ gsap }) => {
+        if (cancelled) return;
+        // Unread words sit at a dim grey that still clears 3:1 contrast, then warm up as you scroll
+        tween = gsap.fromTo(
+          words,
+          { color: "#666563" },
+          {
+            color: (_: number, word: HTMLElement) => (word.dataset.hot ? hot : lit),
+            ease: "none",
+            stagger: 0.12,
+            scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 50%", scrub: 0.5 },
+          },
+        );
+      }),
     );
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      cancelled = true;
+      stop();
+      tween?.scrollTrigger?.kill();
+      tween?.kill();
     };
   }, []);
 

@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import { PageHero } from "@/sections/page-hero";
 import { ContactForm } from "@/components/contact-form";
 import { processSteps } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
-export const metadata: Metadata = {
-  title: "Book a free AI audit",
+export const metadata: Metadata = pageMetadata({
+  title: "Book a Free AI Audit",
   description:
     "Tell us one task that eats your week. We'll reply within one business day with how we'd automate it, free.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   const audit = processSteps[0];
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd("Contact", "/contact")} />
       <PageHero title="Book a free AI audit.">
         Tell us one task that eats your week. We&apos;ll reply within one business day with how we&apos;d automate it.
       </PageHero>
@@ -38,14 +41,16 @@ export default function ContactPage() {
                   </a>
                 </dd>
               </div>
-              <div>
-                <dt className="text-sm text-smoke">Phone</dt>
-                <dd className="mt-1">
-                  <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="text-bone hover:text-volt">
-                    {siteConfig.contact.phone}
-                  </a>
-                </dd>
-              </div>
+              {siteConfig.contact.phone && (
+                <div>
+                  <dt className="text-sm text-smoke">Phone</dt>
+                  <dd className="mt-1">
+                    <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="text-bone hover:text-volt">
+                      {siteConfig.contact.phone}
+                    </a>
+                  </dd>
+                </div>
+              )}
               <div>
                 <dt className="text-sm text-smoke">Where</dt>
                 <dd className="mt-1 text-bone">{siteConfig.contact.location}</dd>

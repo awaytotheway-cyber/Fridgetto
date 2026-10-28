@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { SectionIntro } from "@/components/ui/section-intro";
-import { ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import { loadGsap, prefersReducedMotion, whenNear } from "@/lib/gsap";
 import { processSteps } from "@/lib/content";
 
 /**
@@ -27,14 +27,25 @@ export function Process() {
       return;
     }
     set(0);
-    const st = ScrollTrigger.create({
-      trigger: track,
-      start: "top 75%",
-      end: "bottom 55%",
-      scrub: 0.6,
-      onUpdate: (self) => set(self.progress),
-    });
-    return () => st.kill();
+    let st: { kill(): void } | null = null;
+    let cancelled = false;
+    const stop = whenNear(track, () =>
+      loadGsap().then(({ ScrollTrigger }) => {
+        if (cancelled) return;
+        st = ScrollTrigger.create({
+          trigger: track,
+          start: "top 75%",
+          end: "bottom 55%",
+          scrub: 0.6,
+          onUpdate: (self) => set(self.progress),
+        });
+      }),
+    );
+    return () => {
+      cancelled = true;
+      stop();
+      st?.kill();
+    };
   }, []);
 
   return (
