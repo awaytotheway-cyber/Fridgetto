@@ -25,7 +25,7 @@ export function Footer() {
 
         <nav aria-label="Footer" className="grid grid-cols-2 gap-10 sm:grid-cols-3 md:col-span-7">
           <div>
-            <h2 className="text-sm font-medium text-smoke">Studio</h2>
+            <p className="text-sm font-medium text-smoke">Studio</p>
             <ul className="mt-4 space-y-2.5">
               <li>
                 <Link href="/" className="text-ash transition-colors hover:text-bone">
@@ -42,7 +42,7 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="text-sm font-medium text-smoke">Services</h2>
+            <p className="text-sm font-medium text-smoke">Services</p>
             <ul className="mt-4 space-y-2.5">
               {services.map((s) => (
                 <li key={s.slug}>
@@ -54,7 +54,7 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="text-sm font-medium text-smoke">Elsewhere</h2>
+            <p className="text-sm font-medium text-smoke">Elsewhere</p>
             <ul className="mt-4 space-y-2.5">
               {siteConfig.socials.map((s) => (
                 <li key={s.href}>
@@ -66,10 +66,14 @@ export function Footer() {
             </ul>
             <p className="mt-8 text-sm text-smoke">
               {siteConfig.contact.location}
-              <br />
-              <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="hover:text-bone">
-                {siteConfig.contact.phone}
-              </a>
+              {siteConfig.contact.phone && (
+                <>
+                  <br />
+                  <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="hover:text-bone">
+                    {siteConfig.contact.phone}
+                  </a>
+                </>
+              )}
             </p>
           </div>
         </nav>

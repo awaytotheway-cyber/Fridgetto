@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, type ElementType, type ReactNode } from "react";
-import { gsap, SplitText, onSiteReady, prefersReducedMotion } from "@/lib/gsap";
+import { loadGsap, onSiteReady, prefersReducedMotion, type GsapModule } from "@/lib/gsap";
 
 type RevealTextProps = {
   as?: ElementType;
@@ -19,9 +19,12 @@ export function RevealText({ as: Tag = "h2", children, className, id, delay = 0 
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || prefersReducedMotion()) return;
-    let split: SplitText | null = null;
+    let split: InstanceType<GsapModule["SplitText"]> | null = null;
     let io: IntersectionObserver | null = null;
-    const create = () => {
+    let cancelled = false;
+    const create = async () => {
+      const { gsap, SplitText } = await loadGsap();
+      if (cancelled) return;
       split = SplitText.create(el, {
         type: "lines",
         mask: "lines",
@@ -50,11 +53,13 @@ export function RevealText({ as: Tag = "h2", children, className, id, delay = 0 
           io?.disconnect();
           create();
         },
-        { rootMargin: "0px 0px 25% 0px" },
+        // Close enough to split before it shows, far enough that the first screen never loads GSAP
+        { rootMargin: "0px 0px 10% 0px" },
       );
       io.observe(el);
     });
     return () => {
+      cancelled = true;
       off();
       io?.disconnect();
       split?.revert();

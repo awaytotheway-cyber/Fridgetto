@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import Lenis from "lenis";
-import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import type Lenis from "lenis";
+import { loadGsap, prefersReducedMotion, refreshScrollTriggers } from "@/lib/gsap";
 
 const HEADER_OFFSET = -88;
 
@@ -42,22 +42,32 @@ export function SmoothScroll() {
   const firstRender = useRef(true);
 
   useEffect(() => {
-    if (prefersReducedMotion()) return;
-    const instance = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      autoRaf: false,
+    // Touch screens already scroll smoothly, and Lenis would only add work on every frame
+    if (prefersReducedMotion() || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    let cancelled = false;
+    let teardown = () => {};
+    Promise.all([loadGsap(), import("lenis")]).then(([{ gsap, ScrollTrigger }, { default: LenisClass }]) => {
+      if (cancelled) return;
+      const instance = new LenisClass({
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        autoRaf: false,
+      });
+      lenis = instance;
+      instance.on("scroll", ScrollTrigger.update);
+      const tick = (time: number) => instance.raf(time * 1000);
+      gsap.ticker.add(tick);
+      gsap.ticker.lagSmoothing(0);
+      teardown = () => {
+        gsap.ticker.remove(tick);
+        instance.destroy();
+        lenis = null;
+      };
     });
-    lenis = instance;
-    instance.on("scroll", ScrollTrigger.update);
-    const tick = (time: number) => instance.raf(time * 1000);
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      gsap.ticker.remove(tick);
-      instance.destroy();
-      lenis = null;
+      cancelled = true;
+      teardown();
     };
   }, []);
 
@@ -88,7 +98,7 @@ export function SmoothScroll() {
       return;
     }
     scrollToTarget(visibleTarget(window.location.hash), true);
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    requestAnimationFrame(refreshScrollTriggers);
   }, [pathname]);
 
   return null;

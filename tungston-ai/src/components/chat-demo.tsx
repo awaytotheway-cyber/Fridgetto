@@ -76,10 +76,10 @@ export function ChatDemo() {
     <div className="relative flex h-[34rem] flex-col overflow-hidden rounded-panel border border-white/[0.09] bg-carbon shadow-[0_40px_120px_-40px_rgb(232_16_26/0.45)] sm:h-[36rem]">
       <div className="flex items-center gap-3 border-b border-white/[0.07] px-5 py-4">
         <span className="grid size-10 place-items-center rounded-full bg-void ring-1 ring-white/10">
-          <LogoMark className="size-5" dim={false} />
+          <LogoMark height={20} className="h-5 w-auto" />
         </span>
         <div className="min-w-0">
-          <p className="font-medium text-bone">Tungston assistant</p>
+          <p className="font-medium text-bone">Protomation assistant</p>
           <p className="flex items-center gap-1.5 text-[0.8125rem] text-ash">
             <span aria-hidden="true" className="size-1.5 rounded-full bg-volt shadow-[0_0_8px_rgb(255_212_0/0.8)]" />
             Live demo with scripted replies

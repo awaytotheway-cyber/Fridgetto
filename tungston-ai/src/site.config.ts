@@ -3,16 +3,18 @@
  * Colors live in src/app/globals.css (@theme block); the canvas effects read them from there.
  */
 export const siteConfig = {
-  name: "Tungston.ai",
+  name: "Protomation.ai",
   /** Short form used in tight spots (logo lockup, preloader). */
-  shortName: "Tungston",
+  shortName: "Protomation",
   /** Suffix rendered in a muted tone next to the short name in the logo. */
   nameSuffix: ".ai",
-  legalName: "Tungston AI",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://tungston.ai",
+  legalName: "Protomation AI",
+  /** The one canonical address. The site is served on www; the bare domain should 301 to it. */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.protomation.ai",
   tagline: "We build AI that works while you sleep.",
+  /** Meta description: keep it under about 150 characters so search results show all of it. */
   description:
-    "Tungston.ai designs and ships AI agents, voice agents, website chatbots, custom automations and end-to-end content systems for growing businesses, in weeks instead of quarters.",
+    "Protomation.ai builds AI agents, voice agents, chatbots and automations that save your team hours and win more leads, live in weeks, not quarters.",
   keywords: [
     "AI agency",
     "AI agents",
@@ -25,22 +27,24 @@ export const siteConfig = {
     "app development",
   ],
   contact: {
-    email: "hello@tungston.ai",
-    phone: "+1 (415) 555-0174",
+    email: "protomation.services@gmail.com",
+    /** Shown next to the email wherever contact details appear. Leave null to show email only. */
+    phone: null as string | null,
     location: "Remote-first, working worldwide",
     /** Where "Book a Free AI Audit" points. Swap for a Cal.com / Calendly link when ready. */
     bookingUrl: "/contact",
   },
   socials: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/company/tungston-ai" },
-    { label: "X", href: "https://x.com/tungstonai" },
-    { label: "Instagram", href: "https://www.instagram.com/tungston.ai" },
-    { label: "YouTube", href: "https://www.youtube.com/@tungstonai" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/protomation-ai" },
+    { label: "X", href: "https://x.com/protomationai" },
+    { label: "Instagram", href: "https://www.instagram.com/protomation.ai" },
+    { label: "YouTube", href: "https://www.youtube.com/@protomationai" },
   ],
   nav: [
     { label: "Services", href: "/services" },
     { label: "Work", href: "/work" },
     { label: "About", href: "/about" },
+    { label: "Team", href: "/team" },
     { label: "Contact", href: "/contact" },
   ],
   /**

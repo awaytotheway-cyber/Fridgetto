@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/fx/smooth-scroll";
 import { Cursor } from "@/components/fx/cursor";
 import { Preloader } from "@/components/fx/preloader";
+import { JsonLd } from "@/components/json-ld";
 import { services } from "@/lib/content";
 
 // Fontshare variable fonts, downloaded by scripts/fetch-fonts.mjs (see the note there on licensing)
@@ -24,9 +25,10 @@ const sans = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  // Titles stay under Google's ~580px and leave the domain out (search results show it anyway)
   title: {
-    default: `${siteConfig.name}: AI agents, voice AI and automation that ship in weeks`,
-    template: `%s | ${siteConfig.name}`,
+    default: `AI Agents, Chatbots & Automation in Weeks | ${siteConfig.shortName}`,
+    template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
@@ -37,13 +39,13 @@ export const metadata: Metadata = {
     type: "website",
     siteName: siteConfig.name,
     url: siteConfig.url,
-    title: `${siteConfig.name}: We build AI that works while you sleep`,
+    title: `We Build AI That Works While You Sleep | ${siteConfig.shortName}`,
     description: siteConfig.description,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name}: We build AI that works while you sleep`,
+    title: `We Build AI That Works While You Sleep | ${siteConfig.shortName}`,
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
@@ -61,11 +63,11 @@ const organizationJsonLd = {
   name: siteConfig.name,
   legalName: siteConfig.legalName,
   url: siteConfig.url,
-  logo: `${siteConfig.url}/icon.svg`,
+  logo: `${siteConfig.url}/logo.png`,
   image: `${siteConfig.url}/opengraph-image`,
   description: siteConfig.description,
   email: siteConfig.contact.email,
-  telephone: siteConfig.contact.phone,
+  telephone: siteConfig.contact.phone ?? undefined,
   areaServed: "Worldwide",
   sameAs: siteConfig.socials.map((s) => s.href),
   hasOfferCatalog: {
@@ -78,11 +80,23 @@ const organizationJsonLd = {
   },
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteConfig.url}/#website`,
+  url: siteConfig.url,
+  name: siteConfig.name,
+  description: siteConfig.description,
+  inLanguage: "en",
+  publisher: { "@id": `${siteConfig.url}/#organization` },
+};
+
 /**
- * Runs before paint: marks JS as available (so intro elements can start hidden)
- * and skips the preloader for the rest of the session once it has played.
+ * Runs before paint: marks JS as available, and skips the preloader (starting the hero
+ * intro straight away) once it has played this session, or on touch screens, where
+ * the page should show up as fast as the phone allows.
  */
-const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('tungston:preloaded'))d.dataset.preloaded='true'}catch(e){}setTimeout(function(){d.classList.add('intro-failsafe')},4000)})();`;
+const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');var s=function(){d.dataset.preloaded='true';d.classList.add('quick-intro')};try{if(!matchMedia('(hover: hover) and (pointer: fine)').matches||sessionStorage.getItem('protomation:preloaded'))s()}catch(e){s()}})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -104,10 +118,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <Cursor />
         <div aria-hidden="true" className="grain" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }}
-        />
+        <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
       </body>
     </html>
   );

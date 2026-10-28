@@ -4,7 +4,7 @@ A home for several independent projects. Each one lives in its own folder with i
 
 | Project | What it is | Stack |
 | --- | --- | --- |
-| [`tungston-ai/`](./tungston-ai) | Marketing website for Tungston.ai, an AI agency, with an interactive water-ripple dot grid hero | Next.js 16, Tailwind CSS 4, GSAP, Lenis |
+| [`tungston-ai/`](./tungston-ai) | Marketing website for Protomation.ai, an AI agency, with an interactive water-ripple dot grid hero | Next.js 16, Tailwind CSS 4, GSAP, Lenis |
 
 ## Adding a project
 
