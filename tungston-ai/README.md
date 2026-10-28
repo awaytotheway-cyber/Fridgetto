@@ -31,7 +31,10 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Variable | What it does |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL used for metadata, the sitemap, robots.txt and JSON-LD. Defaults to `https://tungston.ai`. |
-| `CONTACT_WEBHOOK_URL` | Where the "Book a free AI audit" form posts submissions as JSON (Slack, Zapier, n8n, Make, a CRM webhook). Without it, submissions are written to the server log. |
+| `RESEND_API_KEY` | Emails every "Book a free AI audit" submission through [Resend](https://resend.com/api-keys). See [Contact form](#contact-form). |
+| `CONTACT_TO_EMAIL` | Inbox that receives those emails. Defaults to `protomation.services@gmail.com`. |
+| `CONTACT_FROM_EMAIL` | Their From address. Defaults to `onboarding@resend.dev`; see [Contact form](#contact-form). |
+| `CONTACT_WEBHOOK_URL` | Optional. Also posts submissions as JSON (Slack, Zapier, n8n, Make, a CRM webhook). |
 
 ## Where to change things
 
@@ -46,6 +49,17 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Dot-grid physics (wave speed, damping, heat) | Constants at the top of `src/lib/ripple-field.ts` |
 
 > **Before launch:** the stats in the hero, the three case studies and the prices are placeholders written to show the layout. Replace them in `src/lib/content.ts` with real numbers.
+
+## Contact form
+
+The form on `/contact` and at the foot of the home page runs the `submitContact` server action in `src/app/actions.ts`. After validation it hands the submission to whichever routes are configured:
+
+- **Email**, when `RESEND_API_KEY` is set. `src/lib/contact-email.ts` posts to Resend's REST API; there is no SDK to install. The message's reply-to is the visitor's address, so replying in your inbox answers them directly.
+- **Webhook**, when `CONTACT_WEBHOOK_URL` is set. Posts the same submission as JSON.
+
+Both run together, and the visitor sees an error only if every configured route failed. With neither set, submissions are written to the server log, which is what happens in local development.
+
+Resend will not send from a domain you have not verified with it. Until you verify one, leave `CONTACT_FROM_EMAIL` unset: the default `onboarding@resend.dev` works immediately but **only delivers to the address that owns the Resend account**, so sign up for Resend with the address in `CONTACT_TO_EMAIL`. Once you verify a domain in Resend, set `CONTACT_FROM_EMAIL` to an address on it.
 
 ## Project structure
 

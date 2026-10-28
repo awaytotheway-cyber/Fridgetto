@@ -1,5 +1,7 @@
 "use server";
 
+import { sendContactEmail, type ContactSubmission } from "@/lib/contact-email";
+
 export type ContactState = {
   status: "idle" | "success" | "error";
   message: string;
@@ -9,9 +11,19 @@ export type ContactState = {
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+async function postWebhook(url: string, values: ContactSubmission) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...values, source: "website", receivedAt: new Date().toISOString() }),
+  });
+  if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
+}
+
 /**
- * Handles the "Book a free AI audit" form. Set CONTACT_WEBHOOK_URL (Slack, Zapier,
- * n8n, Make, your CRM…) to receive submissions as JSON; without it they are logged.
+ * Handles the "Book a free AI audit" form. Submissions are emailed through Resend
+ * (RESEND_API_KEY) and posted to CONTACT_WEBHOOK_URL, whichever of the two is configured;
+ * with neither they are logged. The visitor only sees an error if every configured route failed.
  */
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
   const values = {
@@ -34,24 +46,24 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
   }
 
   const webhook = process.env.CONTACT_WEBHOOK_URL;
-  try {
-    if (webhook) {
-      const res = await fetch(webhook, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, source: "website", receivedAt: new Date().toISOString() }),
-      });
-      if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
-    } else {
-      console.info("[contact] New audit request (set CONTACT_WEBHOOK_URL to forward these):", values);
+  const routes: Promise<unknown>[] = [];
+  if (process.env.RESEND_API_KEY) routes.push(sendContactEmail(values));
+  if (webhook) routes.push(postWebhook(webhook, values));
+
+  if (routes.length === 0) {
+    console.info("[contact] New audit request (set RESEND_API_KEY to email these):", values);
+  } else {
+    const results = await Promise.allSettled(routes);
+    for (const result of results) {
+      if (result.status === "rejected") console.error("[contact] Could not deliver request", result.reason);
     }
-  } catch (error) {
-    console.error("[contact] Could not forward request", error);
-    return {
-      status: "error",
-      message: "Your request didn't go through. Try again, or email us directly.",
-      values,
-    };
+    if (!results.some((result) => result.status === "fulfilled")) {
+      return {
+        status: "error",
+        message: "Your request didn't go through. Try again, or email us directly.",
+        values,
+      };
+    }
   }
 
   return {
