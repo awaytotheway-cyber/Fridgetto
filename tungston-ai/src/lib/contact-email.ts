@@ -40,7 +40,8 @@ const SERVICE_LABELS: Record<string, string> = {
   "lead-to-speed-agent": "Lead to Speed Agent",
   "custom-automations": "Custom Automations",
   "content-automation": "Content Automation",
-  "web-development": "Web Development",
+  "websites-landing-pages": "Websites & Landing Pages",
+  "web-development": "Websites & Landing Pages",
   "not-sure": "Not sure what I need yet",
 };
 

@@ -25,8 +25,8 @@ const SERVICE_OPTIONS = [
   // — Custom Solutions —
   { group: "Custom Solutions", value: "custom-automations", label: "Custom Automations" },
   { group: "Custom Solutions", value: "content-automation", label: "Content Automation" },
-  // — Development —
-  { group: "Development", value: "web-development", label: "Web Development" },
+  // — Web Development —
+  { group: "Web Development", value: "websites-landing-pages", label: "Websites & Landing Pages" },
   // — Other —
   { group: null, value: "not-sure", label: "Not sure what I need yet" },
 ] as const;
