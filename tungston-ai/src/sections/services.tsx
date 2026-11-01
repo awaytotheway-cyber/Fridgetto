@@ -3,6 +3,7 @@ import { TiltCard } from "@/components/fx/tilt-card";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { services, type Service } from "@/lib/content";
 import { ServiceArt } from "./service-art";
+import { CapabilitiesBrowser } from "@/components/capabilities-browser";
 
 const footprint: Record<Service["size"], string> = {
   hero: "md:col-span-2 lg:row-span-2",
@@ -89,7 +90,7 @@ export function Services({ withIntro = true }: { withIntro?: boolean }) {
     <section id="services" aria-labelledby="services-title" className="relative -scroll-mt-20 py-24 sm:py-32">
       <div className="shell">
         {withIntro ? (
-          <SectionIntro id="services-title" title="Seven systems. One team that ships them all.">
+          <SectionIntro id="services-title" title="Specialist systems. One team that ships them all.">
             Start with one or connect them all. Each is built around a number you care about, then tested on your data
             and handed over running.
           </SectionIntro>
@@ -98,11 +99,18 @@ export function Services({ withIntro = true }: { withIntro?: boolean }) {
             Services
           </h2>
         )}
+
+        {/* Flagship Bento Grid */}
         <div className="mt-14 grid gap-4 sm:mt-20 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service, i) => (
             // Without the intro (the Services page) the flagship card is on screen at load
             <ServiceCard key={service.slug} service={service} eager={!withIntro && i === 0} />
           ))}
+        </div>
+
+        {/* HUD Capabilities Matrix Browser */}
+        <div className="mt-16 sm:mt-24">
+          <CapabilitiesBrowser />
         </div>
       </div>
     </section>

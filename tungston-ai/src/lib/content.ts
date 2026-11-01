@@ -26,6 +26,111 @@ export type Service = {
   size: "hero" | "wide" | "single";
 };
 
+export type CapabilityPillar = {
+  id: string;
+  num: string;
+  name: string;
+  countLabel: string;
+  tagline: string;
+  services: string[];
+};
+
+export const servicePillars: CapabilityPillar[] = [
+  {
+    id: "ai-automation",
+    num: "01",
+    name: "AI Automation",
+    countLabel: "11 SERVICES",
+    tagline: "Agent builds, voice, WhatsApp, CRM, integrations, finance, reporting.",
+    services: [
+      "AI Agent Development",
+      "AI Voice Agents",
+      "WhatsApp Automation",
+      "AI Website Chatbots",
+      "CRM & Lead Automation",
+      "Lead to Speed Agent",
+      "AI Strategy & Roadmap",
+      "AI Process Automation",
+      "AI Integration Services",
+      "Finance & Reconciliation",
+      "Data & Reporting Automation",
+    ],
+  },
+  {
+    id: "digital-marketing",
+    num: "02",
+    name: "Digital Marketing",
+    countLabel: "6 SERVICES",
+    tagline: "AI-augmented acquisition funnels, automated outreach, and conversion systems.",
+    services: [
+      "Automated Outreach Engines",
+      "Lead Enrichment & Scoring",
+      "Ad Creative Automation",
+      "Omnichannel Campaign Tracking",
+      "Conversion Rate Optimization AI",
+      "Personalized Email Sequences",
+    ],
+  },
+  {
+    id: "web-development",
+    num: "03",
+    name: "Web Development",
+    countLabel: "6 SERVICES",
+    tagline: "Fast, modern web applications and agency-grade digital experiences.",
+    services: [
+      "Custom Next.js & React Apps",
+      "Full-Stack Web Applications",
+      "High-Converting Landing Pages",
+      "API & Webhook Integrations",
+      "Database & Cloud Architecture",
+      "Performance & SEO Optimization",
+    ],
+  },
+  {
+    id: "seo-services",
+    num: "04",
+    name: "SEO Services",
+    countLabel: "5 SERVICES",
+    tagline: "Programmatic search rank domination and autonomous keyword clustering.",
+    services: [
+      "Programmatic SEO Engines",
+      "Autonomous Content Clusters",
+      "Technical SEO Auditing",
+      "Competitor Intelligence Tracking",
+      "Schema & Rich Snippet Structuring",
+    ],
+  },
+  {
+    id: "gohighlevel",
+    num: "05",
+    name: "GoHighLevel",
+    countLabel: "5 SERVICES",
+    tagline: "Enterprise CRM architecture, custom sub-account setups, and client workflows.",
+    services: [
+      "Complete Snapshot Architecture",
+      "Multi-channel Booking Funnels",
+      "Custom Webhook & API Bridges",
+      "Automated Review & Reputation",
+      "White-Label Client Dashboards",
+    ],
+  },
+  {
+    id: "design-creatives",
+    num: "06",
+    name: "Design & Creatives",
+    countLabel: "6 SERVICES",
+    tagline: "High-impact visual brand identity, UI/UX systems, and marketing collateral.",
+    services: [
+      "UI/UX Design Systems",
+      "Interactive 3D & WebFX",
+      "Brand Identity & Styleguides",
+      "Conversion Funnel Wireframing",
+      "Motion Design & Micro-animations",
+      "Asset Generation Pipelines",
+    ],
+  },
+];
+
 export const services: Service[] = [
   {
     slug: "ai-agents",
@@ -128,18 +233,20 @@ export const services: Service[] = [
 ];
 
 export const heroStats = [
-  { value: 40, suffix: "+", label: "workflows automated" },
+  { value: 40, suffix: "+", label: "specialist capabilities" },
   { value: 24, suffix: "/7", label: "agents live, every day" },
-  { value: 10, suffix: "x", label: "content output for clients" },
+  { value: 10, suffix: "x", label: "efficiency output for clients" },
 ];
 
 export const marqueeItems = [
   "AI Agents",
   "Voice AI",
-  "Chatbots",
-  "Automation",
-  "Content Systems",
+  "WhatsApp Automation",
+  "CRM & Lead Systems",
+  "Speed to Lead Agents",
+  "Process Automation",
   "Web & App Development",
+  "Content Systems",
 ];
 
 export const processSteps = [

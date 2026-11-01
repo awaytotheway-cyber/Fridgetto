@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { submitContact, type ContactState } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/site.config";
+import { ArrowUpRight } from "lucide-react";
 
 const initial: ContactState = { status: "idle", message: "" };
 
@@ -68,6 +69,12 @@ export function ContactForm() {
 
   return (
     <form action={action} noValidate className="space-y-5" aria-describedby={state.status === "error" ? "form-status" : undefined}>
+      {/* Top HUD Status Bar matching screenshot 1 */}
+      <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 font-mono text-xs tracking-wider">
+        <span className="font-semibold text-filament">// START A PROJECT</span>
+        <span className="text-smoke">~4 HR RESPONSE</span>
+      </div>
+
       {/* Row 1: Full Name + Email */}
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
@@ -215,10 +222,16 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-xs text-xs uppercase tracking-widest text-smoke">
+        <p className="max-w-xs font-mono text-xs uppercase tracking-widest text-smoke">
           We never spam. Your details reach the founder directly.
         </p>
-        <Button type="submit" size="lg" disabled={pending}>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={pending}
+          icon={<ArrowUpRight className="size-4 shrink-0 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />}
+          className="!rounded-lg px-8"
+        >
           {pending ? "Sending…" : "Send it"}
         </Button>
       </div>
