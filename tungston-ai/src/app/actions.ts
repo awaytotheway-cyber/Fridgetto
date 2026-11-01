@@ -11,11 +11,15 @@ export type ContactState = {
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-/** n8n production webhook for consultation / enquiry notifications */
+/** n8n production webhook (GET) for consultation / enquiry notifications */
 const N8N_WEBHOOK_URL = "https://protomationai.app.n8n.cloud/webhook/55d18bae-7122-40db-a11d-bc3465538340";
 
-async function postWebhook(url: string, values: ContactSubmission) {
-  const payload = {
+/**
+ * Sends form data to the n8n webhook as a GET request with query parameters.
+ * n8n webhook node is configured for HTTP Method: GET.
+ */
+async function sendToN8n(values: ContactSubmission) {
+  const params = new URLSearchParams({
     name: values.name,
     email: values.email,
     businessName: values.businessName,
@@ -23,31 +27,22 @@ async function postWebhook(url: string, values: ContactSubmission) {
     source: "website",
     formType: "consultation_enquiry",
     receivedAt: new Date().toISOString(),
-  };
+  });
 
-  // Try POST first, fall back to GET with query params if POST fails
-  let res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+  const res = await fetch(`${N8N_WEBHOOK_URL}?${params.toString()}`, {
+    method: "GET",
   });
 
   if (!res.ok) {
-    // Fallback: send as GET with query parameters
-    const params = new URLSearchParams();
-    for (const [key, value] of Object.entries(payload)) {
-      params.set(key, String(value));
-    }
-    res = await fetch(`${url}?${params.toString()}`, { method: "GET" });
+    const body = await res.text().catch(() => "");
+    throw new Error(`n8n webhook responded ${res.status}: ${body.slice(0, 300)}`);
   }
-
-  if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
 }
 
 /**
- * Handles the "Book a free AI audit" form. Submissions are emailed through Resend
- * (RESEND_API_KEY) and posted to the n8n webhook (and CONTACT_WEBHOOK_URL if set);
- * with neither they are logged. The visitor only sees an error if every configured route failed.
+ * Handles the "Book a free AI audit" form. Submissions are sent to the n8n webhook
+ * (which handles emailing) and optionally through Resend (RESEND_API_KEY).
+ * The visitor only sees an error if every configured route failed.
  */
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
   const values = {
@@ -72,12 +67,8 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
 
   const routes: Promise<unknown>[] = [];
 
-  // Always post to n8n webhook
-  routes.push(postWebhook(N8N_WEBHOOK_URL, values));
-
-  // Also post to CONTACT_WEBHOOK_URL if configured (legacy/backup)
-  const extraWebhook = process.env.CONTACT_WEBHOOK_URL;
-  if (extraWebhook) routes.push(postWebhook(extraWebhook, values));
+  // Always send to n8n webhook (GET request with query params)
+  routes.push(sendToN8n(values));
 
   // Also send email via Resend if configured
   if (process.env.RESEND_API_KEY) routes.push(sendContactEmail(values));
