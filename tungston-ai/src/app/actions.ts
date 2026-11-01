@@ -11,23 +11,36 @@ export type ContactState = {
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-/** n8n webhook for consultation / enquiry notifications */
-const N8N_WEBHOOK_URL = "https://protomationai.app.n8n.cloud/webhook-test/55d18bae-7122-40db-a11d-bc3465538340";
+/** n8n production webhook for consultation / enquiry notifications */
+const N8N_WEBHOOK_URL = "https://protomationai.app.n8n.cloud/webhook/55d18bae-7122-40db-a11d-bc3465538340";
 
 async function postWebhook(url: string, values: ContactSubmission) {
-  const res = await fetch(url, {
+  const payload = {
+    name: values.name,
+    email: values.email,
+    businessName: values.businessName,
+    task: values.task,
+    source: "website",
+    formType: "consultation_enquiry",
+    receivedAt: new Date().toISOString(),
+  };
+
+  // Try POST first, fall back to GET with query params if POST fails
+  let res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: values.name,
-      email: values.email,
-      businessName: values.businessName,
-      task: values.task,
-      source: "website",
-      formType: "consultation_enquiry",
-      receivedAt: new Date().toISOString(),
-    }),
+    body: JSON.stringify(payload),
   });
+
+  if (!res.ok) {
+    // Fallback: send as GET with query parameters
+    const params = new URLSearchParams();
+    for (const [key, value] of Object.entries(payload)) {
+      params.set(key, String(value));
+    }
+    res = await fetch(`${url}?${params.toString()}`, { method: "GET" });
+  }
+
   if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
 }
 
