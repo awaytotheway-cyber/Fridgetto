@@ -10,6 +10,40 @@ const initial: ContactState = { status: "idle", message: "" };
 const field =
   "w-full rounded-field bg-white/[0.035] px-5 text-bone ring-1 ring-white/[0.09] outline-none transition-[box-shadow,background-color] placeholder:text-smoke hover:ring-white/20 focus-visible:bg-white/[0.05] focus-visible:ring-2 focus-visible:ring-filament aria-[invalid=true]:ring-filament";
 
+const SERVICE_OPTIONS = [
+  // — AI Automation —
+  { group: "AI Automation", value: "ai-agent-development", label: "AI Agent Development" },
+  { group: "AI Automation", value: "ai-voice-agents", label: "AI Voice Agents" },
+  { group: "AI Automation", value: "ai-website-chatbots", label: "AI Website Chatbots" },
+  { group: "AI Automation", value: "whatsapp-automation", label: "WhatsApp Automation" },
+  { group: "AI Automation", value: "crm-lead-automation", label: "CRM & Lead Automation" },
+  { group: "AI Automation", value: "data-reporting-automation", label: "Data & Reporting Automation" },
+  { group: "AI Automation", value: "ai-process-automation", label: "AI Process Automation" },
+  { group: "AI Automation", value: "finance-reconciliation", label: "Finance & Reconciliation" },
+  { group: "AI Automation", value: "lead-to-speed-agent", label: "Lead to Speed Agent" },
+  // — Custom Solutions —
+  { group: "Custom Solutions", value: "custom-automations", label: "Custom Automations" },
+  { group: "Custom Solutions", value: "content-automation", label: "Content Automation" },
+  // — Development —
+  { group: "Development", value: "web-development", label: "Web Development" },
+  // — Other —
+  { group: null, value: "not-sure", label: "Not sure what I need yet" },
+] as const;
+
+/** Group the services by their group label for <optgroup> rendering */
+function groupedServices() {
+  const groups: { group: string | null; items: typeof SERVICE_OPTIONS[number][] }[] = [];
+  for (const opt of SERVICE_OPTIONS) {
+    const last = groups[groups.length - 1];
+    if (last && last.group === opt.group) {
+      last.items.push(opt);
+    } else {
+      groups.push({ group: opt.group, items: [opt] });
+    }
+  }
+  return groups;
+}
+
 export function ContactForm() {
   const [state, action, pending] = useActionState(submitContact, initial);
 
@@ -34,10 +68,11 @@ export function ContactForm() {
 
   return (
     <form action={action} noValidate className="space-y-5" aria-describedby={state.status === "error" ? "form-status" : undefined}>
+      {/* Row 1: Full Name + Email */}
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="mb-2 block text-sm font-medium text-bone">
-            Name
+          <label htmlFor="name" className="mb-2 block text-xs font-semibold uppercase tracking-widest text-smoke">
+            Full Name
           </label>
           <input
             id="name"
@@ -56,8 +91,8 @@ export function ContactForm() {
           )}
         </div>
         <div>
-          <label htmlFor="email" className="mb-2 block text-sm font-medium text-bone">
-            Work email
+          <label htmlFor="email" className="mb-2 block text-xs font-semibold uppercase tracking-widest text-smoke">
+            Email
           </label>
           <input
             id="email"
@@ -77,41 +112,102 @@ export function ContactForm() {
           )}
         </div>
       </div>
-      <div>
-        <label htmlFor="businessName" className="mb-2 block text-sm font-medium text-bone">
-          Business name <span className="text-smoke">(optional)</span>
-        </label>
-        <input
-          id="businessName"
-          name="businessName"
-          autoComplete="organization"
-          defaultValue={v?.businessName}
-          className={`${field} h-14`}
-          placeholder="Your company or business name"
-        />
+
+      {/* Row 2: Phone + Company */}
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="phone" className="mb-2 block text-xs font-semibold uppercase tracking-widest text-smoke">
+            Phone
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            defaultValue={v?.phone}
+            placeholder="+91 9876543210"
+            aria-invalid={e.phone ? true : undefined}
+            aria-describedby={e.phone ? "phone-error" : undefined}
+            className={`${field} h-14`}
+          />
+          {e.phone && (
+            <p id="phone-error" className="mt-2 text-sm text-signal">
+              {e.phone}
+            </p>
+          )}
+        </div>
+        <div>
+          <label htmlFor="businessName" className="mb-2 block text-xs font-semibold uppercase tracking-widest text-smoke">
+            Company <span className="normal-case text-smoke/60">(optional)</span>
+          </label>
+          <input
+            id="businessName"
+            name="businessName"
+            autoComplete="organization"
+            defaultValue={v?.businessName}
+            className={`${field} h-14`}
+          />
+        </div>
       </div>
+
+      {/* Row 3: Service Interested In */}
       <div>
-        <label htmlFor="task" className="mb-2 block text-sm font-medium text-bone">
-          What should we automate for you?
+        <label htmlFor="service" className="mb-2 block text-xs font-semibold uppercase tracking-widest text-smoke">
+          Service Interested In
+        </label>
+        <select
+          id="service"
+          name="service"
+          required
+          defaultValue={v?.service ?? ""}
+          aria-invalid={e.service ? true : undefined}
+          aria-describedby={e.service ? "service-error" : undefined}
+          className={`${field} h-14 appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 4 4 4-4"/></svg>')] bg-[position:right_1rem_center] bg-no-repeat pr-12`}
+        >
+          <option value="" disabled className="bg-neutral-900 text-smoke">
+            Select a service…
+          </option>
+          {groupedServices().map((g) =>
+            g.group ? (
+              <optgroup key={g.group} label={g.group} className="bg-neutral-900 text-bone">
+                {g.items.map((opt) => (
+                  <option key={opt.value} value={opt.value} className="bg-neutral-900 text-bone">
+                    {opt.label}
+                  </option>
+                ))}
+              </optgroup>
+            ) : (
+              g.items.map((opt) => (
+                <option key={opt.value} value={opt.value} className="bg-neutral-900 text-bone">
+                  {opt.label}
+                </option>
+              ))
+            )
+          )}
+        </select>
+        {e.service && (
+          <p id="service-error" className="mt-2 text-sm text-signal">
+            {e.service}
+          </p>
+        )}
+      </div>
+
+      {/* Row 4: What are you trying to scale? */}
+      <div>
+        <label htmlFor="task" className="mb-2 block text-xs font-semibold uppercase tracking-widest text-smoke">
+          What are you trying to scale? <span className="normal-case text-smoke/60">(optional)</span>
         </label>
         <textarea
           id="task"
           name="task"
-          rows={5}
-          required
+          rows={4}
           defaultValue={v?.task}
-          placeholder="For example: we miss calls after 6pm, and every lead gets typed into HubSpot by hand."
-          aria-invalid={e.task ? true : undefined}
-          aria-describedby={e.task ? "task-error" : undefined}
+          placeholder="Revenue goal, what you have tried, what blocking you right now."
           data-lenis-prevent
           className={`${field} resize-y py-4 leading-relaxed`}
         />
-        {e.task && (
-          <p id="task-error" className="mt-2 text-sm text-signal">
-            {e.task}
-          </p>
-        )}
       </div>
+
       {/* Honeypot for bots */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label htmlFor="website">Leave this empty</label>
@@ -119,9 +215,11 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-xs text-sm text-smoke">Free, 45 minutes, no obligation. We reply within one business day.</p>
+        <p className="max-w-xs text-xs uppercase tracking-widest text-smoke">
+          We never spam. Your details reach the founder directly.
+        </p>
         <Button type="submit" size="lg" disabled={pending}>
-          {pending ? "Sending…" : "Request my free audit"}
+          {pending ? "Sending…" : "Send it"}
         </Button>
       </div>
       {state.status === "error" && (

@@ -5,8 +5,15 @@ import { sendContactEmail, type ContactSubmission } from "@/lib/contact-email";
 export type ContactState = {
   status: "idle" | "success" | "error";
   message: string;
-  errors?: Partial<Record<"name" | "email" | "task", string>>;
-  values?: { name: string; email: string; businessName: string; task: string };
+  errors?: Partial<Record<"name" | "email" | "phone" | "service" | "task", string>>;
+  values?: {
+    name: string;
+    email: string;
+    phone: string;
+    businessName: string;
+    service: string;
+    task: string;
+  };
 };
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -22,7 +29,9 @@ async function sendToN8n(values: ContactSubmission) {
   const params = new URLSearchParams({
     name: values.name,
     email: values.email,
+    phone: values.phone,
     businessName: values.businessName,
+    service: values.service,
     task: values.task,
     source: "website",
     formType: "consultation_enquiry",
@@ -40,7 +49,7 @@ async function sendToN8n(values: ContactSubmission) {
 }
 
 /**
- * Handles the "Book a free AI audit" form. Submissions are sent to the n8n webhook
+ * Handles the "Start a Project" contact form. Submissions are sent to the n8n webhook
  * (which handles emailing) and optionally through Resend (RESEND_API_KEY).
  * The visitor only sees an error if every configured route failed.
  */
@@ -48,7 +57,9 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
   const values = {
     name: String(formData.get("name") ?? "").trim().slice(0, 120),
     email: String(formData.get("email") ?? "").trim().slice(0, 200),
+    phone: String(formData.get("phone") ?? "").trim().slice(0, 30),
     businessName: String(formData.get("businessName") ?? "").trim().slice(0, 200),
+    service: String(formData.get("service") ?? "").trim().slice(0, 100),
     task: String(formData.get("task") ?? "").trim().slice(0, 4000),
   };
 
@@ -60,7 +71,7 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
   const errors: ContactState["errors"] = {};
   if (!values.name) errors.name = "Enter your name.";
   if (!EMAIL.test(values.email)) errors.email = "Enter an email address like you@company.com.";
-  if (values.task.length < 10) errors.task = "Tell us a little more: one or two sentences is plenty.";
+  if (!values.service) errors.service = "Pick the service you're interested in.";
   if (Object.keys(errors).length) {
     return { status: "error", message: "Check the highlighted fields and send again.", errors, values };
   }
