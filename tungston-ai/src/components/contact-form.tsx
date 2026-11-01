@@ -78,6 +78,19 @@ export function ContactForm() {
         </div>
       </div>
       <div>
+        <label htmlFor="businessName" className="mb-2 block text-sm font-medium text-bone">
+          Business name <span className="text-smoke">(optional)</span>
+        </label>
+        <input
+          id="businessName"
+          name="businessName"
+          autoComplete="organization"
+          defaultValue={v?.businessName}
+          className={`${field} h-14`}
+          placeholder="Your company or business name"
+        />
+      </div>
+      <div>
         <label htmlFor="task" className="mb-2 block text-sm font-medium text-bone">
           What should we automate for you?
         </label>

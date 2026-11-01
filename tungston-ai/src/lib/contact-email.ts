@@ -3,6 +3,7 @@ import { siteConfig } from "@/site.config";
 export type ContactSubmission = {
   name: string;
   email: string;
+  businessName: string;
   task: string;
 };
 
@@ -24,12 +25,14 @@ function escapeHtml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
-function body({ name, email, task }: ContactSubmission, receivedAt: string) {
+function body({ name, email, businessName, task }: ContactSubmission, receivedAt: string) {
+  const businessLine = businessName ? `Business: ${businessName}` : "";
   const text = [
     "New AI audit request",
     "",
-    `Name:  ${name}`,
-    `Email: ${email}`,
+    `Name:     ${name}`,
+    `Email:    ${email}`,
+    ...(businessName ? [`Business: ${businessName}`] : []),
     "",
     "What they want automated:",
     task,
@@ -38,11 +41,16 @@ function body({ name, email, task }: ContactSubmission, receivedAt: string) {
     `Reply to this email to answer ${name} directly.`,
   ].join("\n");
 
+  const businessHtml = businessName
+    ? `<p style="margin:0 0 16px"><strong>Business</strong><br>${escapeHtml(businessName)}</p>`
+    : "";
+
   const html = `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;line-height:1.6;color:#111;max-width:560px">
   <h2 style="margin:0;font-size:18px">New AI audit request</h2>
   <p style="margin:2px 0 24px;color:#666;font-size:13px">From the ${escapeHtml(siteConfig.name)} website</p>
   <p style="margin:0 0 16px"><strong>Name</strong><br>${escapeHtml(name)}</p>
   <p style="margin:0 0 16px"><strong>Email</strong><br><a href="mailto:${encodeURI(email)}">${escapeHtml(email)}</a></p>
+  ${businessHtml}
   <p style="margin:0 0 16px"><strong>What they want automated</strong><br>${escapeHtml(task).replace(/\n/g, "<br>")}</p>
   <hr style="border:0;border-top:1px solid #e5e5e5;margin:24px 0">
   <p style="margin:0;color:#666;font-size:12px">Received ${escapeHtml(receivedAt)}. Reply to this email to answer ${escapeHtml(name)} directly.</p>
@@ -68,7 +76,7 @@ export async function sendContactEmail(values: ContactSubmission) {
       to: [TO],
       // So hitting Reply in the inbox answers the person who filled the form
       reply_to: values.email,
-      subject: `AI audit request: ${values.name}`,
+      subject: `AI audit request: ${values.name}${values.businessName ? ` (${values.businessName})` : ""}`,
       ...body(values, receivedAt),
     }),
   });

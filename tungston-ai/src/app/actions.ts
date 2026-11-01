@@ -6,29 +6,41 @@ export type ContactState = {
   status: "idle" | "success" | "error";
   message: string;
   errors?: Partial<Record<"name" | "email" | "task", string>>;
-  values?: { name: string; email: string; task: string };
+  values?: { name: string; email: string; businessName: string; task: string };
 };
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+/** n8n webhook for consultation / enquiry notifications */
+const N8N_WEBHOOK_URL = "https://protomationai.app.n8n.cloud/webhook-test/55d18bae-7122-40db-a11d-bc3465538340";
 
 async function postWebhook(url: string, values: ContactSubmission) {
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...values, source: "website", receivedAt: new Date().toISOString() }),
+    body: JSON.stringify({
+      name: values.name,
+      email: values.email,
+      businessName: values.businessName,
+      task: values.task,
+      source: "website",
+      formType: "consultation_enquiry",
+      receivedAt: new Date().toISOString(),
+    }),
   });
   if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
 }
 
 /**
  * Handles the "Book a free AI audit" form. Submissions are emailed through Resend
- * (RESEND_API_KEY) and posted to CONTACT_WEBHOOK_URL, whichever of the two is configured;
+ * (RESEND_API_KEY) and posted to the n8n webhook (and CONTACT_WEBHOOK_URL if set);
  * with neither they are logged. The visitor only sees an error if every configured route failed.
  */
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
   const values = {
     name: String(formData.get("name") ?? "").trim().slice(0, 120),
     email: String(formData.get("email") ?? "").trim().slice(0, 200),
+    businessName: String(formData.get("businessName") ?? "").trim().slice(0, 200),
     task: String(formData.get("task") ?? "").trim().slice(0, 4000),
   };
 
@@ -45,25 +57,28 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
     return { status: "error", message: "Check the highlighted fields and send again.", errors, values };
   }
 
-  const webhook = process.env.CONTACT_WEBHOOK_URL;
   const routes: Promise<unknown>[] = [];
-  if (process.env.RESEND_API_KEY) routes.push(sendContactEmail(values));
-  if (webhook) routes.push(postWebhook(webhook, values));
 
-  if (routes.length === 0) {
-    console.info("[contact] New audit request (set RESEND_API_KEY to email these):", values);
-  } else {
-    const results = await Promise.allSettled(routes);
-    for (const result of results) {
-      if (result.status === "rejected") console.error("[contact] Could not deliver request", result.reason);
-    }
-    if (!results.some((result) => result.status === "fulfilled")) {
-      return {
-        status: "error",
-        message: "Your request didn't go through. Try again, or email us directly.",
-        values,
-      };
-    }
+  // Always post to n8n webhook
+  routes.push(postWebhook(N8N_WEBHOOK_URL, values));
+
+  // Also post to CONTACT_WEBHOOK_URL if configured (legacy/backup)
+  const extraWebhook = process.env.CONTACT_WEBHOOK_URL;
+  if (extraWebhook) routes.push(postWebhook(extraWebhook, values));
+
+  // Also send email via Resend if configured
+  if (process.env.RESEND_API_KEY) routes.push(sendContactEmail(values));
+
+  const results = await Promise.allSettled(routes);
+  for (const result of results) {
+    if (result.status === "rejected") console.error("[contact] Could not deliver request", result.reason);
+  }
+  if (!results.some((result) => result.status === "fulfilled")) {
+    return {
+      status: "error",
+      message: "Your request didn't go through. Try again, or email us directly.",
+      values,
+    };
   }
 
   return {
