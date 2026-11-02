@@ -3,10 +3,20 @@
  * ./details and listing it here; the page, sitemap and tests pick it up.
  */
 import { catalog } from "./catalog";
+import { aiAgentDevelopment } from "./details/ai-agent-development";
+import { aiVoiceAgents } from "./details/ai-voice-agents";
+import { aiWebsiteChatbots } from "./details/ai-website-chatbots";
+import { crmLeadAutomation } from "./details/crm-lead-automation";
 import { whatsappAutomation } from "./details/whatsapp-automation";
 import type { ServiceDetail } from "./types";
 
-const details: ServiceDetail[] = [whatsappAutomation];
+const details: ServiceDetail[] = [
+  aiAgentDevelopment,
+  aiVoiceAgents,
+  aiWebsiteChatbots,
+  whatsappAutomation,
+  crmLeadAutomation,
+];
 
 const bySlug = new Map(details.map((d) => [d.slug, d]));
 
