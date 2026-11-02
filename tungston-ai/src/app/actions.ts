@@ -1,20 +1,15 @@
 "use server";
 
+import { saveEnquiry, type Enquiry } from "@/lib/enquiry-store";
+
 export type ContactState = {
   status: "idle" | "success" | "error";
   message: string;
   errors?: Partial<Record<"name" | "email" | "phone" | "service" | "task", string>>;
-  values?: {
-    name: string;
-    email: string;
-    phone: string;
-    businessName: string;
-    service: string;
-    task: string;
-  };
+  values?: Enquiry;
 };
 
-type Submission = NonNullable<ContactState["values"]>;
+type Submission = Enquiry;
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -60,9 +55,10 @@ async function sendToN8n(values: Submission) {
 }
 
 /**
- * Handles the "Start a Project" contact form. Valid submissions go to the n8n workflow,
- * which emails them on; if that call fails the visitor is told, so an enquiry is never
- * quietly dropped.
+ * Handles the "Start a Project" contact form. A valid submission is sent to the n8n
+ * workflow, which emails it on, and recorded in Supabase. Both run together: the
+ * database is the safety net for a submission the email never delivered, so the
+ * visitor is only told it failed when neither worked.
  */
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
   const values = {
@@ -87,10 +83,14 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
     return { status: "error", message: "Check the highlighted fields and send again.", errors, values };
   }
 
-  try {
-    await sendToN8n(values);
-  } catch (error) {
-    console.error("[contact] Could not deliver request", error);
+  const [emailed, stored] = await Promise.allSettled([sendToN8n(values), saveEnquiry(values)]);
+
+  // Name which half failed: an enquiry that was stored but never emailed is still
+  // waiting in Supabase, and one that was emailed but not stored is only in the inbox.
+  if (emailed.status === "rejected") console.error("[contact] n8n email failed", emailed.reason);
+  if (stored.status === "rejected") console.error("[contact] Supabase save failed", stored.reason);
+
+  if (emailed.status === "rejected" && stored.status === "rejected") {
     return {
       status: "error",
       message: "Your request didn't go through. Try again, or email us directly.",

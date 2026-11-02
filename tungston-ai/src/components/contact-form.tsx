@@ -71,7 +71,7 @@ export function ContactForm() {
     <form action={action} noValidate className="space-y-5" aria-describedby={state.status === "error" ? "form-status" : undefined}>
       {/* Top HUD Status Bar matching screenshot 1 */}
       <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 font-mono text-xs tracking-wider">
-        <span className="font-semibold text-filament">// START A PROJECT</span>
+        <span className="font-semibold text-filament">{"// START A PROJECT"}</span>
         <span className="text-smoke">~4 HR RESPONSE</span>
       </div>
 
