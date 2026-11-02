@@ -40,14 +40,14 @@ export function pageMetadata({ title, description, path }: PageSeo): Metadata {
   };
 }
 
-/** The Home › Page trail for an inner page, as schema.org JSON-LD. */
-export function breadcrumbJsonLd(name: string, path: string) {
+/** The Home › (Parent ›) Page trail for an inner page, as schema.org JSON-LD. */
+export function breadcrumbJsonLd(name: string, path: string, parent?: { name: string; path: string }) {
+  const trail = [{ name: "Home", item: siteConfig.url }];
+  if (parent) trail.push({ name: parent.name, item: `${siteConfig.url}${parent.path}` });
+  trail.push({ name, item: `${siteConfig.url}${path}` });
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
-      { "@type": "ListItem", position: 2, name, item: `${siteConfig.url}${path}` },
-    ],
+    itemListElement: trail.map((t, i) => ({ "@type": "ListItem", position: i + 1, ...t })),
   };
 }
