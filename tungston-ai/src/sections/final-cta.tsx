@@ -4,7 +4,8 @@ import { LiquidButton } from "@/components/fx/liquid-button";
 import { RevealText } from "@/components/fx/reveal-text";
 import { siteConfig } from "@/site.config";
 
-export function FinalCta() {
+/** Closing call to action with the contact form. `service` preselects a contact-form value. */
+export function FinalCta({ service }: { service?: string } = {}) {
   return (
     <section aria-labelledby="cta-title" className="relative overflow-hidden py-24 sm:py-36">
       <div aria-hidden="true" className="ambient top-0 left-1/2 h-[40rem] w-[80rem] -translate-x-1/2 opacity-80" />
@@ -52,7 +53,7 @@ export function FinalCta() {
           </dl>
         </div>
         <div className="lg:col-span-6">
-          <ContactForm />
+          <ContactForm defaultService={service} />
         </div>
       </div>
     </section>

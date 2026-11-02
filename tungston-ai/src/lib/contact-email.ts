@@ -1,4 +1,5 @@
 import { siteConfig } from "@/site.config";
+import { serviceLabel } from "@/lib/services/catalog";
 
 export type ContactSubmission = {
   name: string;
@@ -27,26 +28,11 @@ function escapeHtml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
-/** Human-readable label for the service slug */
-const SERVICE_LABELS: Record<string, string> = {
-  "ai-agent-development": "AI Agent Development",
-  "ai-voice-agents": "AI Voice Agents",
-  "ai-website-chatbots": "AI Website Chatbots",
-  "whatsapp-automation": "WhatsApp Automation",
-  "crm-lead-automation": "CRM & Lead Automation",
-  "data-reporting-automation": "Data & Reporting Automation",
-  "ai-process-automation": "AI Process Automation",
-  "finance-reconciliation": "Finance & Reconciliation",
-  "lead-to-speed-agent": "Lead to Speed Agent",
-  "custom-automations": "Custom Automations",
-  "content-automation": "Content Automation",
-  "websites-landing-pages": "Websites & Landing Pages",
-  "web-development": "Websites & Landing Pages",
-  "not-sure": "Not sure what I need yet",
-};
+/** Values older forms sent that are no longer options. */
+const LEGACY_LABELS: Record<string, string> = { "web-development": "Websites & Landing Pages" };
 
-function serviceName(slug: string) {
-  return SERVICE_LABELS[slug] ?? slug;
+function serviceName(value: string) {
+  return LEGACY_LABELS[value] ?? serviceLabel(value);
 }
 
 function body({ name, email, phone, businessName, service, task }: ContactSubmission, receivedAt: string) {

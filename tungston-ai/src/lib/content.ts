@@ -3,14 +3,9 @@
  * Case studies, stats and prices are launch placeholders: replace them with real numbers.
  */
 
-export type ServiceArt =
-  | "agents"
-  | "voice"
-  | "chat"
-  | "automation"
-  | "advanced"
-  | "content"
-  | "build";
+import type { ServiceArt } from "@/lib/services/types";
+
+export type { ServiceArt };
 
 export type Service = {
   slug: string;

@@ -1,9 +1,10 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { submitContact, type ContactState } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/site.config";
+import { contactOptions, resolveServiceParam } from "@/lib/services/catalog";
 import { ArrowUpRight } from "lucide-react";
 
 const initial: ContactState = { status: "idle", message: "" };
@@ -11,30 +12,10 @@ const initial: ContactState = { status: "idle", message: "" };
 const field =
   "w-full rounded-field bg-white/[0.035] px-5 text-bone ring-1 ring-white/[0.09] outline-none transition-[box-shadow,background-color] placeholder:text-smoke hover:ring-white/20 focus-visible:bg-white/[0.05] focus-visible:ring-2 focus-visible:ring-filament aria-[invalid=true]:ring-filament";
 
-const SERVICE_OPTIONS = [
-  // — AI Automation —
-  { group: "AI Automation", value: "ai-agent-development", label: "AI Agent Development" },
-  { group: "AI Automation", value: "ai-voice-agents", label: "AI Voice Agents" },
-  { group: "AI Automation", value: "ai-website-chatbots", label: "AI Website Chatbots" },
-  { group: "AI Automation", value: "whatsapp-automation", label: "WhatsApp Automation" },
-  { group: "AI Automation", value: "crm-lead-automation", label: "CRM & Lead Automation" },
-  { group: "AI Automation", value: "data-reporting-automation", label: "Data & Reporting Automation" },
-  { group: "AI Automation", value: "ai-process-automation", label: "AI Process Automation" },
-  { group: "AI Automation", value: "finance-reconciliation", label: "Finance & Reconciliation" },
-  { group: "AI Automation", value: "lead-to-speed-agent", label: "Lead to Speed Agent" },
-  // — Custom Solutions —
-  { group: "Custom Solutions", value: "custom-automations", label: "Custom Automations" },
-  { group: "Custom Solutions", value: "content-automation", label: "Content Automation" },
-  // — Web Development —
-  { group: "Web Development", value: "websites-landing-pages", label: "Websites & Landing Pages" },
-  // — Other —
-  { group: null, value: "not-sure", label: "Not sure what I need yet" },
-] as const;
-
 /** Group the services by their group label for <optgroup> rendering */
 function groupedServices() {
-  const groups: { group: string | null; items: typeof SERVICE_OPTIONS[number][] }[] = [];
-  for (const opt of SERVICE_OPTIONS) {
+  const groups: { group: string | null; items: (typeof contactOptions)[number][] }[] = [];
+  for (const opt of contactOptions) {
     const last = groups[groups.length - 1];
     if (last && last.group === opt.group) {
       last.items.push(opt);
@@ -45,8 +26,25 @@ function groupedServices() {
   return groups;
 }
 
-export function ContactForm() {
+type ContactFormProps = {
+  /** Contact-form value to preselect, e.g. on a service page. Otherwise `?service=` in the URL is used. */
+  defaultService?: string;
+};
+
+export function ContactForm({ defaultService }: ContactFormProps = {}) {
   const [state, action, pending] = useActionState(submitContact, initial);
+  const serviceRef = useRef<HTMLSelectElement>(null);
+  const submittedService = state.values?.service;
+
+  // Preselect after hydration from the prop or ?service=, so the form itself stays prerendered
+  useEffect(() => {
+    const select = serviceRef.current;
+    if (!select || submittedService) return;
+    const wanted = resolveServiceParam(
+      defaultService ?? new URLSearchParams(window.location.search).get("service"),
+    );
+    if (wanted) select.value = wanted;
+  }, [defaultService, submittedService]);
 
   if (state.status === "success") {
     return (
@@ -163,6 +161,7 @@ export function ContactForm() {
           Service Interested In
         </label>
         <select
+          ref={serviceRef}
           id="service"
           name="service"
           required
