@@ -1,7 +1,5 @@
 "use server";
 
-import { sendContactEmail, type ContactSubmission } from "@/lib/contact-email";
-
 export type ContactState = {
   status: "idle" | "success" | "error";
   message: string;
@@ -16,30 +14,43 @@ export type ContactState = {
   };
 };
 
+type Submission = NonNullable<ContactState["values"]>;
+
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-/** n8n production webhook (GET) for consultation / enquiry notifications */
-const N8N_WEBHOOK_URL = "https://protomationai.app.n8n.cloud/webhook/55d18bae-7122-40db-a11d-bc3465538340";
+/**
+ * n8n production webhook; the workflow behind it emails the enquiry on. Its webhook
+ * node is set to GET, so the fields travel as query parameters. Set CONTACT_WEBHOOK_URL
+ * to point at a different workflow without touching the code.
+ */
+const WEBHOOK_URL =
+  process.env.CONTACT_WEBHOOK_URL ||
+  "https://protomationai.app.n8n.cloud/webhook/55d18bae-7122-40db-a11d-bc3465538340";
 
 /**
- * Sends form data to the n8n webhook as a GET request with query parameters.
- * n8n webhook node is configured for HTTP Method: GET.
+ * The workflow answers "Error in workflow" when a field arrives empty, which would lose
+ * the enquiry of anyone who skipped an optional question. Sending a placeholder instead
+ * keeps those submissions working whatever the workflow does with blanks.
  */
-async function sendToN8n(values: ContactSubmission) {
+const NOT_GIVEN = "Not provided";
+
+async function sendToN8n(values: Submission) {
   const params = new URLSearchParams({
     name: values.name,
     email: values.email,
-    phone: values.phone,
-    businessName: values.businessName,
+    phone: values.phone || NOT_GIVEN,
+    businessName: values.businessName || NOT_GIVEN,
     service: values.service,
-    task: values.task,
+    task: values.task || NOT_GIVEN,
     source: "website",
     formType: "consultation_enquiry",
     receivedAt: new Date().toISOString(),
   });
 
-  const res = await fetch(`${N8N_WEBHOOK_URL}?${params.toString()}`, {
+  const res = await fetch(`${WEBHOOK_URL}?${params.toString()}`, {
     method: "GET",
+    // Don't leave the visitor watching a spinner if the workflow stalls
+    signal: AbortSignal.timeout(20_000),
   });
 
   if (!res.ok) {
@@ -49,9 +60,9 @@ async function sendToN8n(values: ContactSubmission) {
 }
 
 /**
- * Handles the "Start a Project" contact form. Submissions are sent to the n8n webhook
- * (which handles emailing) and optionally through Resend (RESEND_API_KEY).
- * The visitor only sees an error if every configured route failed.
+ * Handles the "Start a Project" contact form. Valid submissions go to the n8n workflow,
+ * which emails them on; if that call fails the visitor is told, so an enquiry is never
+ * quietly dropped.
  */
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
   const values = {
@@ -76,19 +87,10 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
     return { status: "error", message: "Check the highlighted fields and send again.", errors, values };
   }
 
-  const routes: Promise<unknown>[] = [];
-
-  // Always send to n8n webhook (GET request with query params)
-  routes.push(sendToN8n(values));
-
-  // Also send email via Resend if configured
-  if (process.env.RESEND_API_KEY) routes.push(sendContactEmail(values));
-
-  const results = await Promise.allSettled(routes);
-  for (const result of results) {
-    if (result.status === "rejected") console.error("[contact] Could not deliver request", result.reason);
-  }
-  if (!results.some((result) => result.status === "fulfilled")) {
+  try {
+    await sendToN8n(values);
+  } catch (error) {
+    console.error("[contact] Could not deliver request", error);
     return {
       status: "error",
       message: "Your request didn't go through. Try again, or email us directly.",
