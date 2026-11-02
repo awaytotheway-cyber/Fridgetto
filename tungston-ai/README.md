@@ -32,6 +32,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL used for metadata, the sitemap, robots.txt and JSON-LD. Defaults to `https://www.protomation.ai`; the bare domain redirects there (see `next.config.ts`). |
 | `CONTACT_WEBHOOK_URL` | Optional. The n8n webhook the contact form calls. Falls back to the production workflow hard-coded in `src/app/actions.ts`. See [Contact form](#contact-form). |
+| `SUPABASE_URL` / `SUPABASE_PUBLISHABLE_KEY` | Optional. Where enquiries are recorded. Both fall back to values in `src/lib/enquiry-store.ts`. See [Contact form](#contact-form). |
 
 ## Where to change things
 
@@ -54,7 +55,18 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 
 ## Contact form
 
-The form on `/contact` and at the foot of the home page runs the `submitContact` server action in `src/app/actions.ts`. After validation it calls an **n8n workflow**, which emails the enquiry on. If that call fails the visitor is told to try again or email directly, so an enquiry is never silently dropped.
+The form on `/contact` and at the foot of the home page runs the `submitContact` server action in `src/app/actions.ts`. After validation a submission goes two places at once:
+
+- **n8n workflow** — emails the enquiry to you (see below).
+- **Supabase** — recorded in `protomation_enquiries` by `src/lib/enquiry-store.ts`.
+
+The database is the safety net for an enquiry the email never delivered, so the visitor is told it failed only when *both* fail. Whichever half fails is named in the server log (`[contact] n8n email failed` / `[contact] Supabase save failed`), so you can tell whether a missing enquiry is sitting in the database or was lost entirely.
+
+### Reading the enquiries
+
+They are in the Supabase project that also hosts LifeShield, in `public.protomation_enquiries`, newest first. The table is prefixed and has its own access rules; nothing of LifeShield's is touched.
+
+The site writes with Supabase's **publishable** key, which is meant to be public — browser apps ship it. The table's single policy lets that key `INSERT` and nothing else, so it cannot read enquiries back, change them or delete them. Reading needs the service role, which in practice means the Supabase dashboard. This was verified against the live table: `select` returns no rows and `delete` removes none. Keep it that way — adding a `SELECT` policy for `anon` would publish every enquirer's contact details.
 
 The workflow's webhook node is set to **GET**, so the fields travel as query parameters, not as a JSON body. Posting to it returns `404 This webhook is not registered for POST requests`. If you switch the node to POST, change `sendToN8n` to match.
 
