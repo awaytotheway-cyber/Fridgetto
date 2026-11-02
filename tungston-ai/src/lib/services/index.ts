@@ -6,7 +6,11 @@ import { catalog } from "./catalog";
 import { aiAgentDevelopment } from "./details/ai-agent-development";
 import { aiVoiceAgents } from "./details/ai-voice-agents";
 import { aiWebsiteChatbots } from "./details/ai-website-chatbots";
+import { aiProcessAutomation } from "./details/ai-process-automation";
 import { crmLeadAutomation } from "./details/crm-lead-automation";
+import { dataReportingAutomation } from "./details/data-reporting-automation";
+import { financeReconciliationAutomation } from "./details/finance-reconciliation-automation";
+import { speedToLeadAgent } from "./details/speed-to-lead-agent";
 import { whatsappAutomation } from "./details/whatsapp-automation";
 import type { ServiceDetail } from "./types";
 
@@ -16,6 +20,10 @@ const details: ServiceDetail[] = [
   aiWebsiteChatbots,
   whatsappAutomation,
   crmLeadAutomation,
+  dataReportingAutomation,
+  aiProcessAutomation,
+  financeReconciliationAutomation,
+  speedToLeadAgent,
 ];
 
 const bySlug = new Map(details.map((d) => [d.slug, d]));
