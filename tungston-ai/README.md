@@ -31,10 +31,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Variable | What it does |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL used for metadata, the sitemap, robots.txt and JSON-LD. Defaults to `https://www.protomation.ai`; the bare domain redirects there (see `next.config.ts`). |
-| `RESEND_API_KEY` | Emails every "Book a free AI audit" submission through [Resend](https://resend.com/api-keys). See [Contact form](#contact-form). |
-| `CONTACT_TO_EMAIL` | Inbox that receives those emails. Defaults to `protomation.services@gmail.com`. |
-| `CONTACT_FROM_EMAIL` | Their From address. Defaults to `onboarding@resend.dev`; see [Contact form](#contact-form). |
-| `CONTACT_WEBHOOK_URL` | Optional. Also posts submissions as JSON (Slack, Zapier, n8n, Make, a CRM webhook). |
+| `CONTACT_WEBHOOK_URL` | Optional. The n8n webhook the contact form calls. Falls back to the production workflow hard-coded in `src/app/actions.ts`. See [Contact form](#contact-form). |
 
 ## Where to change things
 
@@ -57,14 +54,16 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 
 ## Contact form
 
-The form on `/contact` and at the foot of the home page runs the `submitContact` server action in `src/app/actions.ts`. After validation it hands the submission to whichever routes are configured:
+The form on `/contact` and at the foot of the home page runs the `submitContact` server action in `src/app/actions.ts`. After validation it calls an **n8n workflow**, which emails the enquiry on. If that call fails the visitor is told to try again or email directly, so an enquiry is never silently dropped.
 
-- **Email**, when `RESEND_API_KEY` is set. `src/lib/contact-email.ts` posts to Resend's REST API; there is no SDK to install. The message's reply-to is the visitor's address, so replying in your inbox answers them directly.
-- **Webhook**, when `CONTACT_WEBHOOK_URL` is set. Posts the same submission as JSON.
+The workflow's webhook node is set to **GET**, so the fields travel as query parameters, not as a JSON body. Posting to it returns `404 This webhook is not registered for POST requests`. If you switch the node to POST, change `sendToN8n` to match.
 
-Both run together, and the visitor sees an error only if every configured route failed. With neither set, submissions are written to the server log, which is what happens in local development.
+Two details the workflow depends on:
 
-Resend will not send from a domain you have not verified with it. Until you verify one, leave `CONTACT_FROM_EMAIL` unset: the default `onboarding@resend.dev` works immediately but **only delivers to the address that owns the Resend account**, so sign up for Resend with the address in `CONTACT_TO_EMAIL`. Once you verify a domain in Resend, set `CONTACT_FROM_EMAIL` to an address on it.
+- **No field may arrive empty.** The workflow answers `500 Error in workflow` if one does, which would lose the enquiry of anyone who skipped an optional question. `sendToN8n` therefore substitutes `Not provided` for a blank phone, business name or message. Keep that if you edit the workflow, or make the workflow tolerate blanks.
+- **The call has a 20-second timeout**, so a stalled workflow shows the visitor an error instead of an endless spinner.
+
+> **Security:** the fallback webhook URL is committed in `src/app/actions.ts`, so anyone reading this public repo can trigger that workflow and send mail through it. To close that off, rotate the webhook path in n8n and set the new URL as `CONTACT_WEBHOOK_URL` in Vercel instead of committing it. Removing it from the code alone does not help, since it stays in git history.
 
 ## Project structure
 
