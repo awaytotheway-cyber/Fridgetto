@@ -66,3 +66,9 @@ describe.each(allServices().map((s) => [s.slug, s] as [string, ServiceDetail]))(
     for (const text of strings(s)) expect(text, text).not.toMatch(/[₹$]\s?\d/);
   });
 });
+
+describe("service pages", () => {
+  it("cover all twelve services, in catalog order", () => {
+    expect(allServices().map((s) => s.slug)).toEqual(catalog.map((s) => s.slug));
+  });
+});
