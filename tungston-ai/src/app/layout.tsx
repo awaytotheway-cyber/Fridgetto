@@ -9,6 +9,7 @@ import { Cursor } from "@/components/fx/cursor";
 import { Preloader } from "@/components/fx/preloader";
 import { JsonLd } from "@/components/json-ld";
 import { services } from "@/lib/content";
+import { currencyBootScript } from "@/lib/currency";
 
 // Fontshare variable fonts, downloaded by scripts/fetch-fonts.mjs (see the note there on licensing)
 const display = localFont({
@@ -103,6 +104,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: currencyBootScript }} />
       </head>
       <body className="min-h-svh overflow-x-clip">
         <a

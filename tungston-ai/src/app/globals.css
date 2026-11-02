@@ -118,6 +118,12 @@
   }
 }
 
+/* Money is rendered in both currencies; show the one the visitor's market uses (see src/lib/currency.ts) */
+html:not([data-currency="inr"]) [data-cur="inr"],
+html[data-currency="inr"] [data-cur="usd"] {
+  display: none;
+}
+
 /* Lenis smooth scroll */
 html.lenis,
 html.lenis body {
