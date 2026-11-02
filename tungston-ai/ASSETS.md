@@ -13,12 +13,51 @@ The rendered art lives in `public/assets/` as WebP. Each piece has a code-drawn 
 | Advanced AI Agents | `service-advanced-agents.webp` | 1376×768 | Figma AI (Gemini) | same | same |
 | Content Automation | `service-content-automation.webp` | 1376×768 | Figma AI (Gemini) | same | same |
 | Websites & Apps | `service-web-and-app.webp` | 1376×768 | Figma AI (Gemini) | same | same |
+| WhatsApp Automation | `service-whatsapp-automation.webp` | 1344×768 | AI Horde (AlbedoBase XL) | `card.image` in `src/lib/services/catalog.ts` | same |
+| CRM & Lead Automation | `service-crm-lead-automation.webp` | 1344×768 | AI Horde (AlbedoBase XL) | same | same |
+| Data & Reporting Automation | `service-data-reporting-automation.webp` | 1344×768 | AI Horde (AlbedoBase XL) | same | same |
+| AI Process Automation | reuses `service-advanced-agents.webp` | 1376×768 | Figma AI (Gemini) | same | same |
+| Finance & Reconciliation Automation | `service-finance-reconciliation-automation.webp` | 1344×768 | AI Horde (AlbedoBase XL) | same | same |
+| Speed-to-Lead Agent | `service-speed-to-lead-agent.webp` | 1344×768 | AI Horde (AlbedoBase XL) | same | same |
 | Team: Orchestrator (Pratik V N) | `team-orchestrator.webp` | 1136×1408 | Canva AI | `image` on the member in `team`, `src/lib/content.ts` | No drawn fallback: keep the file |
 | Team: Designer (Shrawani) | `team-designer.webp` | 1136×1408 | Canva AI | same | same |
 
 Still drawn in code: the OG share image (`src/app/opengraph-image.tsx`, which places the logo) and the footer wordmark.
 
 The Canva credits ran out after six renders, so the last three service illustrations came from Figma's generator with the same prompts. The originals are in the connected Canva account (media IDs `MAHYvza84Gg`, `MAHYwRMyLZ4`, `MAHYwXWCTXU`, `MAHYwSFAYUs`, `MAHYwTsagrc`, `MAHYwb2BzU0`) and the Figma file "Tungston.ai site art".
+
+The six renders added with the service pages came from [AI Horde](https://aihorde.net), a free, community-run Stable Diffusion network, with the shared style prompt below. Its safety filter blanks some abstract renders as false positives, so each was generated two to four times and the best kept. The service list in `src/lib/services/catalog.ts` now decides which image each card and service page uses.
+
+## Service page photos
+
+Real-world photos on the service pages come from [Unsplash](https://unsplash.com) under the [Unsplash License](https://unsplash.com/license) (free for commercial use, no permission needed). Each download was registered with Unsplash as its API terms ask. They are 1600px wide WebP files in `public/assets/services/`, shown in grayscale under a red-to-black wash so they sit in the palette. `src/lib/services/photos.ts` lists every photo with its alt text and photographer:
+
+| File | Photographer |
+| --- | --- |
+| `accounts-desk.webp` | [Towfiqu barbhuiya](https://unsplash.com/@towfiqu999999) |
+| `cafe-owner.webp`, `video-call.webp` | [Vitaly Gariev](https://unsplash.com/@silverkblack) |
+| `calculator-laptop.webp` | [Jakub Żerdzicki](https://unsplash.com/@jakubzerdzicki) |
+| `call-centre.webp` | [LumenSoft Technologies](https://unsplash.com/@candelarms) |
+| `clinic-reception.webp` | [Irshad Pathan](https://unsplash.com/@alrighthospital) |
+| `creator-desk.webp` | [Videodeck](https://unsplash.com/@videodeck) |
+| `desk-laptop.webp`, `owner-laptop.webp` | [Mina Rad](https://unsplash.com/@miinrad) |
+| `founder-laptop.webp` | [Saad Manzoor](https://unsplash.com/@saadi1191) |
+| `headset-desk.webp` | [Petr Macháček](https://unsplash.com/@machec) |
+| `laptops-team.webp` | [Christina @ wocintechchat.com](https://unsplash.com/@wocintechchat) |
+| `paperwork-review.webp`, `tax-paperwork.webp` | [Kelly Sikkema](https://unsplash.com/@kellysikkema) |
+| `phone-shopping.webp` | [CardMapr.nl](https://unsplash.com/@cardmapr) |
+| `sales-meeting.webp` | [Rodeo](https://unsplash.com/@getrodeo) |
+| `shop-owner.webp` | [Ellicia](https://unsplash.com/@ellicia_) |
+| `site-supervisor.webp` | [Ali Mkumbwa](https://unsplash.com/@mkumbwajr) |
+| `support-agent.webp` | [BaljkanN4](https://unsplash.com/@baljkann4) |
+| `team-meeting.webp` | [Redd Francisco](https://unsplash.com/@reddfrancisco) |
+| `team-planning.webp` | [Dylan Gillis](https://unsplash.com/@mainermedia) |
+| `video-creator.webp` | [Kyle Loftus](https://unsplash.com/@kyleloftusstudios) |
+| `warehouse-boxes.webp` | [Reproductive Health Supplies Coalition](https://unsplash.com/@rhsupplies) |
+
+## Tool logos
+
+The logos of the tools we connect to (WhatsApp, n8n, Zoho, HubSpot, Razorpay and others) come from [Simple Icons](https://simpleicons.org) (CC0), through the `simple-icons` package, and are listed in `src/lib/tools.ts`. They show which tools the systems work with; the marks belong to their owners. Tools Simple Icons does not carry (Slack, OpenAI, Salesforce, Twilio, LinkedIn, Canva, Tally, Excel, DocuSign, Looker Studio) show their name with a neutral icon. A logo keeps its brand colour unless that colour is too dark to read on black, in which case it is drawn in white.
 
 ## Logo
 
@@ -72,3 +111,8 @@ Keep 85–90% of each frame pure black. Yellow appears once per image, at the ho
 | `advanced-agents` | a stack of thin translucent glass slabs like an index of documents, a red beam lifting one slab up, its edge glowing yellow |
 | `content-automation` | a grid of floating dark glass tiles assembling into a mosaic, edged in red, exactly one tile edged in yellow |
 | `web-and-app` | a glass browser window and a glass phone floating in depth, wireframe UI drawn in thin red light, one yellow dot on the browser |
+| `whatsapp-automation` | a glossy chrome smartphone at an angle with three frosted-glass chat bubbles rising from its screen, red light inside the bubbles, one tiny yellow notification dot |
+| `crm-lead-automation` | a polished chrome funnel with small glowing red glass spheres falling through it and landing in three neat rows below, one sphere glowing yellow |
+| `data-reporting-automation` | a bar chart of chrome columns rising from black glass with a thin red line graph floating above, its highest point a yellow dot |
+| `finance-reconciliation-automation` | two neat stacks of polished chrome coins side by side, connected by perfectly straight thin red laser lines, one small yellow glowing dot where the lines meet |
+| `speed-to-lead-agent` | a chrome stopwatch made of glass rings with a red light streak racing around it, the needle tip glowing yellow |
