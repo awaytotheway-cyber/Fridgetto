@@ -1,6 +1,6 @@
 # Service pages: design spec
 
-Date: 2026-11-02 · Status: approved in chat, awaiting written-spec review
+Date: 2026-11-02 · Status: approved
 
 ## Goal
 
@@ -17,6 +17,7 @@ Visitors reach a page from a **Services dropdown** in the main nav, which opens 
 | Prices | Not shown on service pages. Savings only. |
 | Testimonials | None for now. No made-up quotes. |
 | Images | Unsplash photos (tinted red/black) and free AI Horde renders in the existing chrome-and-red style. No paid credits (Figma AI, Canva) unless asked. Pollinations rejected (watermark, quality). |
+| Tool logos | Real logos (WhatsApp, n8n, Zoho, HubSpot, Google Sheets…) wherever a tool is named, from Simple Icons (CC0). |
 | Renaming | "Lead to Speed Agent" becomes **Speed-to-Lead Agent**. |
 | Tone | Plain business language, benefit first. Technical terms only where a buyer would search for them, and explained. |
 
@@ -60,7 +61,7 @@ Sections, top to bottom (visuals marked ◆):
 6. **Your part, our part, what you get.** Three columns. *Your part*: the few things the client does, with a total time (typically 2–3 hours across the project). *Our part*: what we build and run. *What you get*: the concrete deliverables. ◆ Handoff illustration: two lanes on one timeline showing how little sits on the client's lane.
 7. **Savings estimate.** ◆ Calculator with 2–3 sliders specific to the service (e.g. WhatsApp chats a month, minutes spent on each, team cost per hour). Outputs: hours saved a month, money saved a month and a year, and how many full-time people that equals. ◆ An animated meter that fills to the result. Labelled clearly as an estimate, with the assumptions listed beneath.
 8. **Where businesses use this.** Six use cases by industry or team, ◆◆◆ three of them with tinted photos.
-9. **Works with the tools you already use.** Tool names as chips (no third-party logos). ◆ A small animated diagram of the tools connecting to the system.
+9. **Works with the tools you already use.** Each tool as a chip with its logo and name. ◆ A small animated diagram of the tool logos connecting to the system.
 10. **FAQ.** Five or six questions a buyer actually asks (cost of getting started is answered as "we scope it after a free audit"), as an accessible accordion.
 11. **Related services.** Three cards linking to sibling pages.
 12. **Final CTA.** The existing `FinalCta` section.
@@ -74,7 +75,7 @@ Each service defines its calculator as data:
 - `volume`: the slider for how much of the work there is (label, unit, min, max, step, default).
 - `minutesPerItem`: minutes a person spends on one item today (slider or fixed, with default).
 - `automatedShare`: share of that work the system takes over (fixed per service, e.g. 0.7), stated in the assumptions.
-- Team cost per hour, by market: India default ₹350/hour (range ₹150–1,500), US default $35/hour (range $15–120). A service can override these (finance and sales roles cost more).
+- Team cost per hour, by market: India default ₹450/hour (range ₹150–2,000), US default $35/hour (range $15–120). A service can override these (finance and sales roles cost more).
 
 Results: `hoursSaved = volume × minutesPerItem × automatedShare / 60`; `moneySaved = hoursSaved × hourlyCost`; yearly = ×12; full-time equivalents = hoursSaved / 173. The calculator keeps one value set per market, so switching ₹/$ swaps in that market's numbers rather than converting.
 
@@ -96,6 +97,8 @@ All rates are launch estimates, like the existing estimator's, and are marked in
 - `BeforeAfter`, `FlowPipeline`, `Handoff`, `SavingsMeter`, `ToolConnect`. Each takes its labels from the service's content file.
 
 **AI Horde renders.** Six new hero renders (services 4–9) at 1024×576 or larger, using the shared style prompt in `ASSETS.md`. If a render misses the brief it is regenerated; if one cannot be made, that service falls back to a drawn `ServiceArt`. Files go in `public/assets/` as WebP and are listed in `ASSETS.md`.
+
+**Tool logos.** From the `simple-icons` package (CC0), imported one icon at a time so only the logos used ship. A logo renders in its brand colour on a dark chip, or in white where the brand colour is too dark to read on black (n8n, Notion, OpenAI). Tools with no Simple Icons entry (e.g. Tally, Excel) get a text chip with a neutral icon. Used in the "Works with" section, the `ToolConnect` diagram, `FlowPipeline` nodes and the chat/call live panels where a tool is shown. Logos indicate compatibility only; `ASSETS.md` notes that the marks belong to their owners.
 
 **Unsplash photos.** About three per page, fetched through the Unsplash tool (which records the download as Unsplash requires), resized to at most 1600px wide, saved as WebP in `public/assets/services/`. They are shown in grayscale under a red-to-black overlay so they sit in the palette. Photographer credits are listed in `ASSETS.md`.
 
@@ -130,6 +133,7 @@ src/lib/currency.ts                      market defaults, formatting, store, boo
 src/components/currency/                 switch, <Money> (dual render)
 src/components/illustrations/            animated illustrations
 src/components/layout/services-menu.tsx  desktop panel + mobile accordion
+src/lib/tools.ts                         tool registry: name, Simple Icons logo, colour
 src/sections/service-page/               the page's sections
 ```
 
