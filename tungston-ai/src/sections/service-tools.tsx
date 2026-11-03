@@ -12,17 +12,23 @@ function ToolChip({ id }: { id: ToolId }) {
     <li
       // The logo is quiet until hovered, then takes the brand's own colour
       style={tool.icon ? ({ "--brand": tool.icon.hover } as CSSProperties) : undefined}
-      className={`group/tool flex items-center gap-2.5 rounded-full border border-white/[0.09] bg-white/[0.02] py-2 pr-4 text-[0.9375rem] text-bone/90 transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.04] ${
-        tool.icon ? "pl-3.5" : "pl-4"
-      }`}
+      className="group/tool rounded-full border border-white/[0.09] bg-white/[0.02] text-[0.9375rem] text-bone/90 transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.04]"
     >
-      {tool.icon && (
-        <ToolLogo
-          path={tool.icon.path}
-          className="size-5 shrink-0 text-ash transition-colors duration-300 group-hover/tool:text-[color:var(--brand)]"
-        />
-      )}
-      {tool.name}
+      <a
+        href={tool.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`flex items-center gap-2.5 rounded-full py-2 pr-4 ${tool.icon ? "pl-3.5" : "pl-4"}`}
+      >
+        {tool.icon && (
+          <ToolLogo
+            path={tool.icon.path}
+            className="size-5 shrink-0 text-ash transition-colors duration-300 group-hover/tool:text-[color:var(--brand)]"
+          />
+        )}
+        {tool.name}
+        <span className="sr-only"> (opens the official site in a new tab)</span>
+      </a>
     </li>
   );
 }

@@ -13,7 +13,7 @@ import { blurFor } from "@/lib/image-blur";
 function Line({ children, index }: { children: ReactNode; index: number }) {
   return (
     <span data-line className="block pb-[0.06em]" style={{ "--i": index } as CSSProperties}>
-      {children}
+      {children}{" "}
     </span>
   );
 }

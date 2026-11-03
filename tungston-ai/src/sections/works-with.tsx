@@ -26,15 +26,18 @@ export function WorksWith() {
                 <li
                   key={id}
                   style={tool.icon ? ({ "--brand": tool.icon.hover } as CSSProperties) : undefined}
-                  className="group/tool flex items-center gap-2.5 text-[0.9375rem] text-ash transition-colors duration-300 hover:text-bone"
+                  className="group/tool text-[0.9375rem] text-ash transition-colors duration-300 hover:text-bone"
                 >
-                  {tool.icon && (
-                    <ToolLogo
-                      path={tool.icon.path}
-                      className="size-6 shrink-0 transition-colors duration-300 group-hover/tool:text-[color:var(--brand)]"
-                    />
-                  )}
-                  {tool.name}
+                  <a href={tool.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5">
+                    {tool.icon && (
+                      <ToolLogo
+                        path={tool.icon.path}
+                        className="size-6 shrink-0 transition-colors duration-300 group-hover/tool:text-[color:var(--brand)]"
+                      />
+                    )}
+                    {tool.name}
+                    <span className="sr-only"> (opens the official site in a new tab)</span>
+                  </a>
                 </li>
               );
             })}
