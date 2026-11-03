@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { ToolLogo } from "@/components/ui/tool-logo";
 import { getTool, type ToolGroup, type ToolId } from "@/lib/tools";
 
 /**
@@ -16,15 +17,10 @@ function ToolChip({ id }: { id: ToolId }) {
       }`}
     >
       {tool.icon && (
-        <svg
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          focusable="false"
-          fill="currentColor"
+        <ToolLogo
+          path={tool.icon.path}
           className="size-5 shrink-0 text-ash transition-colors duration-300 group-hover/tool:text-[color:var(--brand)]"
-        >
-          <path d={tool.icon.path} />
-        </svg>
+        />
       )}
       {tool.name}
     </li>
