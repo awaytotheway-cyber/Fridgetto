@@ -105,7 +105,7 @@ export function Hero() {
 
         <div className="mt-8 grid items-end gap-8 sm:mt-10 lg:grid-cols-12">
           <p data-rise className="max-w-xl text-lede text-ash lg:col-span-6">
-            AI agents, voice agents, chatbots, automations and end-to-end content systems, engineered for your business
+            AI agents, AI voice agents, chatbots, workflow automation and end-to-end content systems, engineered for your business
             and shipped in weeks.
           </p>
           <div data-fade className="flex flex-wrap gap-3 lg:col-span-6 lg:justify-end" style={{ "--i": 0 } as CSSProperties}>

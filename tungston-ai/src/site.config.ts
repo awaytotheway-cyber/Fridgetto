@@ -14,7 +14,7 @@ export const siteConfig = {
   tagline: "We build AI that works while you sleep.",
   /** Meta description: keep it under about 150 characters so search results show all of it. */
   description:
-    "Protomation.ai builds AI agents, voice agents, chatbots and automations that save your team hours and win more leads, live in weeks, not quarters.",
+    "Protomation.ai builds AI agents, AI voice agents and workflow automation that save your team hours and win more leads, live in weeks, not quarters.",
   keywords: [
     "AI agency",
     "AI agents",

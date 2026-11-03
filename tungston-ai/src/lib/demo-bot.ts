@@ -54,7 +54,7 @@ const intents: { test: RegExp; reply: BotReply }[] = [
   {
     test: /\b(what|which).*(do|build|offer|make|automate|sell)\b|\b(services?|offer|capabilities|help)\b/i,
     reply: {
-      text: "We build seven kinds of systems: AI agents, voice agents, website chatbots like me, custom automations, advanced RAG agents, content pipelines, and full websites and apps. Most clients start with whichever one saves the most hours.",
+      text: "We build seven kinds of systems: AI agents, voice agents, website chatbots like me, workflow automation, advanced RAG agents, content pipelines, and full websites and apps. Most clients start with whichever one saves the most hours.",
     },
   },
   {

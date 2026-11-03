@@ -178,6 +178,25 @@ export default async function ServiceDetailPage({ params }: PageProps<"/services
         </div>
       </section>
 
+      {/* Where it is used, for the services whose searchers look for concrete examples */}
+      {detail.useCases && (
+        <section aria-labelledby="use-cases-title" className="py-16 sm:py-24">
+          <div className="shell">
+            <h2 id="use-cases-title" className="font-display text-display font-semibold text-bone">
+              {detail.useCasesTitle ?? "Where it's used"}
+            </h2>
+            <ul className="mt-12 grid gap-x-8 gap-y-10 border-t border-white/[0.08] pt-10 sm:grid-cols-2 lg:grid-cols-3">
+              {detail.useCases.map((useCase) => (
+                <li key={useCase.title}>
+                  <h3 className="font-display text-title font-semibold text-bone">{useCase.title}</h3>
+                  <p className="mt-3 text-ash">{useCase.body}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
       {/* Fit, stack and timeline */}
       <section aria-labelledby="fit-title" className="py-16 sm:py-24">
         <div className="shell">
