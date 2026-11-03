@@ -40,14 +40,29 @@ export function pageMetadata({ title, description, path }: PageSeo): Metadata {
   };
 }
 
-/** The Home › Page trail for an inner page, as schema.org JSON-LD. */
-export function breadcrumbJsonLd(name: string, path: string) {
+type Crumb = { name: string; path: string };
+
+/**
+ * A breadcrumb trail as schema.org JSON-LD. Home is added for you, so pass only the
+ * steps below it: one for an inner page, two for a service page.
+ */
+export function breadcrumbTrailJsonLd(trail: Crumb[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
-      { "@type": "ListItem", position: 2, name, item: `${siteConfig.url}${path}` },
+      ...trail.map((crumb, i) => ({
+        "@type": "ListItem",
+        position: i + 2,
+        name: crumb.name,
+        item: `${siteConfig.url}${crumb.path}`,
+      })),
     ],
   };
+}
+
+/** The Home › Page trail for an inner page, as schema.org JSON-LD. */
+export function breadcrumbJsonLd(name: string, path: string) {
+  return breadcrumbTrailJsonLd([{ name, path }]);
 }
