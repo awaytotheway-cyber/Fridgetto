@@ -9,6 +9,7 @@ import { services } from "@/lib/content";
 import { serviceDetails } from "@/lib/service-details";
 import { blurFor } from "@/lib/image-blur";
 import { ServiceArt } from "@/sections/service-art";
+import { ServiceTools } from "@/sections/service-tools";
 import { Process } from "@/sections/process";
 import { FinalCta } from "@/sections/final-cta";
 import { siteConfig } from "@/site.config";
@@ -197,13 +198,15 @@ export default async function ServiceDetailPage({ params }: PageProps<"/services
         </section>
       )}
 
-      {/* Fit, stack and timeline */}
+      <ServiceTools groups={detail.toolGroups} needs={detail.needs} />
+
+      {/* Fit and timeline */}
       <section aria-labelledby="fit-title" className="py-16 sm:py-24">
         <div className="shell">
           <h2 id="fit-title" className="sr-only">
             Is this right for you?
           </h2>
-          <div className="grid gap-10 border-t border-white/[0.08] pt-10 md:grid-cols-3 md:gap-8">
+          <div className="grid gap-10 border-t border-white/[0.08] pt-10 md:grid-cols-2 md:gap-8">
             <div>
               <h3 className="font-display text-title font-semibold text-bone">Best for</h3>
               <ul className="mt-5 space-y-3 text-ash">
@@ -214,19 +217,6 @@ export default async function ServiceDetailPage({ params }: PageProps<"/services
                       className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-filament"
                     />
                     {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-display text-title font-semibold text-bone">Usually built on</h3>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {detail.stack.map((tool) => (
-                  <li
-                    key={tool}
-                    className="rounded-full border border-white/[0.09] px-3 py-1.5 text-sm text-ash"
-                  >
-                    {tool}
                   </li>
                 ))}
               </ul>

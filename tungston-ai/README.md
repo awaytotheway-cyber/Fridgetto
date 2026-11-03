@@ -44,7 +44,9 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Colors, type scale, radii, glows | The `@theme` block in `src/app/globals.css`. The canvas effects read `--color-ember`, `--color-filament-deep`, `--color-filament` and `--color-volt` at runtime, so they follow automatically. |
 | Fonts | `src/app/layout.tsx` (`next/font/local`) and `scripts/fetch-fonts.mjs`. The OG image reads the static Clash Display TTFs from the same folder. See [Fonts](#fonts). |
 | All page copy: services, stats, process, case studies, pricing, manifesto | `src/lib/content.ts` |
-| The long copy on each service page (problem, what you get, FAQs, stack, timeline) | `src/lib/service-details.ts`, keyed by the same slug as `services` |
+| The long copy on each service page (problem, what you get, FAQs, timeline) | `src/lib/service-details.ts`, keyed by the same slug as `services` |
+| Which tools a service page shows, how they are grouped, and the "What we need from you" list | `toolGroups` and `needs` in `src/lib/service-details.ts` |
+| The tools themselves: names, and which have a logo | `src/lib/tools.json`. After adding a tool with an `icon`, run `node scripts/make-tool-icons.mjs` to regenerate `src/lib/tool-icons.ts`. A tool with no `icon` shows its name only. |
 | Demo chatbot answers | `src/lib/demo-bot.ts` (keyword intents, first match wins) |
 | Savings estimator: what each service saves, slider defaults | `src/lib/estimator.ts` (`serviceModels`, `defaultInputs`) |
 | Team members: names, roles, bios, portraits | `team` in `src/lib/content.ts`. Portraits are in `public/assets/` (see [ASSETS.md](./ASSETS.md#team-portraits)). |
