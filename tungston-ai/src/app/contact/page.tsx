@@ -3,6 +3,7 @@ import { JsonLd } from "@/components/json-ld";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import { PageHero } from "@/sections/page-hero";
 import { ContactForm } from "@/components/contact-form";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { processSteps } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
@@ -41,6 +42,24 @@ export default function ContactPage() {
                   </a>
                 </dd>
               </div>
+              {siteConfig.contact.whatsapp && (
+                <div>
+                  <dt className="text-sm text-smoke">WhatsApp</dt>
+                  <dd className="mt-1">
+                    {/* wa.me wants the number as digits only: country code first, no + or spaces */}
+                    <a
+                      href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2.5 text-bone hover:text-volt"
+                    >
+                      <WhatsAppIcon className="size-5 shrink-0 text-[#25D366]" />
+                      {siteConfig.contact.whatsapp}
+                      <span className="sr-only"> (opens WhatsApp in a new tab)</span>
+                    </a>
+                  </dd>
+                </div>
+              )}
               {siteConfig.contact.phone && (
                 <div>
                   <dt className="text-sm text-smoke">Phone</dt>
