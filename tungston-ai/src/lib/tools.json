@@ -1,0 +1,55 @@
+{
+  "claude": { "name": "Claude", "icon": "claude" },
+  "openai": { "name": "OpenAI", "icon": "openai" },
+  "elevenlabs": { "name": "ElevenLabs", "icon": "elevenlabs" },
+  "heygen": { "name": "HeyGen" },
+  "vapi": { "name": "Vapi" },
+  "retell": { "name": "Retell AI" },
+
+  "n8n": { "name": "n8n", "icon": "n8n" },
+  "make": { "name": "Make", "icon": "make" },
+  "zapier": { "name": "Zapier", "icon": "zapier" },
+
+  "hubspot": { "name": "HubSpot", "icon": "hubspot" },
+  "salesforce": { "name": "Salesforce", "icon": "salesforce" },
+  "zoho": { "name": "Zoho", "icon": "zoho" },
+  "pipedrive": { "name": "Pipedrive" },
+  "zendesk": { "name": "Zendesk", "icon": "zendesk" },
+  "intercom": { "name": "Intercom", "icon": "intercom" },
+
+  "gmail": { "name": "Gmail", "icon": "gmail" },
+  "googleSheets": { "name": "Google Sheets", "icon": "googlesheets" },
+  "googleCalendar": { "name": "Google Calendar", "icon": "googlecalendar" },
+  "googleDrive": { "name": "Google Drive", "icon": "googledrive" },
+  "googleAds": { "name": "Google Ads", "icon": "googleads" },
+  "googleAnalytics": { "name": "Google Analytics", "icon": "googleanalytics" },
+  "microsoft365": { "name": "Microsoft 365" },
+  "calendly": { "name": "Calendly", "icon": "calendly" },
+
+  "whatsapp": { "name": "WhatsApp", "icon": "whatsapp" },
+  "slack": { "name": "Slack", "icon": "slack" },
+  "twilio": { "name": "Twilio", "icon": "twilio" },
+
+  "meta": { "name": "Meta", "icon": "meta" },
+  "linkedin": { "name": "LinkedIn", "icon": "linkedin" },
+  "wordpress": { "name": "WordPress", "icon": "wordpress" },
+  "mailchimp": { "name": "Mailchimp", "icon": "mailchimp" },
+  "canva": { "name": "Canva", "icon": "canva" },
+  "figma": { "name": "Figma", "icon": "figma" },
+
+  "supabase": { "name": "Supabase", "icon": "supabase" },
+  "postgresql": { "name": "PostgreSQL", "icon": "postgresql" },
+  "airtable": { "name": "Airtable", "icon": "airtable" },
+  "notion": { "name": "Notion", "icon": "notion" },
+
+  "stripe": { "name": "Stripe", "icon": "stripe" },
+  "quickbooks": { "name": "QuickBooks", "icon": "quickbooks" },
+  "xero": { "name": "Xero", "icon": "xero" },
+
+  "nextjs": { "name": "Next.js" },
+  "react": { "name": "React", "icon": "react" },
+  "typescript": { "name": "TypeScript", "icon": "typescript" },
+  "tailwind": { "name": "Tailwind CSS", "icon": "tailwindcss" },
+  "vercel": { "name": "Vercel", "icon": "vercel" },
+  "github": { "name": "GitHub", "icon": "github" }
+}

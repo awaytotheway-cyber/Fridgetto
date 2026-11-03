@@ -5,6 +5,8 @@
  * src/app/services/[slug]/page.tsx fails the build if one is missing.
  */
 
+import type { ToolGroup } from "./tools";
+
 export type ServiceFaq = { question: string; answer: string };
 
 export type ServiceDetail = {
@@ -23,8 +25,10 @@ export type ServiceDetail = {
   useCasesTitle?: string;
   /** Who this suits, so the wrong visitor can rule it out quickly. */
   bestFor: string[];
-  /** Tools and platforms this is usually built on. */
-  stack: string[];
+  /** The tools this is built with, grouped. Ids come from tools.json; a typo is a type error. */
+  toolGroups: ToolGroup[];
+  /** What the customer needs to have or provide: access, accounts, material. */
+  needs: string[];
   /** Typical time from the audit to something running. */
   timeline: string;
   faqs: ServiceFaq[];
@@ -63,7 +67,17 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Sales or support work that stalls because a person has to move data between tools",
       "Anyone who has tried a no-code automation and hit the point where it needs judgment",
     ],
-    stack: ["Claude and GPT", "Your CRM's API", "n8n or custom TypeScript", "Postgres or Supabase", "Slack or email for hand-offs"],
+    toolGroups: [
+      { label: "AI models", tools: ["claude", "openai"] },
+      { label: "Where your work lives", tools: ["zoho", "hubspot", "salesforce", "pipedrive", "gmail", "microsoft365", "slack"] },
+      { label: "How we wire it", tools: ["n8n", "make", "supabase"] },
+    ],
+    needs: [
+      "Admin or API access to the CRM, inbox or helpdesk the agent will work in",
+      "One person who knows how the task is done today, for about an hour",
+      "A few examples of the task done well, and a few where it went wrong",
+      "A named owner for the cases the agent hands back",
+    ],
     timeline: "First agent live in two to four weeks from the audit.",
     faqs: [
       {
@@ -140,7 +154,18 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Teams whose phone volume spikes at predictable times and goes unanswered",
       "Anyone paying for an answering service that only takes messages",
     ],
-    stack: ["Realtime speech models", "Twilio or your existing number", "Your booking or practice software", "Call recording and transcript storage"],
+    toolGroups: [
+      { label: "Voice and telephony", tools: ["twilio", "elevenlabs", "openai", "vapi", "retell"] },
+      { label: "Booking and records", tools: ["googleCalendar", "calendly", "hubspot", "zoho", "salesforce"] },
+      { label: "How we wire it", tools: ["n8n", "supabase", "slack"] },
+    ],
+    needs: [
+      "A phone number to answer: your existing line, or a new one for testing",
+      "Access to the calendar or booking system the calls will write into",
+      "Your call script, FAQs and opening hours, or a few recordings of real calls",
+      "A person or number to transfer to when a caller needs a human",
+      "A decision on call recording and consent that fits where you operate",
+    ],
     timeline: "Answering live calls in two to four weeks, after a test period on a parallel number.",
     faqs: [
       {
@@ -193,7 +218,19 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Teams whose enquiry volume is highest outside working hours",
       "Businesses whose contact form is the only way to ask anything",
     ],
-    stack: ["Claude or GPT", "Retrieval over your own content", "Your calendar and CRM", "A widget that drops into any site"],
+    toolGroups: [
+      { label: "AI models", tools: ["claude", "openai"] },
+      { label: "Channels", tools: ["whatsapp", "meta"] },
+      { label: "Behind the chat", tools: ["zoho", "hubspot", "salesforce", "zendesk", "intercom", "googleCalendar", "calendly"] },
+      { label: "Knowledge and storage", tools: ["supabase", "notion", "googleDrive"] },
+    ],
+    needs: [
+      "Admin access to your website, so we can install the chat widget",
+      "Your docs, FAQs, pricing and policies, in whatever format they exist today",
+      "API or admin access to the CRM and calendar the chat should write to",
+      "For WhatsApp: a WhatsApp Business Platform account through Meta, and a number to register on it",
+      "Someone on your team to receive the hand-offs",
+    ],
     timeline: "Live on your site in one to three weeks.",
     faqs: [
       {
@@ -269,7 +306,18 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Teams holding two systems together with a spreadsheet",
       "Anyone whose month-end involves rebuilding the same report",
     ],
-    stack: ["n8n, Make or Zapier", "Custom TypeScript or Python", "Your CRM, accounting and storage APIs", "Alerting to Slack or email"],
+    toolGroups: [
+      { label: "Automation platforms", tools: ["n8n", "make", "zapier"] },
+      { label: "Sales and CRM", tools: ["zoho", "hubspot", "salesforce", "pipedrive"] },
+      { label: "Mail, docs and chat", tools: ["gmail", "googleSheets", "microsoft365", "slack", "airtable", "notion"] },
+      { label: "Money", tools: ["stripe", "quickbooks", "xero"] },
+    ],
+    needs: [
+      "API or admin access to each tool in the workflow; we tell you exactly which permissions",
+      "A walkthrough of the process as it runs today, including the exceptions nobody wrote down",
+      "Sample data to test with, ideally from a real week",
+      "Someone who can approve changes where the workflow touches money or customers",
+    ],
     timeline: "Most single workflows run live within one to three weeks.",
     faqs: [
       {
@@ -332,7 +380,17 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Regulated work where an answer has to be traceable to a source",
       "Anyone whose first retrieval attempt returned confident nonsense",
     ],
-    stack: ["Claude and GPT", "Vector search over Postgres or a dedicated store", "Your document and ticket systems", "Evaluation harness and guardrails"],
+    toolGroups: [
+      { label: "AI models", tools: ["claude", "openai"] },
+      { label: "Knowledge and search", tools: ["supabase", "postgresql", "notion", "googleDrive"] },
+      { label: "Systems it acts in", tools: ["slack", "salesforce", "hubspot", "zendesk"] },
+    ],
+    needs: [
+      "The documents and systems the agent will draw on, and read access to them",
+      "A list of real questions your team asks, with the answers you trust, to build the evaluation set from",
+      "A clear line on what is confidential, so it stays out of anything it should not touch",
+      "A decision on where your data may be stored and processed",
+    ],
     timeline: "Four to eight weeks, depending on how much material has to be indexed.",
     faqs: [
       {
@@ -385,7 +443,18 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Founders who are the only person who can write in the company's voice",
       "Anyone paying for content that reads like everyone else's",
     ],
-    stack: ["Claude and GPT", "Your CMS and scheduler", "Keyword and SERP data", "An approval queue in Slack or email"],
+    toolGroups: [
+      { label: "Create", tools: ["claude", "openai", "heygen", "elevenlabs", "canva"] },
+      { label: "Publish and promote", tools: ["meta", "googleAds", "linkedin", "wordpress", "mailchimp"] },
+      { label: "Run it", tools: ["n8n", "supabase", "googleSheets"] },
+    ],
+    needs: [
+      "Examples of content you have published and are proud of, to learn your voice from",
+      "Access to the accounts we publish to: your CMS, social pages and email platform",
+      "Brand guidelines, or the decisions that stand in for them",
+      "A reviewer who approves what goes out",
+      "If you want video: someone willing to be the face or voice, with their consent in writing",
+    ],
     timeline: "Producing its first month of drafts within two to three weeks.",
     faqs: [
       {
@@ -438,7 +507,17 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Campaigns that need a landing page that actually converts",
       "Teams who want chat and automation built in rather than bolted on",
     ],
-    stack: ["Next.js and React", "Tailwind CSS", "Supabase or your CMS", "Vercel hosting", "Analytics and structured data"],
+    toolGroups: [
+      { label: "Build", tools: ["nextjs", "react", "typescript", "tailwind"] },
+      { label: "Host and data", tools: ["vercel", "supabase", "github"] },
+      { label: "Design and growth", tools: ["figma", "stripe", "googleAnalytics"] },
+    ],
+    needs: [
+      "Access to your domain and DNS; we tell you the exact records to set",
+      "Brand assets: logo, colours, fonts and photos",
+      "The copy, or time with us to draft it",
+      "Access to the analytics, CRM or payment accounts the site connects to",
+    ],
     timeline: "Landing pages in one to two weeks; full marketing sites in three to six.",
     faqs: [
       {
