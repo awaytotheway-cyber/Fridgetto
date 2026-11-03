@@ -46,7 +46,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | All page copy: services, stats, process, case studies, pricing, manifesto | `src/lib/content.ts` |
 | The long copy on each service page (problem, what you get, FAQs, timeline) | `src/lib/service-details.ts`, keyed by the same slug as `services` |
 | Which tools a service page shows, how they are grouped, and the "What we need from you" list | `toolGroups` and `needs` in `src/lib/service-details.ts` |
-| The tools themselves: names, and which have a logo | `src/lib/tools.json`. After adding a tool with an `icon`, run `node scripts/make-tool-icons.mjs` to regenerate `src/lib/tool-icons.ts`. A tool with no `icon` shows its name only. |
+| The tools themselves: names, and which have a logo | `src/lib/tools.json`. After adding a tool with an `icon`, run `node scripts/make-tool-icons.mjs` to regenerate `src/lib/tool-icons.ts`. A tool with no `icon` shows its name only. Every tool needs a `url` (its official site): tool names link out to it. |
 | Demo chatbot answers | `src/lib/demo-bot.ts` (keyword intents, first match wins) |
 | Savings estimator: what each service saves, slider defaults | `src/lib/estimator.ts` (`serviceModels`, `defaultInputs`) |
 | Team members: names, roles, bios, portraits | `team` in `src/lib/content.ts`. Portraits are in `public/assets/` (see [ASSETS.md](./ASSETS.md#team-portraits)). |

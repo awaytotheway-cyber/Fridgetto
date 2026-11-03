@@ -98,7 +98,9 @@ function ServiceCard({ service, eager }: { service: Service; eager?: boolean }) 
           href={`/services/${service.slug}`}
           aria-labelledby={`${service.slug}-title`}
           className="absolute inset-0 z-10 rounded-card"
-        />
+        >
+          <span className="sr-only">{service.title}</span>
+        </Link>
       </article>
     </TiltCard>
   );
