@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { TiltCard } from "@/components/fx/tilt-card";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { services, type Service } from "@/lib/content";
@@ -65,7 +66,8 @@ function ServiceCard({ service, eager }: { service: Service; eager?: boolean }) 
 
         <div className={`relative mt-6 ${flagship ? "lg:mt-8" : ""}`}>
           <h3
-            className={`font-display font-semibold text-bone ${flagship ? "text-[clamp(2rem,1.4rem+2vw,3.25rem)] leading-[0.95] tracking-[-0.015em]" : "text-title"}`}
+            id={`${service.slug}-title`}
+            className={`font-display font-semibold text-bone transition-colors duration-300 group-hover/card:text-signal ${flagship ? "text-[clamp(2rem,1.4rem+2vw,3.25rem)] leading-[0.95] tracking-[-0.015em]" : "text-title"}`}
           >
             {service.title}
           </h3>
@@ -78,7 +80,20 @@ function ServiceCard({ service, eager }: { service: Service; eager?: boolean }) 
               </li>
             ))}
           </ul>
+          <p className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-signal">
+            Explore {service.title}
+            <span aria-hidden="true" className="transition-transform duration-300 group-hover/card:translate-x-1">
+              →
+            </span>
+          </p>
         </div>
+
+        {/* Covers the card so all of it is clickable; the heading gives the link its name */}
+        <Link
+          href={`/services/${service.slug}`}
+          aria-labelledby={`${service.slug}-title`}
+          className="absolute inset-0 z-10 rounded-card"
+        />
       </article>
     </TiltCard>
   );
