@@ -17,6 +17,10 @@ export type ServiceDetail = {
   problem: string[];
   /** What is actually delivered. */
   included: { title: string; body: string }[];
+  /** Concrete situations where it is used, shown as its own section when present. */
+  useCases?: { title: string; body: string }[];
+  /** Heading for `useCases`. Defaults to "Where it's used". */
+  useCasesTitle?: string;
   /** Who this suits, so the wrong visitor can rule it out quickly. */
   bestFor: string[];
   /** Tools and platforms this is usually built on. */
@@ -28,10 +32,10 @@ export type ServiceDetail = {
 
 export const serviceDetails: Record<string, ServiceDetail> = {
   "ai-agents": {
-    metaTitle: "AI Agents for Business",
+    metaTitle: "AI Agent Automation & Development Services",
     metaDescription:
-      "Autonomous AI agents that qualify leads, triage tickets and keep your CRM current, working inside the tools your team already uses. Live in weeks.",
-    headline: "Agents that take a task from inbox to done.",
+      "AI agent automation for business: agents that qualify leads, triage tickets and keep your CRM current inside the tools you already use. Live in weeks.",
+    headline: "AI agent automation that takes a task from inbox to done.",
     problem: [
       "Most teams lose their day to work that follows rules: reading an enquiry, deciding who it belongs to, copying it into the CRM, chasing the reply. None of it needs judgment, and all of it needs a person.",
       "An agent takes the whole task, not one step of it. It reads what arrived, decides what happens next, does it in the tools you already pay for, and stops to ask when something genuinely needs a human.",
@@ -73,6 +77,11 @@ export const serviceDetails: Record<string, ServiceDetail> = {
           "No. Agents work through the APIs of the tools you already use. If a tool has no API we will say so during the audit rather than after you have paid for a build.",
       },
       {
+        question: "What is the difference between an AI agent and automation?",
+        answer:
+          "Automation follows steps you wrote in advance and stops when something unexpected arrives. An AI agent is given a goal, reads the situation, chooses the next step and uses your tools to take it. Most useful systems combine the two: automation for the predictable parts, an agent for the parts that need judgment.",
+      },
+      {
         question: "Who owns what you build?",
         answer:
           "You do. The code, the prompts and the workflow document are yours, and they are handed over at the end whether or not we keep working together.",
@@ -81,10 +90,10 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   "voice-agents": {
-    metaTitle: "AI Voice Agents That Answer Every Call",
+    metaTitle: "AI Voice Agents for Business",
     metaDescription:
-      "Phone agents that answer, qualify and book around the clock, in natural conversation and 30+ languages. Every call transcribed, summarised and logged.",
-    headline: "A phone line that never rings out.",
+      "AI voice agents that answer, qualify and book calls around the clock, in natural conversation and 30+ languages. Every call transcribed and logged.",
+    headline: "AI voice agents that never let a call ring out.",
     problem: [
       "A missed call is rarely a message. It is usually someone who rings the next business on the list, and you never learn it happened.",
       "A voice agent picks up on the first ring, at 3 a.m. and during the lunchtime rush alike. It holds a real conversation, books into your calendar and leaves you a written summary of every call.",
@@ -105,6 +114,25 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         title: "A transcript and summary of every call",
         body: "Each call arrives as a recording, a transcript and a short summary with what was agreed, so nothing depends on somebody remembering.",
+      },
+    ],
+    useCasesTitle: "Where AI voice agents earn their keep",
+    useCases: [
+      {
+        title: "Clinics and practices",
+        body: "Booking, rescheduling and confirming appointments straight into the practice system, so the front desk is not the bottleneck at 9 a.m.",
+      },
+      {
+        title: "Trades and home services",
+        body: "Answering while the team is on a job, sorting emergencies from quotes, and sending the urgent ones to a person immediately.",
+      },
+      {
+        title: "Professional services",
+        body: "Taking intake calls: who is calling, what they need and whether they are a fit, written up before anyone calls back.",
+      },
+      {
+        title: "Sales teams",
+        body: "Calling new web enquiries within a minute, while the interest is still warm, and booking the meeting on the call.",
       },
     ],
     bestFor: [
@@ -186,14 +214,14 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
   },
 
-  "custom-automations": {
-    metaTitle: "Custom Business Process Automation",
+  "workflow-automation": {
+    metaTitle: "Workflow Automation Services & Consulting",
     metaDescription:
-      "Busywork wired together and running on its own: CRM, inbox, invoicing and operations workflows, monitored, with an alert the minute something breaks.",
-    headline: "Nobody should be paid to copy and paste.",
+      "Workflow automation services and consulting: we map the work, then connect your CRM, inbox and invoicing so it runs itself. Monitored and documented.",
+    headline: "Workflow automation services that end the copy-and-paste.",
     problem: [
-      "Every business runs on a few invisible jobs that exist only because two systems do not talk: the spreadsheet that gets retyped into the invoicing tool, the enquiry forwarded to three inboxes, the report somebody rebuilds every Monday.",
-      "Each one is small. Together they are a salary. Automations take them off your team entirely and tell you when something needs attention.",
+      "Every business runs on a few invisible jobs that exist only because two systems do not talk: the spreadsheet retyped into the invoicing tool, the enquiry forwarded to three inboxes, the report somebody rebuilds every Monday.",
+      "Each one is small. Together they are a salary. Workflow automation takes them off your team entirely, and tells you when something needs attention.",
     ],
     included: [
       {
@@ -206,11 +234,34 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         title: "Error handling that reaches a person",
-        body: "Automations fail — an API changes, a file arrives malformed. Yours retries, then tells somebody, instead of failing silently for a fortnight.",
+        body: "Automations fail: an API changes, a file arrives malformed. Yours retries, then tells somebody, instead of failing silently for a fortnight.",
       },
       {
         title: "Documentation your team can follow",
         body: "A plain-language description of what runs, when and what to do when it stops. Not a diagram nobody opens.",
+      },
+    ],
+    useCasesTitle: "Workflow automation by team",
+    useCases: [
+      {
+        title: "Sales and CRM",
+        body: "New leads are enriched, scored, assigned and logged the moment they arrive, and follow-ups go out without anyone remembering to send them.",
+      },
+      {
+        title: "Finance and invoicing",
+        body: "Orders become invoices, payments are matched to them and the month-end report assembles itself from the same data.",
+      },
+      {
+        title: "HR and onboarding",
+        body: "A signed offer starts the accounts, the equipment request, the welcome email and the checklist, each with an owner.",
+      },
+      {
+        title: "Customer support",
+        body: "Tickets are sorted, routed and answered where the answer is routine, with the rest passed on carrying the full history.",
+      },
+      {
+        title: "Operations and reporting",
+        body: "Data moves between your systems on a schedule, and the weekly numbers arrive in the inbox instead of being rebuilt by hand.",
       },
     ],
     bestFor: [
@@ -222,9 +273,19 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     timeline: "Most single workflows run live within one to three weeks.",
     faqs: [
       {
+        question: "What is workflow automation?",
+        answer:
+          "Workflow automation is software that carries out the repeatable steps of a business process on its own: moving information between your tools, applying the rules you would apply and flagging the cases that need a person. It replaces copy-and-paste and manual hand-offs, not the judgment behind them.",
+      },
+      {
+        question: "How much do workflow automation services cost?",
+        answer:
+          "It depends on how many systems a workflow touches and how many exceptions it has, so we scope it before quoting. The audit is free, and it ends with a written plan and a fixed price rather than an hourly estimate.",
+      },
+      {
         question: "What if one of our tools has no integration?",
         answer:
-          "Most have an API even without an off-the-shelf connector, and we build against it. Where there is genuinely no way in, we say so during the audit — that is a reason to hear it before you pay for a build.",
+          "Most have an API even without an off-the-shelf connector, and we build against it. Where there is genuinely no way in, we say so during the audit: that is a reason to hear it before you pay for a build.",
       },
       {
         question: "Who fixes it when it breaks?",

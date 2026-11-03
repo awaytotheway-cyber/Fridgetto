@@ -35,7 +35,7 @@ export const serviceModels: ServiceModel[] = [
   { slug: "ai-agents", hours: 0.35, leads: 0.1, how: "Qualifies leads, updates the CRM and triages tickets for your team." },
   { slug: "voice-agents", hours: 0.12, leads: 0.18, how: "Answers every call, books the appointment and logs a summary." },
   { slug: "website-chatbots", hours: 0.15, leads: 0.2, how: "Handles repeat questions and captures leads on your site, 24/7." },
-  { slug: "custom-automations", hours: 0.4, leads: 0.05, how: "Moves data between your tools so nobody copies and pastes." },
+  { slug: "workflow-automation", hours: 0.4, leads: 0.05, how: "Moves data between your tools so nobody copies and pastes." },
   { slug: "advanced-agents", hours: 0.25, leads: 0.04, how: "Finds answers in your docs and drafts the first version." },
   { slug: "content-automation", hours: 0.1, leads: 0.15, how: "Turns one idea into a month of on-brand posts and emails." },
   { slug: "web-and-app", hours: 0.05, leads: 0.15, how: "A faster site that turns more visitors into enquiries." },

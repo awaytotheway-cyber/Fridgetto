@@ -23,7 +23,7 @@ const SERVICE_OPTIONS = [
   { group: "AI Automation", value: "finance-reconciliation", label: "Finance & Reconciliation" },
   { group: "AI Automation", value: "lead-to-speed-agent", label: "Lead to Speed Agent" },
   // — Custom Solutions —
-  { group: "Custom Solutions", value: "custom-automations", label: "Custom Automations" },
+  { group: "Custom Solutions", value: "custom-automations", label: "Workflow Automation" },
   { group: "Custom Solutions", value: "content-automation", label: "Content Automation" },
   // — Web Development —
   { group: "Web Development", value: "websites-landing-pages", label: "Websites & Landing Pages" },

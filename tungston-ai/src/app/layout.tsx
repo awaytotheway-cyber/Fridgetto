@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   // Titles stay under Google's ~580px and leave the domain out (search results show it anyway)
   title: {
-    default: `AI Agents, Chatbots & Automation in Weeks | ${siteConfig.shortName}`,
+    default: `AI Agents, Voice AI & Workflow Automation | ${siteConfig.shortName}`,
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
@@ -69,6 +69,16 @@ const organizationJsonLd = {
   email: siteConfig.contact.email,
   telephone: siteConfig.contact.phone ?? undefined,
   areaServed: "Worldwide",
+  // What we are an authority on, in the words people search for it
+  knowsAbout: [
+    "AI agents",
+    "AI voice agents",
+    "Workflow automation",
+    "Business process automation",
+    "Website chatbots",
+    "Retrieval-augmented generation",
+    "Large language model integration",
+  ],
   sameAs: siteConfig.socials.map((s) => s.href),
   hasOfferCatalog: {
     "@type": "OfferCatalog",

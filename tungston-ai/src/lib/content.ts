@@ -70,8 +70,8 @@ export const services: Service[] = [
     size: "single",
   },
   {
-    slug: "custom-automations",
-    title: "Custom Automations",
+    slug: "workflow-automation",
+    title: "Workflow Automation",
     hook: "Busywork, wired together and running on its own.",
     points: [
       "CRM, inbox, invoicing and operations workflows",
@@ -171,7 +171,7 @@ export const marqueeItems = [
   "AI Agents",
   "Voice AI",
   "Chatbots",
-  "Custom Automations",
+  "Workflow Automation",
   "Websites & Landing Pages",
   "Content Systems",
 ];
@@ -208,7 +208,7 @@ export const caseStudies = [
       "A voice agent that answers instantly, checks live availability and books straight into their practice software.",
     metric: "+38%",
     metricLabel: "booked appointments in 60 days",
-    services: ["Voice Agents", "Custom Automations"],
+    services: ["Voice Agents", "Workflow Automation"],
   },
   {
     client: "Direct-to-consumer skincare brand",
@@ -228,7 +228,7 @@ export const caseStudies = [
       "An agent that reads incoming load emails, drafts the quote from live lane rates and updates the CRM on its own.",
     metric: "14 hrs",
     metricLabel: "saved per broker, every week",
-    services: ["Advanced AI Agents", "Custom Automations"],
+    services: ["Advanced AI Agents", "Workflow Automation"],
   },
 ];
 

@@ -13,8 +13,13 @@ const nextConfig: NextConfig = {
   // AVIF where the browser supports it (smaller), WebP otherwise
   images: { formats: ["image/avif", "image/webp"] },
   async redirects() {
-    if (bareHost === site.hostname) return [];
+    // The service was renamed from Custom Automations; keep any link to the old page alive
+    const renamed = [
+      { source: "/services/custom-automations", destination: "/services/workflow-automation", permanent: true },
+    ];
+    if (bareHost === site.hostname) return renamed;
     return [
+      ...renamed,
       {
         source: "/:path*",
         has: [{ type: "host", value: bareHost }],

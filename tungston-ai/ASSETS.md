@@ -9,7 +9,7 @@ The rendered art lives in `public/assets/` as WebP. Each piece has a code-drawn 
 | AI Agents | `service-ai-agents.webp` | 1264×1264 | Canva AI | `image` on the service in `src/lib/content.ts` | SVG from `src/sections/service-art.tsx` |
 | Voice Agents | `service-voice-agents.webp` | 1680×944 | Canva AI | same | same |
 | Website Chatbots | `service-website-chatbots.webp` | 1680×944 | Canva AI | same | same |
-| Custom Automations | `service-custom-automations.webp` | 1680×944 | Canva AI | same | same |
+| Workflow Automation | `service-custom-automations.webp` | 1680×944 | Canva AI | same | same |
 | Advanced AI Agents | `service-advanced-agents.webp` | 1376×768 | Figma AI (Gemini) | same | same |
 | Content Automation | `service-content-automation.webp` | 1376×768 | Figma AI (Gemini) | same | same |
 | Websites & Apps | `service-web-and-app.webp` | 1376×768 | Figma AI (Gemini) | same | same |
@@ -68,7 +68,7 @@ Keep 85–90% of each frame pure black. Yellow appears once per image, at the ho
 | `ai-agents` | a glowing liquid-chrome orb surrounded by glass task nodes in orbit, connected by thin red light trails, the orb's core yellow |
 | `voice-agents` | a sculpted sound wave of liquid-chrome bars rising from black glass, the tallest bar glowing yellow |
 | `website-chatbots` | three frosted-glass speech bubbles stacked in depth, the front one lit red from inside, a tiny yellow dot on its corner |
-| `custom-automations` | interlocking chrome pipes and valves with red light flowing through glass sections, ending in one yellow output node |
+| `workflow-automation` | interlocking chrome pipes and valves with red light flowing through glass sections, ending in one yellow output node |
 | `advanced-agents` | a stack of thin translucent glass slabs like an index of documents, a red beam lifting one slab up, its edge glowing yellow |
 | `content-automation` | a grid of floating dark glass tiles assembling into a mosaic, edged in red, exactly one tile edged in yellow |
 | `web-and-app` | a glass browser window and a glass phone floating in depth, wireframe UI drawn in thin red light, one yellow dot on the browser |
