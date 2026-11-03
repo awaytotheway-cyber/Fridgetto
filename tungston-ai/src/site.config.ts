@@ -30,6 +30,12 @@ export const siteConfig = {
     email: "protomation.services@gmail.com",
     /** Shown next to the email wherever contact details appear. Leave null to show email only. */
     phone: null as string | null,
+    /**
+     * WhatsApp number, shown on the contact page with the WhatsApp logo and linked to a
+     * chat. Write it as you want it displayed; the chat link uses only its digits.
+     * Leave null to hide it.
+     */
+    whatsapp: "+91 7499907619" as string | null,
     location: "Remote-first, working worldwide",
     /** Where "Book a Free AI Audit" points. Swap for a Cal.com / Calendly link when ready. */
     bookingUrl: "/contact",
