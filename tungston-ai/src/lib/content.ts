@@ -3,6 +3,8 @@
  * Case studies, stats and prices are launch placeholders: replace them with real numbers.
  */
 
+import type { ToolId } from "./tools";
+
 export type ServiceArt =
   | "agents"
   | "voice"
@@ -166,6 +168,29 @@ export const whyNow = {
   ],
   close: "None of this is futuristic, and none of it needs a department. It needs one system, built around the moment you are currently losing.",
 };
+
+/**
+ * The home page's "Works with" strip. Keep to tools that have a logo (see tools.json): the
+ * strip is logos, and a name-only entry would look like a gap.
+ */
+export const worksWith: ToolId[] = [
+  "claude",
+  "openai",
+  "n8n",
+  "make",
+  "zapier",
+  "zoho",
+  "hubspot",
+  "salesforce",
+  "gmail",
+  "slack",
+  "whatsapp",
+  "meta",
+  "googleAds",
+  "supabase",
+  "stripe",
+  "twilio",
+];
 
 export const marqueeItems = [
   "AI Agents",

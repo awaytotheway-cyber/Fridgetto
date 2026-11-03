@@ -3,6 +3,7 @@ import { Hero } from "@/sections/hero";
 import { Marquee } from "@/sections/marquee";
 import { WhyNow } from "@/sections/why-now";
 import { Services } from "@/sections/services";
+import { WorksWith } from "@/sections/works-with";
 import { SavingsEstimator } from "@/sections/savings-estimator";
 import { Process } from "@/sections/process";
 import { LiveDemo } from "@/sections/live-demo";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * The order is the argument: why this matters now, what we build, what it would save
+ * The order is the argument: why this matters now, what we build, the tools it plugs into, what it would save
  * you, how we do it, proof it works, what it costs, who we are, and how to start.
  */
 export default function HomePage() {
@@ -26,6 +27,7 @@ export default function HomePage() {
       <Marquee />
       <WhyNow />
       <Services />
+      <WorksWith />
       <SavingsEstimator />
       <Process />
       <LiveDemo />
