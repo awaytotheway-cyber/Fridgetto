@@ -2,16 +2,35 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/ui/logo";
 import { ButtonLink } from "@/components/ui/button";
 import { getLenis } from "@/components/fx/smooth-scroll";
+import { services } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /**
+   * The panel sits directly under the header bar, so the pointer crosses no gap on
+   * the way down — but it still leaves the trigger for an instant, and a diagonal
+   * path to a far corner leaves it for longer. A short delay before closing covers
+   * both without the menu feeling sticky.
+   */
+  const openServices = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setServicesOpen(true);
+  };
+  const closeServices = (delay = 180) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setServicesOpen(false), delay);
+  };
+  useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -25,6 +44,7 @@ export function Header() {
   if (pathname !== lastPath) {
     setLastPath(pathname);
     setOpen(false);
+    setServicesOpen(false);
   }
 
   useEffect(() => {
@@ -36,7 +56,11 @@ export function Header() {
       lenis?.start();
       document.body.style.overflow = "";
     }
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      setServicesOpen(false);
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
@@ -55,17 +79,36 @@ export function Header() {
           <Logo />
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
+        <nav
+          aria-label="Main"
+          className="hidden items-center gap-1 md:flex"
+          onMouseLeave={() => closeServices()}
+        >
           {siteConfig.nav.map((item) => {
-            const active = pathname === item.href;
+            // Services opens the panel below on hover; the link itself still works
+            const isServices = item.href === "/services";
+            const active = isServices ? pathname.startsWith("/services") : pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
+                aria-expanded={isServices ? servicesOpen : undefined}
+                aria-haspopup={isServices ? true : undefined}
+                aria-controls={isServices ? "services-menu" : undefined}
+                onMouseEnter={isServices ? openServices : () => closeServices(0)}
+                onFocus={isServices ? openServices : () => closeServices(0)}
                 className="group/nav relative rounded-full px-4 py-2 text-[0.9375rem] text-ash transition-colors duration-300 hover:text-bone aria-[current=page]:text-bone"
               >
                 {item.label}
+                {isServices && (
+                  <span
+                    aria-hidden="true"
+                    className={`ml-1.5 inline-block text-[0.7em] transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}
+                  >
+                    ▾
+                  </span>
+                )}
                 <span
                   aria-hidden="true"
                   className="absolute bottom-1 left-1/2 size-1 -translate-x-1/2 scale-0 rounded-full bg-filament transition-transform duration-300 group-hover/nav:scale-100 group-aria-[current=page]/nav:scale-100 group-aria-[current=page]/nav:bg-volt"
@@ -101,6 +144,51 @@ export function Header() {
         </button>
       </div>
 
+      {/*
+        Services mega-menu. It sits flush under the header bar, so the pointer never
+        crosses a gap on its way down. `inert` when closed keeps the links out of the
+        tab order and the accessibility tree while they are invisible.
+      */}
+      <div
+        id="services-menu"
+        inert={!servicesOpen}
+        onMouseEnter={openServices}
+        onMouseLeave={() => closeServices()}
+        className={`absolute inset-x-0 top-full border-b border-white/[0.06] bg-void/95 backdrop-blur-xl transition-[opacity,transform] duration-300 ease-out-expo max-md:hidden ${
+          servicesOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
+        }`}
+      >
+        <div className="shell grid gap-8 py-8 lg:grid-cols-12">
+          <div className="lg:col-span-3">
+            <p className="font-mono text-xs tracking-[0.2em] text-signal uppercase">What we build</p>
+            <p className="mt-3 max-w-xs text-sm text-ash">
+              Seven systems. Start with whichever one saves you the most hours.
+            </p>
+            <Link
+              href="/services"
+              className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-bone transition-colors hover:text-signal"
+            >
+              View all services <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          <ul className="grid gap-1 sm:grid-cols-2 lg:col-span-9 lg:grid-cols-3">
+            {services.map((service) => (
+              <li key={service.slug}>
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="group/item block rounded-panel p-3 transition-colors hover:bg-white/[0.04]"
+                >
+                  <span className="block font-display text-[0.95rem] font-semibold text-bone transition-colors group-hover/item:text-signal">
+                    {service.title}
+                  </span>
+                  <span className="mt-1 block text-xs leading-relaxed text-smoke">{service.hook}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
       <div
         id="mobile-menu"
         hidden={!open}
@@ -118,6 +206,22 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+          {/* There is no hover on touch, so the individual services get their own list */}
+          <p className="mt-8 font-mono text-xs tracking-[0.2em] text-signal uppercase">What we build</p>
+          <ul className="mt-3 grid gap-px">
+            {services.map((service) => (
+              <li key={service.slug}>
+                <Link
+                  href={`/services/${service.slug}`}
+                  aria-current={pathname === `/services/${service.slug}` ? "page" : undefined}
+                  className="block py-2.5 text-ash transition-colors aria-[current=page]:text-filament hover:text-bone"
+                >
+                  {service.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
           <div className="mt-10">
             <ButtonLink href={siteConfig.contact.bookingUrl} size="lg" magnetic={false} className="w-full">
               Book a free AI audit

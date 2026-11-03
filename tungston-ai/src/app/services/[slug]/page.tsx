@@ -7,6 +7,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { breadcrumbTrailJsonLd, pageMetadata } from "@/lib/seo";
 import { services } from "@/lib/content";
 import { serviceDetails } from "@/lib/service-details";
+import { blurFor } from "@/lib/image-blur";
 import { ServiceArt } from "@/sections/service-art";
 import { Process } from "@/sections/process";
 import { FinalCta } from "@/sections/final-cta";
@@ -128,6 +129,8 @@ export default async function ServiceDetailPage({ params }: PageProps<"/services
                   fill
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   priority
+                  placeholder="blur"
+                  blurDataURL={blurFor(service.image)}
                   className="object-contain [mask-image:radial-gradient(closest-side,#000_68%,transparent)]"
                 />
               ) : (

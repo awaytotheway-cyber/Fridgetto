@@ -133,6 +133,40 @@ export const heroStats = [
   { value: 10, suffix: "x", label: "content output for clients" },
 ];
 
+/**
+ * The "why now" section. It makes the case by describing moments a visitor
+ * recognises from their own week, rather than quoting adoption statistics we
+ * cannot stand behind. Every line here should stay something we can defend.
+ */
+export const whyNow = {
+  eyebrow: "Why now",
+  title: "Someone in your market already answers at midnight.",
+  lead: "Not with a bigger team. They automated the moments that decide who gets the work, and those moments happen whether or not anyone is at a desk.",
+  moments: [
+    {
+      when: "A lead enquires at 9:40pm",
+      without: "It sits in an inbox until morning. By then they have messaged two other firms.",
+      with: "They get a real answer in seconds and a meeting in your calendar before they close the tab.",
+    },
+    {
+      when: "The phone rings in the lunch rush",
+      without: "Nobody picks up. You never learn who called, or what they wanted.",
+      with: "It is answered on the first ring, qualified, booked, and summarised in your inbox.",
+    },
+    {
+      when: "A quote request lands on Friday evening",
+      without: "Someone rebuilds it by hand on Monday from three different systems.",
+      with: "A priced draft is waiting for your approval before Monday starts.",
+    },
+    {
+      when: "A customer asks the same question again",
+      without: "A person answers it for the hundredth time, six minutes a go, all year.",
+      with: "It is answered instantly, and your team never sees it.",
+    },
+  ],
+  close: "None of this is futuristic, and none of it needs a department. It needs one system, built around the moment you are currently losing.",
+};
+
 export const marqueeItems = [
   "AI Agents",
   "Voice AI",

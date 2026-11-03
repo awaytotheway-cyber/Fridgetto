@@ -8,6 +8,7 @@ import { Counter } from "@/components/fx/counter";
 import { onSiteReady, prefersReducedMotion } from "@/lib/gsap";
 import { heroStats } from "@/lib/content";
 import { siteConfig } from "@/site.config";
+import { blurFor } from "@/lib/image-blur";
 
 function Line({ children, index }: { children: ReactNode; index: number }) {
   return (
@@ -58,7 +59,10 @@ export function Hero() {
           alt="Liquid-metal texture with glowing red filament threads"
           fill
           sizes="100vw"
-          loading="lazy"
+          loading="eager"
+          fetchPriority="high"
+          placeholder="blur"
+          blurDataURL={blurFor(siteConfig.assets.heroTexture)}
           onLoad={() => setTexture("shown")}
           className={`-z-20 hidden object-cover md:block object-[70%_50%] transition-opacity duration-1000 [mask-image:linear-gradient(100deg,transparent_30%,#000_80%)] ${texture === "shown" ? "opacity-35" : "opacity-0"}`}
         />

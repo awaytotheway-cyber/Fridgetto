@@ -6,6 +6,7 @@ import { DotGrid } from "@/components/fx/dot-grid";
 import { loadGsap, prefersReducedMotion, whenNear, type GsapModule } from "@/lib/gsap";
 import { manifesto, manifestoHot, principles } from "@/lib/content";
 import { siteConfig } from "@/site.config";
+import { blurFor } from "@/lib/image-blur";
 
 /** A head in profile, facing right. Drawn in a 100×120 box. */
 const PROFILE =
@@ -85,6 +86,9 @@ export function About() {
                 alt="A human profile rendered in red light, merging with a machine grid"
                 fill
                 sizes="(min-width: 1024px) 33vw, 100vw"
+                loading="eager"
+                placeholder="blur"
+                blurDataURL={blurFor(siteConfig.assets.aboutImage)}
                 className="object-cover"
               />
             ) : (

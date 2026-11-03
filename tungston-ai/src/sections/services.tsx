@@ -3,6 +3,7 @@ import Link from "next/link";
 import { TiltCard } from "@/components/fx/tilt-card";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { services, type Service } from "@/lib/content";
+import { blurFor } from "@/lib/image-blur";
 import { ServiceArt } from "./service-art";
 
 const footprint: Record<Service["size"], string> = {
@@ -55,8 +56,12 @@ function ServiceCard({ service, eager }: { service: Service; eager?: boolean }) 
               alt={service.imageAlt ?? ""}
               fill
               sizes={artSizes[service.size]}
-              loading={eager ? "eager" : "lazy"}
+              // Every card image is 2–10 KB once optimised, so lazy loading only bought
+              // a blank box that popped in on scroll. They all load up front instead.
+              loading="eager"
               fetchPriority={eager ? "high" : undefined}
+              placeholder="blur"
+              blurDataURL={blurFor(service.image)}
               className="object-cover brightness-90 transition-[scale,filter] duration-700 ease-out-expo [mask-image:radial-gradient(closest-side,#000_62%,transparent)] group-hover/card:scale-[1.04] group-hover/card:brightness-110 motion-reduce:transition-none"
             />
           ) : (

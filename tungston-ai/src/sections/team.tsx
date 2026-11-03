@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { TiltCard } from "@/components/fx/tilt-card";
 import { team, type TeamMember } from "@/lib/content";
+import { blurFor } from "@/lib/image-blur";
 
 function MemberCard({ member, index }: { member: TeamMember; index: number }) {
   return (
@@ -26,6 +27,8 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
             sizes="(min-width: 768px) 45vw, 100vw"
             loading="eager"
             fetchPriority={index === 0 ? "high" : undefined}
+            placeholder="blur"
+            blurDataURL={blurFor(member.image)}
             className="object-cover brightness-95 transition-[scale,filter] duration-700 ease-out-expo [mask-image:linear-gradient(180deg,#000_70%,transparent)] group-hover/card:scale-[1.03] group-hover/card:brightness-105 motion-reduce:transition-none"
           />
         </div>
