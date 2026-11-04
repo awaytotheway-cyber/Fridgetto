@@ -166,7 +166,7 @@ export const whyNow = {
       with: "It is answered instantly, and your team never sees it.",
     },
   ],
-  close: "None of this is futuristic, and none of it needs a department. It needs one system, built around the moment you are currently losing.",
+  close: "None of this is futuristic, and none of it needs a department. It needs one system, built around the moment you are currently losing, which is usually the one that happens while you sleep.",
 };
 
 /**
