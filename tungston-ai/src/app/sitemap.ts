@@ -3,7 +3,7 @@ import { services } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/services", "/work", "/about", "/team", "/contact"];
+  const routes = ["", "/services", "/pricing", "/work", "/about", "/team", "/contact"];
   // One page per service, so each can rank for its own search
   const servicePages = services.map((service) => `/services/${service.slug}`);
   const lastModified = new Date();
