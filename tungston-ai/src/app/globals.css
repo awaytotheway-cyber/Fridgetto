@@ -382,6 +382,28 @@ html.has-cursor textarea,
 html.has-cursor [contenteditable="true"] {
   cursor: text !important;
 }
+html.has-cursor select {
+  cursor: pointer !important;
+}
+/*
+ * A modal <dialog> is drawn in the browser's top layer, above our cursor overlay, so inside
+ * it the custom dot is hidden. Give the dialog the normal cursors back.
+ */
+html.has-cursor dialog,
+html.has-cursor dialog * {
+  cursor: auto !important;
+}
+html.has-cursor dialog a,
+html.has-cursor dialog button,
+html.has-cursor dialog label,
+html.has-cursor dialog select,
+html.has-cursor dialog summary {
+  cursor: pointer !important;
+}
+html.has-cursor dialog input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+html.has-cursor dialog textarea {
+  cursor: text !important;
+}
 /* While the liquid button holds the cursor, the slime is the ring: keep only a white dot inside it */
 html[data-goo] [data-cursor-ring] {
   opacity: 0 !important;
