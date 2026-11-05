@@ -98,7 +98,7 @@ export function Header() {
                 aria-controls={isServices ? "services-menu" : undefined}
                 onMouseEnter={isServices ? openServices : () => closeServices(0)}
                 onFocus={isServices ? openServices : () => closeServices(0)}
-                className="group/nav relative rounded-full px-4 py-2 text-[0.9375rem] text-ash transition-colors duration-300 hover:text-bone aria-[current=page]:text-bone"
+                className="group/nav relative rounded-full px-3 py-2 text-[0.9375rem] whitespace-nowrap lg:px-4 text-ash transition-colors duration-300 hover:text-bone aria-[current=page]:text-bone"
               >
                 {item.label}
                 {isServices && (
@@ -118,8 +118,8 @@ export function Header() {
           })}
         </nav>
 
-        {/* Below ~900px the nav links need the room; the audit is one click away via Contact */}
-        <div className="hidden min-[56rem]:block">
+        {/* Below ~1024px the six nav links need the room; the audit is one click away via Contact */}
+        <div className="hidden min-[64rem]:block">
           <ButtonLink href={siteConfig.contact.bookingUrl} className="whitespace-nowrap">
             Book a free AI audit
           </ButtonLink>

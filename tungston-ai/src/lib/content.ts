@@ -1,6 +1,7 @@
 /**
  * Site copy. Everything a visitor reads (except brand details in site.config.ts) lives here.
- * Case studies, stats and prices are launch placeholders: replace them with real numbers.
+ * Case studies and stats are launch placeholders: replace them with real numbers. Prices are in
+ * pricing.ts.
  */
 
 import type { ToolId } from "./tools";
@@ -254,52 +255,6 @@ export const caseStudies = [
     metric: "14 hrs",
     metricLabel: "saved per broker, every week",
     services: ["Advanced AI Agents", "Workflow Automation"],
-  },
-];
-
-export const pricingPlans = [
-  {
-    name: "Launch",
-    price: "$2,900",
-    cadence: "one-time project",
-    pitch: "One AI system, scoped, built and shipped.",
-    features: [
-      "Free AI audit and written blueprint",
-      "One agent, chatbot or automation",
-      "Connected to up to three of your tools",
-      "30 days of tuning after launch",
-    ],
-    cta: "Start with a free audit",
-    featured: false,
-  },
-  {
-    name: "Growth",
-    price: "$4,500",
-    cadence: "per month",
-    pitch: "An AI team on call, shipping something new every month.",
-    features: [
-      "Everything in Launch",
-      "A new agent or automation every month",
-      "Voice agent or content system included",
-      "Monthly performance report",
-      "Priority support on Slack",
-    ],
-    cta: "Book a free AI audit",
-    featured: true,
-  },
-  {
-    name: "Custom",
-    price: "Scoped",
-    cadence: "fixed quote after the audit",
-    pitch: "Multi-agent systems, RAG and full product builds.",
-    features: [
-      "Multi-agent and RAG systems",
-      "Web and mobile app development",
-      "Security review, SSO and audit logs",
-      "A dedicated lead engineer",
-    ],
-    cta: "Talk to an engineer",
-    featured: false,
   },
 ];
 

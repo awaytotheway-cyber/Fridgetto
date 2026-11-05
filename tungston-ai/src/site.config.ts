@@ -48,6 +48,7 @@ export const siteConfig = {
   ],
   nav: [
     { label: "Services", href: "/services" },
+    { label: "Pricing", href: "/pricing" },
     { label: "Work", href: "/work" },
     { label: "About", href: "/about" },
     { label: "Team", href: "/team" },

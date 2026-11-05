@@ -20,6 +20,11 @@ const sizes: Record<Size, string> = {
   lg: "h-14 px-7 text-base sm:h-16 sm:px-8 sm:text-[1.0625rem]",
 };
 
+/** The classes of a button, for a control that must be a plain <button> or <a> of its own. */
+export function buttonClasses(variant: Variant = "primary", size: Size = "md") {
+  return `${base} ${variants[variant]} ${sizes[size]}`;
+}
+
 type ButtonLinkProps = Omit<ComponentProps<typeof Link>, "className" | "children"> & {
   variant?: Variant;
   size?: Size;

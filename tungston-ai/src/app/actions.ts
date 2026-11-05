@@ -83,10 +83,18 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
     return { status: "error", message: "Check the highlighted fields and send again.", errors, values };
   }
 
+  return deliver(values);
+}
+
+/**
+ * Sends one enquiry to both destinations and says what happened. A failure is named in
+ * the log: an enquiry that was stored but never emailed is still waiting in Supabase,
+ * and one that was emailed but not stored is only in the inbox. The visitor is told it
+ * failed only when neither worked.
+ */
+async function deliver(values: Submission): Promise<ContactState> {
   const [emailed, stored] = await Promise.allSettled([sendToN8n(values), saveEnquiry(values)]);
 
-  // Name which half failed: an enquiry that was stored but never emailed is still
-  // waiting in Supabase, and one that was emailed but not stored is only in the inbox.
   if (emailed.status === "rejected") console.error("[contact] n8n email failed", emailed.reason);
   if (stored.status === "rejected") console.error("[contact] Supabase save failed", stored.reason);
 
@@ -102,4 +110,64 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
     status: "success",
     message: `Request received. We'll reply to ${values.email} within one business day.`,
   };
+}
+
+export type QuoteState = {
+  status: "idle" | "success" | "error";
+  message: string;
+  errors?: Partial<Record<"name" | "email" | "phone" | "service" | "requirements", string>>;
+  values?: Record<string, string>;
+};
+
+/**
+ * Handles a quote request from the pricing page. It travels the same way as the contact
+ * form: n8n emails it, Supabase records it. Neither has a field for a budget, so the
+ * budget, the estimate and the requirements are written into the enquiry's message,
+ * under a heading that says where it came from.
+ */
+export async function submitQuote(_prev: QuoteState, formData: FormData): Promise<QuoteState> {
+  const get = (key: string, max: number) => String(formData.get(key) ?? "").trim().slice(0, max);
+  const values = {
+    name: get("name", 120),
+    businessName: get("businessName", 200),
+    email: get("email", 200),
+    phone: get("phone", 30),
+    service: get("service", 100),
+    budget: get("budget", 300),
+    requirements: get("requirements", 4000),
+    estimate: get("estimate", 2000),
+  };
+
+  if (get("website", 100)) return { status: "success", message: "Request received." };
+
+  const errors: QuoteState["errors"] = {};
+  if (!values.name) errors.name = "Enter your name.";
+  if (!EMAIL.test(values.email)) errors.email = "Enter an email address like you@company.com.";
+  if (values.phone && values.phone.replace(/\D/g, "").length < 7) errors.phone = "Enter a phone number with at least 7 digits.";
+  if (!values.service) errors.service = "Pick what you want us to build.";
+  if (Object.keys(errors).length) {
+    return { status: "error", message: "Check the highlighted fields and send again.", errors, values };
+  }
+
+  const task = [
+    "[Pricing page: custom quote request]",
+    `Estimated budget: ${values.budget || "Not estimated"}`,
+    values.estimate && `Estimate details:\n${values.estimate}`,
+    `Requirements: ${values.requirements || "Not provided"}`,
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+
+  const result = await deliver({
+    name: values.name,
+    email: values.email,
+    phone: values.phone,
+    businessName: values.businessName,
+    service: values.service,
+    task,
+  });
+
+  return result.status === "success"
+    ? { status: "success", message: result.message }
+    : { status: "error", message: result.message, values };
 }

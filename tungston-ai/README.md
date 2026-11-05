@@ -43,7 +43,8 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Page titles, descriptions and social cards | `pageMetadata()` in each page (from `src/lib/seo.ts`). Site-wide defaults and structured data are in `src/app/layout.tsx`. |
 | Colors, type scale, radii, glows | The `@theme` block in `src/app/globals.css`. The canvas effects read `--color-ember`, `--color-filament-deep`, `--color-filament` and `--color-volt` at runtime, so they follow automatically. |
 | Fonts | `src/app/layout.tsx` (`next/font/local`) and `scripts/fetch-fonts.mjs`. The OG image reads the static Clash Display TTFs from the same folder. See [Fonts](#fonts). |
-| All page copy: services, stats, process, case studies, pricing, manifesto | `src/lib/content.ts` |
+| All page copy: services, stats, process, case studies, manifesto | `src/lib/content.ts` |
+| Every price on the site: service cards, estimator bands, packages, maintenance, the Pricing FAQs (also the three plans on the home page) | `src/lib/pricing.ts`. Change a number in `PRICES` and the cards, estimator and lists follow. The estimator's bands are `estimatorServices`. |
 | The long copy on each service page (problem, what you get, FAQs, timeline) | `src/lib/service-details.ts`, keyed by the same slug as `services` |
 | Which tools a service page shows, how they are grouped, and the "What we need from you" list | `toolGroups` and `needs` in `src/lib/service-details.ts` |
 | The tools themselves: names, and which have a logo | `src/lib/tools.json`. After adding a tool with an `icon`, run `node scripts/make-tool-icons.mjs` to regenerate `src/lib/tool-icons.ts`. A tool with no `icon` shows its name only. Every tool needs a `url` (its official site): tool names link out to it. |
@@ -54,7 +55,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Dot-grid physics (wave speed, damping, heat) | Constants at the top of `src/lib/ripple-field.ts` |
 | Liquid "Reach out to us" button: grab distance, release distance, blob size | Constants at the top of `src/components/fx/liquid-button.tsx`. Keep its padded field clear of other controls. |
 
-> **Before launch:** the stats in the hero, the three case studies and the prices are placeholders written to show the layout. Replace them in `src/lib/content.ts` with real numbers. The savings estimator's per-service rates in `src/lib/estimator.ts` are placeholders too: tune them to real client results.
+> **Before launch:** the stats in the hero and the three case studies are placeholders written to show the layout. Replace them in `src/lib/content.ts` with real numbers. Prices are real and live in `src/lib/pricing.ts`. The savings estimator's per-service rates in `src/lib/estimator.ts` are placeholders too: tune them to real client results.
 
 ## Contact form
 
@@ -64,6 +65,8 @@ The form on `/contact` and at the foot of the home page runs the `submitContact`
 - **Supabase** — recorded in `protomation_enquiries` by `src/lib/enquiry-store.ts`.
 
 The database is the safety net for an enquiry the email never delivered, so the visitor is told it failed only when *both* fail. Whichever half fails is named in the server log (`[contact] n8n email failed` / `[contact] Supabase save failed`), so you can tell whether a missing enquiry is sitting in the database or was lost entirely.
+
+The **Pricing page** has a second form, the quote request (`submitQuote` in the same file). It uses the same two destinations through the same delivery code. Neither the n8n workflow nor the table has a budget field, so the estimated budget, the estimate and the requirements are written into the enquiry's message under the heading `[Pricing page: custom quote request]`. If you add a budget column or a workflow field later, change `submitQuote` to send it there.
 
 ### Reading the enquiries
 
@@ -86,7 +89,7 @@ Two details the workflow depends on:
 src/
   app/                 routes, metadata, sitemap, robots, icons, OG image, server action
     page.tsx           home page (the priority page)
-    services/ work/ about/ team/ contact/
+    services/ pricing/ work/ about/ team/ contact/
     services/[slug]/  one page per service, prerendered from `services`
   sections/            page sections (hero, marquee, services bento, savings estimator, process, demo, results, pricing, about, CTA)
   components/
