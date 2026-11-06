@@ -3,6 +3,7 @@ import { JsonLd } from "@/components/json-ld";
 import { QuoteModal } from "@/components/pricing/quote-modal";
 import { pricingFaqs } from "@/lib/pricing";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import { CarePlan } from "@/sections/pricing-page/care-plan";
 import { BuildPackages } from "@/sections/pricing-page/build-packages";
 import { EstimatorSection } from "@/sections/pricing-page/estimator-section";
 import { Maintenance } from "@/sections/pricing-page/maintenance";
@@ -39,6 +40,7 @@ export default function PricingPage() {
       <EstimatorSection />
       <BuildPackages />
       <Ownership />
+      <CarePlan />
       <Maintenance />
       <PricingFaq />
       <PricingCta />
