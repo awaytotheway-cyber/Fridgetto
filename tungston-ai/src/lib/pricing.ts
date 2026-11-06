@@ -9,7 +9,8 @@
  *
  * House rules the copy follows:
  *  - every project has a one-time implementation fee
- *  - monthly maintenance is optional, and is never described as a subscription
+ *  - monthly maintenance is optional and is never required to own a system
+ *  - the Care Plan (src/lib/care-plan.ts) is a separate, optional subscription on top
  *  - AI usage, telephony, hosting and other third-party costs are billed to the client
  */
 
@@ -78,6 +79,11 @@ const MAINTENANCE = {
 const CONTENT_MANAGED = { min: 20_000, max: 60_000 } as const;
 
 export const PRICES = { START, MAINTENANCE, CONTENT_MANAGED } as const;
+
+/** The one-time starting price for a service, in rupees; null when it is quoted per project. */
+export function startingPrice(id: ServiceId): number | null {
+  return id === "advanced" ? null : START[id];
+}
 
 /* -------------------------------------------------------------------------- */
 /* Service cards                                                              */
@@ -644,7 +650,17 @@ export const pricingFaqs = [
   {
     question: "Is a monthly subscription compulsory?",
     answer:
-      "No. You can own and operate your completed system without a compulsory Protomation.ai maintenance subscription. However, we recommend an ongoing plan for system updates, maintenance, error handling and technical support.",
+      "No. You can own and operate your completed system without a compulsory Protomation.ai subscription. However, we recommend our Care Plan for system updates, maintenance, error handling and technical support.",
+  },
+  {
+    question: "What is the Care Plan?",
+    answer:
+      "An optional subscription, billed monthly or yearly, that covers maintenance, service updates, priority support and a designated engineer. Subscribers also get a discount on the implementation price of new automations. Pay with Razorpay (UPI, cards, netbanking) in India or Stripe internationally.",
+  },
+  {
+    question: "Can I cancel the Care Plan?",
+    answer:
+      "Yes. You can cancel any time and the plan simply does not renew. Your systems stay yours, and the subscriber discount applies only while the plan is active.",
   },
   {
     question: "Are AI usage and API charges included?",

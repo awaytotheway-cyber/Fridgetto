@@ -1,9 +1,11 @@
 import { SectionIntro } from "@/components/ui/section-intro";
 import { EstimateButton } from "@/components/pricing/pricing-buttons";
-import { pricingServices, type PricingService } from "@/lib/pricing";
+import { CARE_PLAN, subscriberPrice } from "@/lib/care-plan";
+import { inr, pricingServices, startingPrice, type PricingService } from "@/lib/pricing";
 
 function ServiceCard({ service, wide }: { service: PricingService; wide: boolean }) {
   const { price } = service;
+  const base = startingPrice(service.id);
   return (
     <li
       className={`group flex flex-col rounded-card border border-white/[0.08] bg-white/[0.02] p-7 transition-colors duration-300 hover:border-filament/50 sm:p-8 ${
@@ -32,6 +34,13 @@ function ServiceCard({ service, wide }: { service: PricingService; wide: boolean
               </p>
               {price.detail && <p className="mt-1 font-display text-lg font-semibold text-bone">{price.detail}</p>}
             </>
+          )}
+
+          {base !== null && !price.custom && (
+            <p className="mt-3 text-sm text-ash">
+              <span className="font-semibold text-bone">Care Plan subscribers: from {inr(subscriberPrice(base))}</span>{" "}
+              ({CARE_PLAN.buildDiscountPct}% off)
+            </p>
           )}
 
           {service.ongoing && (

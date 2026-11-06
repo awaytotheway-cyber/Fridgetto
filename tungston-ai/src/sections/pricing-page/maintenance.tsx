@@ -14,8 +14,9 @@ export function Maintenance() {
             Need us to keep everything running?
           </RevealText>
           <p className="mt-6 max-w-md text-lede text-ash">
-            You don&apos;t need to subscribe to keep ownership of your system. However, we recommend an ongoing
-            maintenance plan for businesses that want us to handle updates, upkeep and technical issues.
+            You don&apos;t need to subscribe to keep ownership of your system. If you only want upkeep for a single
+            system, optional maintenance is available. For everything in one place, plus priority support and a
+            designated engineer, see the Care Plan above.
           </p>
           <div className="mt-8">
             <QuoteButton size="lg" magnetic={false} detail={{ service: "Maintenance plan" }}>
