@@ -92,8 +92,8 @@ export function ServicePricing() {
     <section aria-labelledby="services-pricing-title" className="py-16 sm:py-24">
       <div className="shell">
         <SectionIntro id="services-pricing-title" title="Seven systems. Clear starting prices.">
-          Every price below is a one-time implementation fee. Monthly support is optional and never needed to own what we
-          build.
+          Every price below is a one-time implementation fee. Ongoing support is available via the Care Plan and is never
+          needed to own what we build.
         </SectionIntro>
         <ul className="mt-12 grid gap-4 sm:mt-16 md:grid-cols-2 xl:grid-cols-3">
           {pricingServices.map((service, i) => (

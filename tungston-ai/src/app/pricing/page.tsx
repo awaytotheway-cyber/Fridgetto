@@ -6,7 +6,6 @@ import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import { CarePlan } from "@/sections/pricing-page/care-plan";
 import { BuildPackages } from "@/sections/pricing-page/build-packages";
 import { EstimatorSection } from "@/sections/pricing-page/estimator-section";
-import { Maintenance } from "@/sections/pricing-page/maintenance";
 import { Ownership } from "@/sections/pricing-page/ownership";
 import { PricingCta } from "@/sections/pricing-page/pricing-cta";
 import { PricingFaq } from "@/sections/pricing-page/pricing-faq";
@@ -39,9 +38,8 @@ export default function PricingPage() {
       <ServicePricing />
       <EstimatorSection />
       <BuildPackages />
-      <Ownership />
       <CarePlan />
-      <Maintenance />
+      <Ownership />
       <PricingFaq />
       <PricingCta />
       {/* One quote form for the whole page, opened by any "quote" button */}
