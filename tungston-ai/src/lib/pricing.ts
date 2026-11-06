@@ -75,10 +75,7 @@ const MAINTENANCE = {
   advanced: 30_000,
 } as const;
 
-/** Optional managed content operations (production and publishing, not system upkeep). */
-const CONTENT_MANAGED = { min: 20_000, max: 60_000 } as const;
-
-export const PRICES = { START, MAINTENANCE, CONTENT_MANAGED } as const;
+export const PRICES = { START, MAINTENANCE } as const;
 
 /** The one-time starting price for a service, in rupees; null when it is quoted per project. */
 export function startingPrice(id: ServiceId): number | null {
@@ -116,7 +113,7 @@ export const pricingServices: PricingService[] = [
     description:
       "Intelligent website assistants that answer questions, capture enquiries and help customers find what they need.",
     price: { headline: `${inr(START.chatbot)} onwards` },
-    ongoing: { label: "Optional monthly maintenance", value: `${inr(MAINTENANCE.chatbot)}/month onwards` },
+    ongoing: { label: "Ongoing support via Care Plan", value: `${inr(9_999)}/month` },
     capabilities: [
       "AI-powered FAQs and customer support",
       "RAG knowledge bases trained on website information and documents",
@@ -131,7 +128,7 @@ export const pricingServices: PricingService[] = [
     name: "Workflow Automation",
     description: "Connect your business tools, eliminate repetitive tasks and create workflows that operate automatically.",
     price: { headline: `${inr(START.workflow)} per workflow` },
-    ongoing: { label: "Optional monthly maintenance", value: `${inr(MAINTENANCE.workflow)}/month onwards` },
+    ongoing: { label: "Ongoing support via Care Plan", value: `${inr(9_999)}/month` },
     capabilities: [
       "CRM and email automation",
       "Data processing and document extraction",
@@ -147,7 +144,7 @@ export const pricingServices: PricingService[] = [
     description:
       "Purpose-built AI agents that execute business tasks, interact with tools and move work from request to completion.",
     price: { headline: `${inr(START.agent)} onwards` },
-    ongoing: { label: "Optional monthly maintenance", value: `${inr(MAINTENANCE.agent)}/month onwards` },
+    ongoing: { label: "Ongoing support via Care Plan", value: `${inr(9_999)}/month` },
     capabilities: ["Lead qualification and follow-ups", "Email and CRM agents", "Research and business operations agents"],
     usage: "AI model usage is paid to your own provider account.",
     cta: "Build My AI Agent",
@@ -162,7 +159,7 @@ export const pricingServices: PricingService[] = [
       detail: `Custom quotation. Typical implementation projects start at approximately ${inr(START.advanced)}.`,
       custom: true,
     },
-    ongoing: { label: "Optional monthly maintenance", value: `${inr(MAINTENANCE.advanced)}/month onwards` },
+    ongoing: { label: "Ongoing support via Care Plan", value: `${inr(9_999)}/month` },
     capabilities: [
       "Multi-agent orchestration",
       "Tool calling and API integrations",
@@ -177,7 +174,7 @@ export const pricingServices: PricingService[] = [
     description:
       "Turn a single idea into a structured content pipeline that generates, repurposes, organises and publishes content across your chosen platforms.",
     price: { headline: `${inr(START.content)} onwards` },
-    ongoing: { label: "Optional managed content operations", value: `${inr(CONTENT_MANAGED.min)}/month onwards` },
+    ongoing: { label: "Ongoing support via Care Plan", value: `${inr(9_999)}/month` },
     capabilities: [
       "AI-generated posts, captions and content calendars",
       "Content repurposing for LinkedIn, Instagram, YouTube and other supported platforms",
@@ -193,7 +190,7 @@ export const pricingServices: PricingService[] = [
     description:
       "Intelligent voice agents that receive and handle calls, answer questions, qualify enquiries, book appointments and route conversations to human staff.",
     price: { headline: `${inr(START.voice)} onwards` },
-    ongoing: { label: "Optional maintenance and support", value: `${inr(MAINTENANCE.voice)}/month onwards` },
+    ongoing: { label: "Ongoing support via Care Plan", value: `${inr(9_999)}/month` },
     capabilities: [
       "AI receptionists and customer support",
       "Appointment booking and CRM integrations",
@@ -212,7 +209,7 @@ export const pricingServices: PricingService[] = [
       headline: `Landing pages: ${inr(START.landing)} onwards`,
       detail: `Business websites: ${inr(START.website)} onwards`,
     },
-    ongoing: { label: "Optional monthly maintenance", value: `${inr(MAINTENANCE.website)}/month onwards` },
+    ongoing: { label: "Ongoing support via Care Plan", value: `${inr(9_999)}/month` },
     capabilities: [
       "Business and portfolio websites",
       "Corporate, law firm and hospital websites",
@@ -258,7 +255,7 @@ export type Level = {
   covers?: RequirementId[];
 };
 
-export type MaintenanceChoice = "none" | "support" | "managed";
+export type MaintenanceChoice = "none" | "support";
 
 export type EstimatorService = {
   id: ServiceId;
@@ -267,12 +264,6 @@ export type EstimatorService = {
   levels: Level[];
   /** The step 3 requirements that make sense for this service. */
   extras: RequirementId[];
-  /** Optional monthly price for "ongoing updates and support". null: quoted separately. */
-  support: Amount | null;
-  /** Optional monthly price for "a managed service". null: scoped and quoted individually. */
-  managed: Amount | null;
-  /** Shown with the monthly figure when it needs explaining. */
-  monthlyNote?: string;
 };
 
 const advancedAmount: Amount = { kind: "custom", typicalFrom: START.advanced };
@@ -310,8 +301,6 @@ export const estimatorServices: EstimatorService[] = [
       },
     ],
     extras: ["crm", "booking", "languages", "branches", "analytics", "handover", "apis"],
-    support: { kind: "from", min: MAINTENANCE.chatbot },
-    managed: null,
   },
   {
     id: "workflow",
@@ -339,9 +328,6 @@ export const estimatorServices: EstimatorService[] = [
       },
     ],
     extras: ["crm", "languages", "admin", "analytics", "handover", "apis"],
-    support: { kind: "from", min: MAINTENANCE.workflow },
-    managed: null,
-    monthlyNote: "Per-workflow pricing applies to the implementation. Maintenance depends on how many workflows you run.",
   },
   {
     id: "agent",
@@ -369,8 +355,6 @@ export const estimatorServices: EstimatorService[] = [
       },
     ],
     extras: ["crm", "booking", "languages", "admin", "analytics", "handover", "apis"],
-    support: { kind: "from", min: MAINTENANCE.agent },
-    managed: null,
   },
   {
     id: "advanced",
@@ -396,8 +380,6 @@ export const estimatorServices: EstimatorService[] = [
       },
     ],
     extras: ["crm", "booking", "languages", "admin", "branches", "analytics", "handover", "apis"],
-    support: { kind: "from", min: MAINTENANCE.advanced },
-    managed: null,
   },
   {
     id: "content",
@@ -417,10 +399,6 @@ export const estimatorServices: EstimatorService[] = [
       },
     ],
     extras: ["languages", "admin", "analytics", "apis"],
-    support: null,
-    managed: { kind: "range", min: CONTENT_MANAGED.min, max: CONTENT_MANAGED.max },
-    monthlyNote:
-      "System maintenance (keeping the pipeline running) and managed content operations (producing and publishing the content) are separate. Both are optional.",
   },
   {
     id: "voice",
@@ -448,9 +426,6 @@ export const estimatorServices: EstimatorService[] = [
       },
     ],
     extras: ["crm", "booking", "languages", "branches", "analytics", "handover", "apis"],
-    support: { kind: "from", min: MAINTENANCE.voice },
-    managed: null,
-    monthlyNote: "Conversation and telephony usage is billed to your own provider accounts, not included here.",
   },
   {
     id: "website",
@@ -477,15 +452,12 @@ export const estimatorServices: EstimatorService[] = [
       },
     ],
     extras: ["crm", "booking", "languages", "admin", "branches", "analytics", "apis"],
-    support: { kind: "from", min: MAINTENANCE.website },
-    managed: null,
   },
 ];
 
 export const maintenanceChoices: { id: MaintenanceChoice; label: string; hint: string }[] = [
   { id: "none", label: "No, I will manage the system", hint: "You own it and run it yourself." },
-  { id: "support", label: "Yes, I want ongoing updates and support", hint: "Optional monthly maintenance." },
-  { id: "managed", label: "I want a managed service", hint: "We run it for you." },
+  { id: "support", label: "Yes, via the Care Plan", hint: `${inr(9_999)}/month or ${inr(99_990)}/year. Maintenance, updates, priority support and a designated engineer.` },
 ];
 
 export type Estimate = {
@@ -527,18 +499,7 @@ export function estimate(input: {
 
   let monthly: Estimate["monthly"] = null;
   if (input.maintenance === "support") {
-    monthly = service.support
-      ? { text: describeMonthly(service.support), note: service.monthlyNote }
-      : { text: "Quoted separately", note: service.monthlyNote };
-  } else if (input.maintenance === "managed") {
-    monthly = service.managed
-      ? { text: describeMonthly(service.managed), note: service.monthlyNote }
-      : {
-          text: "Quoted individually",
-          note: `The scope you want us to run is agreed in your proposal.${
-            service.support ? ` Maintenance alone starts ${describeMonthly(service.support)}.` : ""
-          }`,
-        };
+    monthly = { text: `Care Plan from ${inr(9_999)}/month`, note: "Includes maintenance, updates, priority support and a designated engineer. Yearly option available." };
   }
 
   const budget = monthly ? `${implementation} one-time; optional ${monthly.text}` : `${implementation} one-time`;
@@ -570,7 +531,7 @@ export const buildPackages = [
       "Testing and handover",
       "Documentation",
     ],
-    optional: `Optional maintenance from ${inr(MAINTENANCE.chatbot)}/month`,
+    optional: `Optional ongoing support via Care Plan from ${inr(9_999)}/month`,
     note: null as string | null,
     featured: false,
   },
@@ -585,7 +546,7 @@ export const buildPackages = [
       "Agreed integrations",
       "Testing and handover",
     ],
-    optional: `Optional ongoing support from ${inr(MAINTENANCE.advanced)}/month`,
+    optional: `Optional ongoing support via Care Plan from ${inr(9_999)}/month`,
     note: "Indicative scope. The exact combination and final price are validated against your requirements.",
     featured: true,
   },
@@ -625,21 +586,13 @@ export const ownershipPoints = [
   },
   {
     title: "Optional ongoing support",
-    body: "Choose an ongoing maintenance plan for system updates, bug handling, upkeep, technical support and agreed improvements.",
+    body: "Subscribe to the Care Plan for maintenance, system updates, priority support and a designated engineer. Cancel any time.",
   },
 ];
 
 export const ownershipQualification =
   "Third-party software, platforms and libraries remain subject to their own licences and terms.";
 
-export const maintenanceRows = [
-  { label: "Websites", value: `from ${inr(MAINTENANCE.website)}/month` },
-  { label: "Workflow automation", value: `from ${inr(MAINTENANCE.workflow)}/month` },
-  { label: "Website chatbots", value: `from ${inr(MAINTENANCE.chatbot)}/month` },
-  { label: "AI agents", value: `from ${inr(MAINTENANCE.agent)}/month` },
-  { label: "Voice agents", value: `from ${inr(MAINTENANCE.voice)}/month` },
-  { label: "Advanced systems", value: `from ${inr(MAINTENANCE.advanced)}/month` },
-];
 
 export const pricingFaqs = [
   {
@@ -680,7 +633,7 @@ export const pricingFaqs = [
   {
     question: "Do you provide ongoing maintenance?",
     answer:
-      "Yes. We offer optional monthly maintenance plans covering agreed system updates, error handling, technical support and upkeep.",
+      "Yes. Our Care Plan covers maintenance, service updates, priority support and a designated engineer. It is billed monthly or yearly, and you can cancel any time.",
   },
   {
     question: "Who owns the completed system?",

@@ -8,7 +8,7 @@ export function BuildPackages() {
     <section aria-labelledby="packages-title" className="py-16 sm:py-24">
       <div className="shell">
         <SectionIntro id="packages-title" title="Not sure where to start?">
-          Three ways to begin. Each is a one-time build, and maintenance on top is always your choice.
+          Three ways to begin. Each is a one-time build. Ongoing support via the Care Plan is always your choice.
         </SectionIntro>
         <ul className="mt-12 grid gap-4 sm:mt-16 lg:grid-cols-3">
           {buildPackages.map((pkg) => (

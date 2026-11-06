@@ -18,7 +18,7 @@ import { siteConfig } from "@/site.config";
 import { ESTIMATE_ATTR } from "./pricing-events";
 import { QuoteButton } from "./pricing-buttons";
 
-const STEPS = ["What to build", "Functionality", "Requirements", "Maintenance"] as const;
+const STEPS = ["What to build", "Functionality", "Requirements", "Support"] as const;
 
 /** A radio or checkbox drawn as a card. The input is real, only visually hidden. */
 const choice =
@@ -203,9 +203,9 @@ export function Estimator() {
 
             {step === 4 && (
               <fieldset>
-                <legend className="sr-only">Step 4 of 4: Do you want ongoing maintenance?</legend>
-                <StepTitle refEl={heading} n={4} title="Do you want ongoing maintenance?" />
-                <p className="mt-2 text-sm text-smoke">Maintenance is always optional. It is never needed to own your system.</p>
+                <legend className="sr-only">Step 4 of 4: Do you want ongoing support?</legend>
+                <StepTitle refEl={heading} n={4} title="Do you want ongoing support?" />
+                <p className="mt-2 text-sm text-smoke">Support is always optional. You own your system with or without the Care Plan.</p>
                 <div className="mt-6 grid gap-3">
                   {maintenanceChoices.map((m) => (
                     <label key={m.id} className={`${choice} items-start`}>
@@ -324,7 +324,7 @@ function Result({
 
           {result.monthly && (
             <div className="mt-8 border-t border-white/[0.08] pt-6">
-              <p className="text-sm text-smoke">Optional monthly support</p>
+              <p className="text-sm text-smoke">Optional ongoing support (Care Plan)</p>
               <p className="mt-2 font-display text-title font-semibold text-bone">{result.monthly.text}</p>
               {result.monthly.note && <p className="mt-2 max-w-md text-sm text-ash">{result.monthly.note}</p>}
             </div>
@@ -359,8 +359,8 @@ function Result({
               </div>
             )}
             <div className="flex justify-between gap-6 py-3">
-              <dt className="text-smoke">Maintenance</dt>
-              <dd className="text-right text-bone">{result.monthly ? "Optional, as shown" : "None, you manage it"}</dd>
+              <dt className="text-smoke">Ongoing support</dt>
+              <dd className="text-right text-bone">{result.monthly ? "Care Plan, as shown" : "None, you manage it"}</dd>
             </div>
           </dl>
           {result.scoped.length > 0 && (
