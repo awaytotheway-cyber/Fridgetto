@@ -1,8 +1,13 @@
 import { NOT_READY, env, json, parseCheckout, rateLimited } from "@/lib/care-plan-server";
+import { createClient } from "@/lib/supabase/server";
 
 /** Creates a Razorpay Subscription for the chosen billing period; the browser then opens Checkout. */
 export async function POST(req: Request) {
   if (rateLimited(req)) return json({ error: "Too many attempts. Please try again in a minute." }, 429);
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return json({ error: "Please sign in before subscribing." }, 401);
 
   const keyId = env("RAZORPAY_KEY_ID");
   const keySecret = env("RAZORPAY_KEY_SECRET");
@@ -28,7 +33,7 @@ export async function POST(req: Request) {
       // Razorpay needs an end: ten years of months, or ten years of years
       total_count: parsed.billing === "monthly" ? 120 : 10,
       customer_notify: 1,
-      notes: { name, email, phone, businessName, billing: parsed.billing },
+      notes: { name, email, phone, businessName, billing: parsed.billing, user_id: user.id },
     }),
     signal: AbortSignal.timeout(15_000),
   });

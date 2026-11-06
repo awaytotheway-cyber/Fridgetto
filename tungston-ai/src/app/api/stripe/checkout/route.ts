@@ -1,9 +1,14 @@
 import { siteConfig } from "@/site.config";
 import { NOT_READY, env, json, parseCheckout, rateLimited } from "@/lib/care-plan-server";
+import { createClient } from "@/lib/supabase/server";
 
 /** Creates a Stripe Checkout Session in subscription mode and returns its hosted-page URL. */
 export async function POST(req: Request) {
   if (rateLimited(req)) return json({ error: "Too many attempts. Please try again in a minute." }, 429);
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return json({ error: "Please sign in before subscribing." }, 401);
 
   const secret = env("STRIPE_SECRET_KEY");
   if (!secret) return NOT_READY();
@@ -32,6 +37,7 @@ export async function POST(req: Request) {
     body.set(`${prefix}[phone]`, phone);
     body.set(`${prefix}[businessName]`, businessName);
     body.set(`${prefix}[billing]`, parsed.billing);
+    body.set(`${prefix}[user_id]`, user.id);
   }
 
   const res = await fetch("https://api.stripe.com/v1/checkout/sessions", {

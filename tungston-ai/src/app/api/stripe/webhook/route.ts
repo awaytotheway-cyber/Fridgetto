@@ -51,6 +51,7 @@ export async function POST(req: Request) {
         email: m.email || (obj.customer_email as string | undefined),
         phone: m.phone || null,
         business_name: m.businessName || null,
+        user_id: m.user_id || null,
         status: "active",
       });
       if (m.email && billing) {

@@ -2,9 +2,11 @@
 
 import { useState, useSyncExternalStore, type FormEvent } from "react";
 import { Check } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { RevealText } from "@/components/fx/reveal-text";
 import { BILLING_LABEL, CARE_PLAN, type Billing, type Provider } from "@/lib/care-plan";
 import { inr } from "@/lib/pricing";
+import { useAuth } from "@/components/auth/auth-provider";
 
 declare global {
   interface Window {
@@ -29,6 +31,8 @@ const input =
   "w-full rounded-panel border border-white/[0.12] bg-white/[0.03] px-4 py-3 text-bone placeholder:text-smoke focus:border-filament focus:outline-none";
 
 export function CarePlan() {
+  const { user } = useAuth();
+  const router = useRouter();
   const [billing, setBilling] = useState<Billing>("monthly");
   const [busy, setBusy] = useState<Provider | null>(null);
   const [message, setMessage] = useState<{ kind: "error" | "success"; text: string } | null>(null);
@@ -44,6 +48,10 @@ export function CarePlan() {
 
   async function pay(provider: Provider, form: HTMLFormElement) {
     setMessage(null);
+    if (!user) {
+      router.push("/login?redirect=/pricing#care-plan");
+      return;
+    }
     if (!form.reportValidity()) return;
     const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
     setBusy(provider);
@@ -137,8 +145,8 @@ export function CarePlan() {
               onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}
               aria-label="Subscribe to the Care Plan"
             >
-              <input name="name" required autoComplete="name" placeholder="Your name" className={input} />
-              <input name="email" type="email" required autoComplete="email" placeholder="Email" className={input} />
+              <input name="name" required autoComplete="name" placeholder="Your name" defaultValue={user?.user_metadata?.full_name ?? ""} className={input} />
+              <input name="email" type="email" required autoComplete="email" placeholder="Email" defaultValue={user?.email ?? ""} className={input} />
               <input name="phone" type="tel" autoComplete="tel" placeholder="Phone (optional)" className={input} />
               <input name="businessName" autoComplete="organization" placeholder="Business (optional)" className={input} />
               {/* Honeypot: real visitors never see or fill this */}

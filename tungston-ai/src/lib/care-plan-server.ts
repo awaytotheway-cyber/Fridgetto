@@ -63,6 +63,7 @@ export type SubscriberRow = {
   email?: string;
   phone?: string | null;
   business_name?: string | null;
+  user_id?: string | null;
   status: string;
   current_period_end?: string | null;
 };

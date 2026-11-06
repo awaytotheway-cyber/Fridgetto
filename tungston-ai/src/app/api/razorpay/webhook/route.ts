@@ -50,6 +50,7 @@ export async function POST(req: Request) {
       email: notes.email || undefined,
       phone: notes.phone || null,
       business_name: notes.businessName || null,
+      user_id: notes.user_id || null,
       status,
       current_period_end: unixToIso(sub.current_end),
     });
