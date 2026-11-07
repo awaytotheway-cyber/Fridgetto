@@ -93,7 +93,7 @@ export type Estimate = {
 
 /**
  * Systems overlap, so their effects compound rather than add: two systems that
- * each take 40% of the busywork take 64% together, not 80%.
+ * each take 40% of the repetitive work take 64% together, not 80%.
  */
 export function estimate(inputs: EstimatorInputs, selected: string[]): Estimate {
   const models = serviceModels.filter((m) => selected.includes(m.slug));

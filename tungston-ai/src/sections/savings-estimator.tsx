@@ -108,7 +108,7 @@ const teamFields: Field[] = [
   },
   {
     key: "hoursPerWeek",
-    label: "Hours each spends on busywork",
+    label: "Hours each spends on repetitive work",
     hint: "Data entry, follow-ups, answering the same questions",
     min: 1,
     max: 30,
@@ -265,7 +265,7 @@ function Stat({ label, children, sub }: { label: string; children: ReactNode; su
   );
 }
 
-/** One person's 40-hour week: busywork eats the end of each day, and the systems take part of it back. */
+/** One person's 40-hour week: repetitive work eats the end of each day, and the systems take part of it back. */
 function WeekGrid({ repetitive, freed }: { repetitive: number; freed: number }) {
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
   const perDay = WORK_WEEK_HOURS / days.length;
@@ -301,13 +301,13 @@ function WeekGrid({ repetitive, freed }: { repetitive: number; freed: number }) 
           <span aria-hidden="true" className="size-2.5 rounded-full bg-volt" /> Handed to AI
         </span>
         <span className="flex items-center gap-2">
-          <span aria-hidden="true" className="size-2.5 rounded-full bg-filament" /> Busywork left
+          <span aria-hidden="true" className="size-2.5 rounded-full bg-filament" /> Repetitive work left
         </span>
         <span className="flex items-center gap-2">
           <span aria-hidden="true" className="size-2.5 rounded-full bg-white/15" /> Everything else
         </span>
         <span className="sr-only">
-          Each person gets {freed} of their {repetitive} weekly busywork hours back.
+          Each person gets {freed} of their {repetitive} weekly hours of repetitive work back.
         </span>
       </figcaption>
     </figure>
@@ -505,7 +505,7 @@ export function SavingsEstimator() {
             <h3 className="font-display text-title font-semibold text-bone">One person&apos;s week</h3>
             <p className="mt-2 text-ash">
               <span className="font-medium text-volt">{result.week.freed}</span> of their{" "}
-              {result.week.repetitive} busywork hours, handed to AI every week.
+              {result.week.repetitive} hours of repetitive work, handed to AI every week.
             </p>
             <div className="mt-8">
               <WeekGrid repetitive={result.week.repetitive} freed={result.week.freed} />
