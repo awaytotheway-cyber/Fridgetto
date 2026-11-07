@@ -8,6 +8,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { getLenis } from "@/components/fx/smooth-scroll";
 import { services } from "@/lib/content";
 import { siteConfig } from "@/site.config";
+import { UserMenu } from "@/components/auth/user-menu";
 
 export function Header() {
   const pathname = usePathname();
@@ -119,7 +120,8 @@ export function Header() {
         </nav>
 
         {/* Below ~1024px the six nav links need the room; the audit is one click away via Contact */}
-        <div className="hidden min-[64rem]:block">
+        <div className="hidden items-center gap-4 min-[64rem]:flex">
+          <UserMenu />
           <ButtonLink href={siteConfig.contact.bookingUrl} className="whitespace-nowrap">
             Book a free AI audit
           </ButtonLink>
@@ -222,10 +224,16 @@ export function Header() {
             ))}
           </ul>
 
-          <div className="mt-10">
+          <div className="mt-10 flex flex-col gap-3">
             <ButtonLink href={siteConfig.contact.bookingUrl} size="lg" magnetic={false} className="w-full">
               Book a free AI audit
             </ButtonLink>
+            <Link
+              href="/login"
+              className="w-full rounded-full border border-white/15 py-3 text-center text-[0.9375rem] font-medium text-bone transition-colors hover:border-filament"
+            >
+              Log in
+            </Link>
           </div>
           <p className="mt-8 text-ash">
             <a href={`mailto:${siteConfig.contact.email}`} className="text-bone underline decoration-filament/60 underline-offset-4">

@@ -8,8 +8,8 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/[0.07] bg-void pt-20 sm:pt-28">
       <div className="ambient -bottom-40 left-1/2 h-80 w-[60rem] -translate-x-1/2 opacity-60" />
-      <div className="shell relative grid gap-14 md:grid-cols-12">
-        <div className="md:col-span-5">
+      <div className="shell relative grid grid-cols-1 gap-14 md:grid-cols-12">
+        <div className="min-w-0 md:col-span-5">
           <Logo />
           <p className="mt-6 max-w-sm text-ash">
             AI agents, voice agents, chatbots, automations and content systems, built for your business and shipped in
@@ -17,14 +17,14 @@ export function Footer() {
           </p>
           <a
             href={`mailto:${siteConfig.contact.email}`}
-            className="mt-8 inline-block font-display text-2xl font-medium tracking-[-0.005em] text-bone underline decoration-filament/50 decoration-2 underline-offset-8 transition-colors hover:decoration-volt sm:text-3xl"
+            className="mt-8 inline-block max-w-full font-display text-lg font-medium [overflow-wrap:anywhere] min-[400px]:text-xl tracking-[-0.005em] text-bone underline decoration-filament/50 decoration-2 underline-offset-8 transition-colors hover:decoration-volt sm:text-2xl md:text-3xl"
           >
             {siteConfig.contact.email}
           </a>
         </div>
 
-        <nav aria-label="Footer" className="grid grid-cols-2 gap-10 sm:grid-cols-3 md:col-span-7">
-          <div>
+        <nav aria-label="Footer" className="grid min-w-0 grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-x-10 md:col-span-7">
+          <div className="min-w-0 break-words">
             <p className="text-sm font-medium text-smoke">Studio</p>
             <ul className="mt-4 space-y-2.5">
               <li>
@@ -41,7 +41,7 @@ export function Footer() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className="min-w-0 break-words">
             <p className="text-sm font-medium text-smoke">Services</p>
             <ul className="mt-4 space-y-2.5">
               {services.map((s) => (
@@ -53,7 +53,7 @@ export function Footer() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className="min-w-0 break-words">
             <p className="text-sm font-medium text-smoke">Elsewhere</p>
             <ul className="mt-4 space-y-2.5">
               {siteConfig.socials.map((s) => (

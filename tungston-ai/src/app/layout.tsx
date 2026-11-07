@@ -9,6 +9,8 @@ import { Cursor } from "@/components/fx/cursor";
 import { Preloader } from "@/components/fx/preloader";
 import { JsonLd } from "@/components/json-ld";
 import { services } from "@/lib/content";
+import { AuthProvider } from "@/components/auth/auth-provider";
+import { createClient } from "@/lib/supabase/server";
 
 // Fontshare variable fonts, downloaded by scripts/fetch-fonts.mjs (see the note there on licensing)
 const display = localFont({
@@ -108,28 +110,43 @@ const websiteJsonLd = {
  */
 const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');var s=function(){d.dataset.preloaded='true';d.classList.add('quick-intro')};try{if(!matchMedia('(hover: hover) and (pointer: fine)').matches||sessionStorage.getItem('protomation:preloaded'))s()}catch(e){s()}})();`;
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export const instant = false;
+
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  let user = null;
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    try {
+      const supabase = await createClient();
+      const { data } = await supabase.auth.getUser();
+      user = data.user;
+    } catch {
+      // Auth not configured yet — site works without it
+    }
+  }
+
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body className="min-h-svh overflow-x-clip">
-        <a
-          href="#main"
-          className="fixed top-3 left-3 z-[90] -translate-y-20 rounded-full bg-volt px-4 py-2 font-medium text-void focus:translate-y-0"
-        >
-          Skip to content
-        </a>
-        <Preloader />
-        <SmoothScroll />
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
-        <Cursor />
-        <div aria-hidden="true" className="grain" />
-        <JsonLd data={organizationJsonLd} />
-        <JsonLd data={websiteJsonLd} />
+        <AuthProvider initialUser={user}>
+          <a
+            href="#main"
+            className="fixed top-3 left-3 z-[90] -translate-y-20 rounded-full bg-volt px-4 py-2 font-medium text-void focus:translate-y-0"
+          >
+            Skip to content
+          </a>
+          <Preloader />
+          <SmoothScroll />
+          <Header />
+          <main id="main">{children}</main>
+          <Footer />
+          <Cursor />
+          <div aria-hidden="true" className="grain" />
+          <JsonLd data={organizationJsonLd} />
+          <JsonLd data={websiteJsonLd} />
+        </AuthProvider>
       </body>
     </html>
   );
