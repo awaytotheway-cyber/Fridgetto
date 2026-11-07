@@ -10,15 +10,14 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ redirect?: string }>;
 }) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   const { redirect: returnTo } = await searchParams;
 
-  if (user) {
-    redirect(returnTo || "/pricing#care-plan");
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      redirect(returnTo || "/pricing#care-plan");
+    }
   }
 
   return <LoginForm returnTo={returnTo} />;

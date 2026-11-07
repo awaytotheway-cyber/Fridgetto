@@ -13,6 +13,10 @@ export function AuthProvider({ initialUser, children }: { initialUser: User | nu
   const [loading, setLoading] = useState(!initialUser);
 
   useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      setLoading(false);
+      return;
+    }
     const supabase = createClient();
     const {
       data: { subscription },

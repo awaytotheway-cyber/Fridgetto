@@ -113,8 +113,16 @@ const bootScript = `(function(){var d=document.documentElement;d.classList.add('
 export const instant = false;
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  let user = null;
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    try {
+      const supabase = await createClient();
+      const { data } = await supabase.auth.getUser();
+      user = data.user;
+    } catch {
+      // Auth not configured yet — site works without it
+    }
+  }
 
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
