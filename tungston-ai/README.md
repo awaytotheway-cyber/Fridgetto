@@ -32,7 +32,8 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL used for metadata, the sitemap, robots.txt and JSON-LD. Defaults to `https://www.protomation.ai`; the bare domain redirects there (see `next.config.ts`). |
 | `CONTACT_WEBHOOK_URL` | Optional. The n8n webhook the contact form calls. Falls back to the production workflow hard-coded in `src/app/actions.ts`. See [Contact form](#contact-form). |
-| `SUPABASE_URL` / `SUPABASE_PUBLISHABLE_KEY` | Optional. Where enquiries are recorded. Both fall back to values in `src/lib/enquiry-store.ts`. See [Contact form](#contact-form). |
+| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | The Protomation Supabase project. Auth, enquiries and Care Plan subscribers all live in it. Create its tables with the files in `supabase/`. See [Contact form](#contact-form). |
+| `SUPABASE_URL` / `SUPABASE_PUBLISHABLE_KEY` | Optional. Only to record enquiries and subscribers in a *different* project from auth. Leave empty and the two above are used. |
 
 ## Where to change things
 
@@ -70,9 +71,11 @@ The **Pricing page** has a second form, the quote request (`submitQuote` in the 
 
 ### Reading the enquiries
 
-They are in the Supabase project that also hosts LifeShield, in `public.protomation_enquiries`, newest first. The table is prefixed and has its own access rules; nothing of LifeShield's is touched.
+They are in the Protomation Supabase project — the same one that handles user auth — in `public.protomation_enquiries`, newest first. Create the table with `supabase/protomation_enquiries.sql`.
 
-The site writes with Supabase's **publishable** key, which is meant to be public — browser apps ship it. The table's single policy lets that key `INSERT` and nothing else, so it cannot read enquiries back, change them or delete them. Reading needs the service role, which in practice means the Supabase dashboard. This was verified against the live table: `select` returns no rows and `delete` removes none. Keep it that way — adding a `SELECT` policy for `anon` would publish every enquirer's contact details.
+The site writes with Supabase's **publishable/anon** key, which is meant to be public — browser apps ship it. The table's single policy lets that key `INSERT` and nothing else, so it cannot read enquiries back, change them or delete them. Reading needs the service role, which in practice means the Supabase dashboard. Keep it that way — adding a `SELECT` policy for `anon` would publish every enquirer's contact details.
+
+Enquiries used to be recorded in the separate project that hosts LifeShield, because there was no other project to put them in. That project still holds the enquiries received before the move; it is no longer written to.
 
 The workflow's webhook node is set to **GET**, so the fields travel as query parameters, not as a JSON body. Posting to it returns `404 This webhook is not registered for POST requests`. If you switch the node to POST, change `sendToN8n` to match.
 
