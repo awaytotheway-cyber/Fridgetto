@@ -11,11 +11,11 @@ export type EstimatorInputs = {
   team: number;
   /** Hours each of them spends on it per week. */
   hoursPerWeek: number;
-  /** Fully loaded cost of an hour of their time, in dollars. */
+  /** Fully loaded cost of an hour of their time, in rupees. */
   hourlyCost: number;
   /** New leads or enquiries per month. */
   leads: number;
-  /** What a new customer is worth, in dollars. */
+  /** What a new customer is worth, in rupees. */
   dealValue: number;
   /** Share of leads that become customers, in percent. */
   closeRate: number;
@@ -50,12 +50,23 @@ export const WORK_WEEK_HOURS = 40;
 const WEEKS_PER_MONTH = 52 / 12;
 const FTE_HOURS_PER_MONTH = WORK_WEEK_HOURS * WEEKS_PER_MONTH;
 
+/**
+ * Indian market, deliberately conservative — a prospect who challenges these should
+ * find them easy to accept, not easy to argue with.
+ *
+ * hourlyCost: a support/ops executive on roughly ₹2L CTC plus overheads, over 2,080
+ * working hours a year. Experienced staff cost several times this, so the figure
+ * understates the saving for most teams rather than overstating it.
+ *
+ * dealValue: a low-ticket first-year customer, the kind a high-volume D2C, retail or
+ * local-services pipeline brings in.
+ */
 export const defaultInputs: EstimatorInputs = {
   team: 12,
   hoursPerWeek: 10,
-  hourlyCost: 35,
+  hourlyCost: 125,
   leads: 300,
-  dealValue: 2000,
+  dealValue: 5000,
   closeRate: 15,
 };
 
@@ -82,7 +93,7 @@ export type Estimate = {
 
 /**
  * Systems overlap, so their effects compound rather than add: two systems that
- * each take 40% of the busywork take 64% together, not 80%.
+ * each take 40% of the repetitive work take 64% together, not 80%.
  */
 export function estimate(inputs: EstimatorInputs, selected: string[]): Estimate {
   const models = serviceModels.filter((m) => selected.includes(m.slug));
