@@ -70,12 +70,15 @@ export type SubscriberRow = {
 
 /**
  * Upserts one subscriber by (provider, provider_ref), so a replayed webhook just
- * rewrites the same state. Needs the service role key: the table has no public policy.
+ * rewrites the same state. Writes to the Protomation Supabase project — the same one
+ * that handles user auth, so user_id can reference auth.users. Needs the service role
+ * key: the table's only policy lets a subscriber read their own row.
  * Fields left undefined are not sent, so a status-only event keeps the stored contact.
  */
 export async function upsertSubscriber(row: SubscriberRow) {
-  const url = env("SUPABASE_URL") || "https://zohdgwzqtfcuyqoxwgbi.supabase.co";
+  const url = env("SUPABASE_URL") || env("NEXT_PUBLIC_SUPABASE_URL");
   const key = env("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url) throw new Error("NEXT_PUBLIC_SUPABASE_URL is not set");
   if (!key) throw new Error("SUPABASE_SERVICE_ROLE_KEY is not set");
   const res = await fetch(`${url}/rest/v1/care_subscribers?on_conflict=provider,provider_ref`, {
     method: "POST",
