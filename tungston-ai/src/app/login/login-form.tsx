@@ -18,7 +18,7 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback?redirect=${encodeURIComponent(returnTo || "/pricing#care-plan")}`,
+        redirectTo: `${window.location.origin}/auth/callback?redirect=${encodeURIComponent(returnTo || "/")}`,
       },
     });
   }
@@ -91,7 +91,7 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
         {/* Email form */}
         {tab === "signin" ? (
           <form action={loginAction} className="space-y-4">
-            <input type="hidden" name="returnTo" value={returnTo || "/pricing#care-plan"} />
+            <input type="hidden" name="returnTo" value={returnTo || "/"} />
             <div>
               <label htmlFor="login-email" className="block text-xs font-semibold uppercase tracking-widest text-smoke">
                 Email

@@ -16,7 +16,7 @@ export default async function LoginPage({
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      redirect(returnTo || "/pricing#care-plan");
+      redirect(returnTo || "/");
     }
   }
 

@@ -13,7 +13,7 @@ export async function login(_prevState: unknown, formData: FormData) {
   if (error) return { error: error.message };
 
   revalidatePath("/", "layout");
-  const returnTo = (formData.get("returnTo") as string) || "/pricing#care-plan";
+  const returnTo = (formData.get("returnTo") as string) || "/";
   redirect(returnTo);
 }
 
