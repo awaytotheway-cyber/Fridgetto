@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { useAuth } from "@/components/auth/auth-provider";
 import { createClient } from "@/lib/supabase/browser";
 import { useRouter } from "next/navigation";
@@ -11,7 +12,16 @@ export function UserMenu() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  if (!user) return null;
+  if (!user) {
+    return (
+      <Link
+        href="/login"
+        className="rounded-full px-4 py-2 text-[0.9375rem] font-medium whitespace-nowrap text-ash transition-colors duration-300 hover:text-bone"
+      >
+        Log in
+      </Link>
+    );
+  }
 
   const initials = (user.user_metadata?.full_name || user.email || "U")
     .split(" ")

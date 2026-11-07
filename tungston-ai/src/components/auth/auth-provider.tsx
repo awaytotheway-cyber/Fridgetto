@@ -8,15 +8,16 @@ type AuthCtx = { user: User | null; loading: boolean };
 
 const Ctx = createContext<AuthCtx>({ user: null, loading: true });
 
+const configured = !!(
+  process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
 export function AuthProvider({ initialUser, children }: { initialUser: User | null; children: ReactNode }) {
   const [user, setUser] = useState<User | null>(initialUser);
-  const [loading, setLoading] = useState(!initialUser);
+  const [loading, setLoading] = useState(configured && !initialUser);
 
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-      setLoading(false);
-      return;
-    }
+    if (!configured) return;
     const supabase = createClient();
     const {
       data: { subscription },
