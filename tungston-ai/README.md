@@ -34,6 +34,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | `CONTACT_WEBHOOK_URL` | Optional. The n8n webhook the contact form calls. Falls back to the production workflow hard-coded in `src/app/actions.ts`. See [Contact form](#contact-form). |
 | `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | The Protomation Supabase project. Auth, enquiries and Care Plan subscribers all live in it. Create its tables with the files in `supabase/`. See [Contact form](#contact-form). |
 | `SUPABASE_URL` / `SUPABASE_PUBLISHABLE_KEY` | Optional. Only to record enquiries and subscribers in a *different* project from auth. Leave empty and the two above are used. |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Optional. The Web OAuth client ID. Set it and Google sign-in uses an ID token issued on this page, so the consent screen names this site; leave it empty and it falls back to the Supabase OAuth redirect, which shows `<project-ref>.supabase.co`. See [Google sign-in](#google-sign-in). |
 
 ## Where to change things
 
@@ -57,6 +58,20 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Liquid "Reach out to us" button: grab distance, release distance, blob size | Constants at the top of `src/components/fx/liquid-button.tsx`. Keep its padded field clear of other controls. |
 
 > **Before launch:** the stats in the hero and the three case studies are placeholders written to show the layout. Replace them in `src/lib/content.ts` with real numbers. Prices are real and live in `src/lib/pricing.ts`. The savings estimator's per-service rates in `src/lib/estimator.ts` are placeholders too: tune them to real client results.
+
+## Google sign-in
+
+The Google button on `/login` uses [Google Identity Services](https://developers.google.com/identity/gsi/web/guides/overview): Google's button runs on our own page, returns an ID token, and `supabase.auth.signInWithIdToken()` trades it for a session.
+
+This is deliberate. Supabase's `signInWithOAuth()` redirect sends the visitor to Google with the *Supabase project* as the callback host, so Google's consent screen reads "continue to `<project-ref>.supabase.co`" — the project URL, shown to every person signing in. The ID-token flow never leaves this origin, so the prompt names the site instead. The alternative fix is Supabase's [Custom Domain add-on](https://supabase.com/docs/guides/platform/custom-domains), which costs $10/month and can only give a subdomain such as `auth.protomation.ai`.
+
+To set it up:
+
+1. In Google Cloud Console → Credentials, open the **Web** OAuth client (the same one Supabase already uses) and add the site's origins under **Authorized JavaScript origins**: `https://www.protomation.ai` and `http://localhost:3000` for development. Leave the existing authorized *redirect* URI alone.
+2. Set `NEXT_PUBLIC_GOOGLE_CLIENT_ID` to that client ID. It is read at build time, so a redeploy is needed.
+3. Make sure the same client ID is on the Google provider in the Supabase dashboard (Authentication → Providers → Google), which is what lets Supabase accept the token.
+
+Until the variable is set, `GoogleButton` falls back to the old redirect, so sign-in keeps working either way. Google requires its own rendered button for this flow, so it cannot be restyled; it is themed `filled_black` and clipped to the site's panel radius. One Tap is deliberately not shown — the login page asks for an explicit click.
 
 ## Contact form
 
