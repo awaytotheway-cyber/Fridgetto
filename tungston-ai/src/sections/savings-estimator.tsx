@@ -15,11 +15,22 @@ import {
 } from "@/lib/estimator";
 import { siteConfig } from "@/site.config";
 
-const num = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
-const usd = (n: number) => {
+const num = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
+/** Three significant digits, so 3.48 L, 12.3 L and 1.23 Cr all read naturally. */
+const sig = new Intl.NumberFormat("en-IN", { maximumSignificantDigits: 3 });
+/**
+ * Compact rupees for the estimator's headline numbers, which run from a few thousand
+ * a month to crores a year: ₹29,000, then ₹3.48 L, then ₹1.23 Cr. The exact formatter
+ * the /pricing page uses is inr() in src/lib/pricing.ts — this one rounds on purpose.
+ *
+ * The crore cut-off is 99.95 lakh rather than a round crore: a lakh covers two orders
+ * of magnitude, so anything above that rounds to "100 L", which nobody writes.
+ */
+const inr = (n: number) => {
   const v = Math.round(n);
-  if (v >= 1_000_000) return `$${(v / 1_000_000).toFixed(v >= 10_000_000 ? 1 : 2)}M`;
-  return `$${num.format(v)}`;
+  if (v >= 99_95_000) return `₹${sig.format(v / 1_00_00_000)} Cr`;
+  if (v >= 1_00_000) return `₹${sig.format(v / 1_00_000)} L`;
+  return `₹${num.format(v)}`;
 };
 const fmtHours = (n: number) => num.format(Math.round(n));
 const fmtFte = (n: number) => (n < 10 ? n.toFixed(1) : num.format(Math.round(n)));
@@ -107,10 +118,14 @@ const teamFields: Field[] = [
     key: "hourlyCost",
     label: "Cost of an hour of their time",
     hint: "Salary plus overheads",
-    min: 10,
-    max: 150,
-    step: 5,
-    format: (v) => `$${v} / hr`,
+    min: 50,
+    max: 2000,
+    // A support executive and a senior specialist are 40x apart, so spread it the way
+    // the other wide fields are spread: linear would park every realistic value at the
+    // far left of the track.
+    log: true,
+    snap: (v) => (v < 500 ? Math.round(v / 25) * 25 : v < 1000 ? Math.round(v / 50) * 50 : Math.round(v / 100) * 100),
+    format: (v) => `₹${num.format(v)} / hr`,
   },
 ];
 
@@ -128,11 +143,16 @@ const pipelineFields: Field[] = [
     key: "dealValue",
     label: "What a new customer is worth",
     hint: "Average revenue in their first year",
-    min: 100,
-    max: 50000,
+    min: 500,
+    max: 25_00_000,
     log: true,
-    snap: (v) => (v < 1000 ? Math.round(v / 50) * 50 : v < 10000 ? Math.round(v / 250) * 250 : Math.round(v / 1000) * 1000),
-    format: usd,
+    snap: (v) =>
+      v < 10_000
+        ? Math.round(v / 500) * 500
+        : v < 1_00_000
+          ? Math.round(v / 2_500) * 2_500
+          : Math.round(v / 25_000) * 25_000,
+    format: inr,
   },
   {
     key: "closeRate",
@@ -305,7 +325,7 @@ export function SavingsEstimator() {
     const t = setTimeout(() => {
       setSummary(
         selected.length
-          ? `Estimate: ${fmtHours(result.hoursPerMonth)} hours and ${usd(result.moneyPerMonth)} saved a month, plus ${fmtPlus(result.extraLeads)} leads.`
+          ? `Estimate: ${fmtHours(result.hoursPerMonth)} hours and ${inr(result.moneyPerMonth)} saved a month, plus ${fmtPlus(result.extraLeads)} leads.`
           : "Pick at least one system to see an estimate.",
       );
     }, 800);
@@ -387,7 +407,7 @@ export function SavingsEstimator() {
               </p>
               <p className="flex flex-col">
                 <span className="font-display text-xl font-semibold text-bone tabular-nums">
-                  <AnimatedNumber value={result.moneyPerMonth} format={usd} />
+                  <AnimatedNumber value={result.moneyPerMonth} format={inr} />
                 </span>
                 <span className="text-xs text-smoke">saved / month</span>
               </p>
@@ -418,8 +438,8 @@ export function SavingsEstimator() {
               </p>
 
               <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-7 border-t border-white/[0.08] pt-8">
-                <Stat label="Saved every month" sub={<><AnimatedNumber value={result.moneyPerYear} format={usd} /> a year</>}>
-                  <AnimatedNumber value={result.moneyPerMonth} format={usd} />
+                <Stat label="Saved every month" sub={<><AnimatedNumber value={result.moneyPerYear} format={inr} /> a year</>}>
+                  <AnimatedNumber value={result.moneyPerMonth} format={inr} />
                 </Stat>
                 <Stat label="Extra leads a month">
                   <AnimatedNumber value={result.extraLeads} format={fmtPlus} />
@@ -429,7 +449,7 @@ export function SavingsEstimator() {
                   <Gauge pct={result.leadLiftPct} />
                 </Stat>
                 <Stat label="Extra revenue a month">
-                  <AnimatedNumber value={result.extraRevenuePerMonth} format={usd} />
+                  <AnimatedNumber value={result.extraRevenuePerMonth} format={inr} />
                 </Stat>
               </dl>
 
