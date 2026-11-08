@@ -51,6 +51,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Which tools a service page shows, how they are grouped, and the "What we need from you" list | `toolGroups` and `needs` in `src/lib/service-details.ts` |
 | The tools themselves: names, and which have a logo | `src/lib/tools.json`. After adding a tool with an `icon`, run `node scripts/make-tool-icons.mjs` to regenerate `src/lib/tool-icons.ts`. A tool with no `icon` shows its name only. Every tool needs a `url` (its official site): tool names link out to it. |
 | Demo chatbot answers | `src/lib/demo-bot.ts` (keyword intents, first match wins) |
+| The Privacy Policy and Terms of Service text | `src/lib/legal.ts`. The entity wording, the jurisdiction city and the "Last updated" date are `legal` in `src/site.config.ts`. Both pages are linked from the footer's bottom bar only, never the nav. |
 | Savings estimator: what each service saves, slider defaults | `src/lib/estimator.ts` (`serviceModels`, `defaultInputs`) |
 | Team members: names, roles, bios, portraits | `team` in `src/lib/content.ts`. Portraits are in `public/assets/` (see [ASSETS.md](./ASSETS.md#team-portraits)). |
 | Images | Rendered art is in `public/assets/`, set in `src/site.config.ts` (hero, About) and `src/lib/content.ts` (service cards). See [ASSETS.md](./ASSETS.md) for sizes, prompts and how to fall back to the drawn versions. |
