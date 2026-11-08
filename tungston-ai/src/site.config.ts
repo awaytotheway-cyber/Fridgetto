@@ -40,6 +40,21 @@ export const siteConfig = {
     /** Where "Book a Free AI Audit" points. Swap for a Cal.com / Calendly link when ready. */
     bookingUrl: "/contact",
   },
+  /**
+   * Facts the /privacy and /terms pages state about the business. The wording of
+   * those pages lives in src/lib/legal.ts.
+   */
+  legal: {
+    /** How the business is constituted, as the pages describe it. */
+    entity: "a sole proprietorship",
+    /**
+     * The city whose courts hear disputes. Left null, the terms say "the courts of
+     * India" rather than printing a placeholder — set it to name a city instead.
+     */
+    jurisdictionCity: null as string | null,
+    /** Shown as "Last updated" on both pages. Change it whenever the text changes. */
+    lastUpdated: "8 November 2026",
+  },
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com/company/protomation-ai" },
     { label: "X", href: "https://x.com/protomationai" },
