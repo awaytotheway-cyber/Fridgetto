@@ -51,7 +51,7 @@ export const siteConfig = {
      * The city whose courts hear disputes. Left null, the terms say "the courts of
      * India" rather than printing a placeholder — set it to name a city instead.
      */
-    jurisdictionCity: null as string | null,
+    jurisdictionCity: "Mumbai" as string | null,
     /** Shown as "Last updated" on both pages. Change it whenever the text changes. */
     lastUpdated: "8 November 2026",
   },
