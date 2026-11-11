@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { siteConfig } from "@/site.config";
 
-export const alt = `${siteConfig.name}: We build AI that works while you sleep`;
+export const alt = `${siteConfig.name}: ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -81,11 +81,15 @@ export default async function OpengraphImage() {
             color: "#f3f1ee",
           }}
         >
-          <span>We Build AI</span>
-          <span>That Works While</span>
+          <span>{siteConfig.headline.lines[0]}</span>
+          {/* The glowing word ends the second line, exactly as it does in the hero */}
           <span style={{ display: "flex" }}>
-            You&nbsp;<span style={{ color: "#ffd400", textShadow: "0 0 30px rgba(232,16,26,0.9)" }}>Sleep.</span>
+            {siteConfig.headline.lines[1]}&nbsp;
+            <span style={{ color: "#ffd400", textShadow: "0 0 30px rgba(232,16,26,0.9)" }}>
+              {siteConfig.headline.hot}
+            </span>
           </span>
+          <span>{siteConfig.headline.lines[2]}</span>
         </div>
       </div>
     ),

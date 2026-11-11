@@ -11,7 +11,18 @@ export const siteConfig = {
   legalName: "Protomation AI",
   /** The one canonical address. The site is served on www; the bare domain should 301 to it. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.protomation.ai",
-  tagline: "We build AI that works while you sleep.",
+  tagline: "Your team is doing work a machine should do",
+  /**
+   * The hero headline, split as it is set on the page. The share card draws the same
+   * words, so the two cannot drift apart — they used to be hardcoded separately.
+   *
+   * `hot` is the word that carries the filament glow, and it ends the SECOND line.
+   * Both renderers follow that rule; change it in one and change it in the other.
+   */
+  headline: {
+    lines: ["Your Team Is Doing", "Work A", "Should Do."],
+    hot: "Machine",
+  },
   /** Meta description: keep it under about 150 characters so search results show all of it. */
   description:
     "Protomation.ai builds AI agents, AI voice agents and workflow automation that save your team hours and win more leads, live in weeks, not quarters.",

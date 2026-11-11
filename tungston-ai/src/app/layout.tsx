@@ -25,6 +25,14 @@ const sans = localFont({
   weight: "200 700",
 });
 
+/** The hero headline on one line, so the share titles always match the page. */
+const headlineText = [
+  siteConfig.headline.lines[0],
+  siteConfig.headline.lines[1],
+  siteConfig.headline.hot,
+  siteConfig.headline.lines[2],
+].join(" ");
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   // Titles stay under Google's ~580px and leave the domain out (search results show it anyway)
@@ -41,13 +49,13 @@ export const metadata: Metadata = {
     type: "website",
     siteName: siteConfig.name,
     url: siteConfig.url,
-    title: `We Build AI That Works While You Sleep | ${siteConfig.shortName}`,
+    title: `${headlineText} | ${siteConfig.shortName}`,
     description: siteConfig.description,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `We Build AI That Works While You Sleep | ${siteConfig.shortName}`,
+    title: `${headlineText} | ${siteConfig.shortName}`,
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
