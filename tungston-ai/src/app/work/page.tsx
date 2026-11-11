@@ -7,9 +7,9 @@ import { LiveDemo } from "@/sections/live-demo";
 import { FinalCta } from "@/sections/final-cta";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Case Studies: AI Systems That Paid Off",
+  title: "What We Build: Voice Agents, Speed to Lead and Research Agents",
   description:
-    "Case studies: voice agents, chatbots and AI agents that moved bookings, support load and hours saved for real businesses.",
+    "The three systems we build most: a voice agent that answers every clinic call, speed-to-lead automation for online stores, and a cited research agent for medical professionals.",
   path: "/work",
 });
 
@@ -17,8 +17,8 @@ export default function WorkPage() {
   return (
     <>
       <JsonLd data={breadcrumbJsonLd("Work", "/work")} />
-      <PageHero title="Systems that paid for themselves.">
-        Three recent builds, the problem each one solved and the number it moved.
+      <PageHero title="Three systems, and who each one is for.">
+        What we build most often, the problem each one takes off your desk, and what the system does once it is live.
       </PageHero>
       <Results withIntro={false} />
       <LiveDemo />

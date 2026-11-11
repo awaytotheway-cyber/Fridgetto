@@ -79,12 +79,21 @@ export function Hero() {
       />
 
       <div className="hero-intro shell relative flex min-h-svh flex-col justify-end pt-32 pb-8 sm:pb-10">
+        {/* Answers "who is this for" before the headline is read — the other half of
+            the Mirror Test. Rides the same staggered intro as the headline lines. */}
+        <p
+          data-line
+          style={{ "--i": 0 } as CSSProperties}
+          className="mb-5 font-mono text-xs tracking-[0.2em] text-smoke uppercase sm:mb-7"
+        >
+          {siteConfig.audiences.join(" · ")}
+        </p>
         <h1
           id="hero-title"
           className="max-w-[18ch] font-display text-hero font-semibold text-bone"
         >
-          <Line index={0}>{siteConfig.headline.lines[0]}</Line>
-          <Line index={1}>
+          <Line index={1}>{siteConfig.headline.lines[0]}</Line>
+          <Line index={2}>
             {siteConfig.headline.lines[1]}{" "}
             <span className="relative inline-block">
               <span className="text-void [paint-order:stroke_fill] [-webkit-text-stroke:2px_rgb(158_10_18/0.9)]">
@@ -102,7 +111,7 @@ export function Hero() {
               </span>
             </span>
           </Line>
-          <Line index={2}>{siteConfig.headline.lines[2]}</Line>
+          <Line index={3}>{siteConfig.headline.lines[2]}</Line>
         </h1>
 
         <div className="mt-8 grid items-end gap-8 sm:mt-10 lg:grid-cols-12">

@@ -23,6 +23,12 @@ export const siteConfig = {
     lines: ["Your Team Is Doing", "Work A", "Should Do."],
     hot: "Machine",
   },
+  /**
+   * Who the site says it is for, shown above the headline. These are the three builds
+   * described in `useCases` (src/lib/content.ts) — keep the two in step, or the page
+   * will promise an audience it then shows nothing for.
+   */
+  audiences: ["Clinics", "Online stores", "Medical research"],
   /** Meta description: keep it under about 150 characters so search results show all of it. */
   description:
     "Protomation.ai builds AI agents, AI voice agents and workflow automation that save your team hours and win more leads, live in weeks, not quarters.",
