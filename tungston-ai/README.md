@@ -45,7 +45,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Page titles, descriptions and social cards | `pageMetadata()` in each page (from `src/lib/seo.ts`). Site-wide defaults and structured data are in `src/app/layout.tsx`. |
 | Colors, type scale, radii, glows | The `@theme` block in `src/app/globals.css`. The canvas effects read `--color-ember`, `--color-filament-deep`, `--color-filament` and `--color-volt` at runtime, so they follow automatically. |
 | Fonts | `src/app/layout.tsx` (`next/font/local`) and `scripts/fetch-fonts.mjs`. The OG image reads the static Clash Display TTFs from the same folder. See [Fonts](#fonts). |
-| All page copy: services, stats, process, case studies, manifesto | `src/lib/content.ts` |
+| All page copy: services, process, use cases, manifesto | `src/lib/content.ts`. The three audiences named above the hero headline are `audiences` in `src/site.config.ts` — keep them in step with `useCases`. |
 | Every price on the site: service cards, estimator bands, packages, maintenance, the Pricing FAQs (also the three plans on the home page) | `src/lib/pricing.ts`. Change a number in `PRICES` and the cards, estimator and lists follow. The estimator's bands are `estimatorServices`. |
 | The long copy on each service page (problem, what you get, FAQs, timeline) | `src/lib/service-details.ts`, keyed by the same slug as `services` |
 | Which tools a service page shows, how they are grouped, and the "What we need from you" list | `toolGroups` and `needs` in `src/lib/service-details.ts` |
@@ -58,7 +58,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 | Dot-grid physics (wave speed, damping, heat) | Constants at the top of `src/lib/ripple-field.ts` |
 | Liquid "Reach out to us" button: grab distance, release distance, blob size | Constants at the top of `src/components/fx/liquid-button.tsx`. Keep its padded field clear of other controls. |
 
-> **Before launch:** the stats in the hero and the three case studies are placeholders written to show the layout. Replace them in `src/lib/content.ts` with real numbers. Prices are real and live in `src/lib/pricing.ts`. The savings estimator's per-service rates in `src/lib/estimator.ts` are placeholders too: tune them to real client results.
+> **On proof:** the site currently claims no client results anywhere, on purpose. `useCases` in `src/lib/content.ts` describes what each system *does* rather than what it achieved for someone, and the hero stats row was removed rather than keep numbers nobody could stand behind. When there are real engagement figures — and permission to publish them — put them in `useCases`, name the client and say over what period. Prices are real and live in `src/lib/pricing.ts`. The savings estimator's per-service rates in `src/lib/estimator.ts` are still placeholders: tune them to real client results.
 
 ## Google sign-in
 

@@ -130,12 +130,6 @@ export const services: Service[] = [
   },
 ];
 
-export const heroStats = [
-  { value: 40, suffix: "+", label: "workflows automated" },
-  { value: 24, suffix: "/7", label: "agents live, every day" },
-  { value: 10, suffix: "x", label: "content output for clients" },
-];
-
 /**
  * The "why now" section. It makes the case by describing moments a visitor
  * recognises from their own week, rather than quoting adoption statistics we

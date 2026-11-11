@@ -4,9 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { DotGrid, type DotGridHandle } from "@/components/fx/dot-grid";
 import { ButtonLink } from "@/components/ui/button";
-import { Counter } from "@/components/fx/counter";
 import { onSiteReady, prefersReducedMotion } from "@/lib/gsap";
-import { heroStats } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 import { blurFor } from "@/lib/image-blur";
 
@@ -130,17 +128,6 @@ export function Hero() {
             </ButtonLink>
           </div>
         </div>
-
-        <dl data-fade className="mt-12 grid grid-cols-3 gap-4 border-t border-white/[0.08] pt-6 sm:mt-16" style={{ "--i": 1 } as CSSProperties}>
-          {heroStats.map((stat, i) => (
-            <div key={stat.label} className="flex flex-col-reverse gap-1">
-              <dt className="text-[0.8125rem] leading-snug text-smoke sm:text-sm">{stat.label}</dt>
-              <dd className="font-display text-3xl font-medium tracking-[-0.01em] text-bone tabular-nums sm:text-5xl">
-                <Counter value={stat.value} suffix={stat.suffix} delay={0.25 + i * 0.1} />
-              </dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );
