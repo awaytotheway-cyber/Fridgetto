@@ -35,7 +35,7 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
 
         <div className="relative -mt-16 px-7 pb-8 sm:px-9 sm:pb-10">
           <p className="font-display text-sm font-medium text-smoke tabular-nums">
-            <span className="text-signal">{String(index + 1).padStart(2, "0")}</span>
+            <span className="text-smoke">{String(index + 1).padStart(2, "0")}</span>
             <span className="mx-2 text-white/20">/</span>
             {member.role}
           </p>

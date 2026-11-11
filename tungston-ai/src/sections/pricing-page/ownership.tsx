@@ -11,7 +11,7 @@ export function Ownership() {
         <ol className="mt-12 grid gap-px overflow-hidden rounded-card border border-white/[0.08] bg-white/[0.08] sm:mt-16 md:grid-cols-2">
           {ownershipPoints.map((point, i) => (
             <li key={point.title} className="bg-void p-7 sm:p-9">
-              <span className="font-mono text-xs tracking-[0.2em] text-signal">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-mono text-xs tracking-[0.2em] text-smoke">{String(i + 1).padStart(2, "0")}</span>
               <h3 className="mt-4 font-display text-title font-semibold text-bone">{point.title}</h3>
               <p className="mt-3 text-ash">{point.body}</p>
             </li>

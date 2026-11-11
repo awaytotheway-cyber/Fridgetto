@@ -31,11 +31,11 @@ export function Results({ withIntro = true }: { withIntro?: boolean }) {
 
               <dl className="mt-10 space-y-6 text-[0.9375rem]">
                 <div>
-                  <dt className="font-medium text-signal">The problem</dt>
+                  <dt className="font-medium text-smoke">The problem</dt>
                   <dd className="mt-1.5 text-ash">{study.problem}</dd>
                 </div>
                 <div>
-                  <dt className="font-medium text-signal">What we built</dt>
+                  <dt className="font-medium text-smoke">What we built</dt>
                   <dd className="mt-1.5 text-ash">{study.solution}</dd>
                 </div>
               </dl>

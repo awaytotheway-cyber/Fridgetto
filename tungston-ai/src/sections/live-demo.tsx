@@ -25,7 +25,7 @@ export function LiveDemo() {
           <ul className="mt-10 space-y-4 border-t border-white/[0.08] pt-8">
             {facts.map((fact) => (
               <li key={fact} className="flex gap-4 text-bone/90">
-                <span aria-hidden="true" className="mt-[0.55em] size-2 shrink-0 rounded-full bg-filament shadow-[0_0_10px_rgb(232_16_26/0.7)]" />
+                <span aria-hidden="true" className="mt-[0.55em] size-2 shrink-0 rounded-full bg-filament/35" />
                 {fact}
               </li>
             ))}

@@ -15,7 +15,7 @@ export function WhyNow() {
     <section aria-labelledby="why-now-title" className="relative overflow-hidden py-24 sm:py-32">
       <div aria-hidden="true" className="ambient -z-10 -left-40 top-20 h-[32rem] w-[44rem] opacity-50" />
       <div className="shell">
-        <p className="font-mono text-xs tracking-[0.2em] text-signal uppercase">{whyNow.eyebrow}</p>
+        <p className="font-mono text-xs tracking-[0.2em] text-smoke uppercase">{whyNow.eyebrow}</p>
         <SectionIntro id="why-now-title" title={whyNow.title} className="mt-5">
           {whyNow.lead}
         </SectionIntro>
