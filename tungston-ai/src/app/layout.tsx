@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { motionBootScript } from "@/lib/motion";
 import { siteConfig } from "@/site.config";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -25,6 +26,14 @@ const sans = localFont({
   weight: "200 700",
 });
 
+/** The hero headline on one line, so the share titles always match the page. */
+const headlineText = [
+  siteConfig.headline.lines[0],
+  siteConfig.headline.lines[1],
+  siteConfig.headline.hot,
+  siteConfig.headline.lines[2],
+].join(" ");
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   // Titles stay under Google's ~580px and leave the domain out (search results show it anyway)
@@ -41,13 +50,13 @@ export const metadata: Metadata = {
     type: "website",
     siteName: siteConfig.name,
     url: siteConfig.url,
-    title: `We Build AI That Works While You Sleep | ${siteConfig.shortName}`,
+    title: `${headlineText} | ${siteConfig.shortName}`,
     description: siteConfig.description,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `We Build AI That Works While You Sleep | ${siteConfig.shortName}`,
+    title: `${headlineText} | ${siteConfig.shortName}`,
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
@@ -128,6 +137,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+        {/* Sets data-motion before first paint, so motion-off never shows a frame of motion */}
+        <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
       </head>
       <body className="min-h-svh overflow-x-clip">
         <AuthProvider initialUser={user}>

@@ -26,7 +26,7 @@ export function LegalDocument({ doc }: { doc: LegalDoc }) {
                     <ul key={i} className="space-y-2.5">
                       {block.map((item) => (
                         <li key={item} className="flex gap-3 text-ash">
-                          <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-filament" />
+                          <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-filament/35" />
                           <span>{item}</span>
                         </li>
                       ))}

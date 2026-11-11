@@ -162,7 +162,7 @@ export function Header() {
       >
         <div className="shell grid gap-8 py-8 lg:grid-cols-12">
           <div className="lg:col-span-3">
-            <p className="font-mono text-xs tracking-[0.2em] text-signal uppercase">What we build</p>
+            <p className="font-mono text-xs tracking-[0.2em] text-smoke uppercase">What we build</p>
             <p className="mt-3 max-w-xs text-sm text-ash">
               Seven systems. Start with whichever one saves you the most hours.
             </p>
@@ -209,7 +209,7 @@ export function Header() {
             </Link>
           ))}
           {/* There is no hover on touch, so the individual services get their own list */}
-          <p className="mt-8 font-mono text-xs tracking-[0.2em] text-signal uppercase">What we build</p>
+          <p className="mt-8 font-mono text-xs tracking-[0.2em] text-smoke uppercase">What we build</p>
           <ul className="mt-3 grid gap-px">
             {services.map((service) => (
               <li key={service.slug}>

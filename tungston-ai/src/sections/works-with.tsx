@@ -12,7 +12,7 @@ export function WorksWith() {
     <section aria-labelledby="works-with-title" className="py-16 sm:py-20">
       <div className="shell grid gap-8 border-y border-white/[0.08] py-12 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-3">
-          <p className="font-mono text-xs tracking-[0.2em] text-signal uppercase">Works with</p>
+          <p className="font-mono text-xs tracking-[0.2em] text-smoke uppercase">Works with</p>
           <h2 id="works-with-title" className="mt-4 font-display text-title font-semibold text-bone">
             The tools you already use
           </h2>

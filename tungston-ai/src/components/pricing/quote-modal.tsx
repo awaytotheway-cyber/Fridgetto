@@ -57,7 +57,7 @@ export function QuoteModal() {
       <div className="p-6 sm:p-9">
         <div className="flex items-start justify-between gap-6">
           <div>
-            <p className="font-mono text-xs tracking-[0.2em] text-signal uppercase">Custom quote</p>
+            <p className="font-mono text-xs tracking-[0.2em] text-smoke uppercase">Custom quote</p>
             <h2 id="quote-title" className="mt-3 font-display text-title font-semibold text-bone">
               Tell us what you need
             </h2>

@@ -104,7 +104,7 @@ export default async function ServiceDetailPage({ params }: PageProps<"/services
 
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-7">
-              <p className="font-mono text-xs tracking-[0.2em] text-signal uppercase">{service.title}</p>
+              <p className="font-mono text-xs tracking-[0.2em] text-smoke uppercase">{service.title}</p>
               <h1
                 id="page-title"
                 className="page-intro mt-4 font-display text-[clamp(2.5rem,1.5rem+4vw,5.5rem)] leading-[0.95] font-semibold tracking-[-0.02em] text-bone"

@@ -259,7 +259,7 @@ export function Estimator() {
 function StepTitle({ n, title, refEl }: { n: number; title: string; refEl: React.Ref<HTMLHeadingElement> }) {
   return (
     <>
-      <p className="font-mono text-xs tracking-[0.2em] text-signal uppercase">Step {n} of 4</p>
+      <p className="font-mono text-xs tracking-[0.2em] text-smoke uppercase">Step {n} of 4</p>
       <h3 ref={refEl} tabIndex={-1} className="mt-3 font-display text-title font-semibold text-bone outline-none">
         {title}
       </h3>
@@ -310,7 +310,7 @@ function Result({
 
   return (
     <div>
-      <p className="font-mono text-xs tracking-[0.2em] text-signal uppercase">Your indicative estimate</p>
+      <p className="font-mono text-xs tracking-[0.2em] text-smoke uppercase">Your indicative estimate</p>
       <h3 ref={headingRef} tabIndex={-1} className="sr-only">
         Estimate for {result.service.label}
       </h3>

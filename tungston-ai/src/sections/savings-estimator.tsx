@@ -223,7 +223,7 @@ function Group({ legend, step, children }: { legend: string; step: number; child
   return (
     <fieldset>
       <legend className="flex items-center gap-3 font-display text-title font-semibold text-bone">
-        <span className="font-display text-sm font-medium text-signal tabular-nums">{String(step).padStart(2, "0")}</span>
+        <span className="font-display text-sm font-medium text-smoke tabular-nums">{String(step).padStart(2, "0")}</span>
         {legend}
       </legend>
       <div className="mt-6">{children}</div>
@@ -423,7 +423,7 @@ export function SavingsEstimator() {
           <div className="lg:col-span-5">
             <div className="rounded-card bg-[linear-gradient(180deg,rgb(232_16_26/0.16),rgb(232_16_26/0.03)_55%)] p-7 shadow-[var(--shadow-glow)] sm:p-9 lg:top-28 lg:[@media(min-height:50rem)]:sticky">
               <div className="flex items-center justify-between gap-4">
-                <p className="text-sm font-medium text-signal">Your estimate</p>
+                <p className="text-sm font-medium text-smoke">Your estimate</p>
                 <span className="flex items-center gap-1.5 text-[0.8125rem] text-ash">
                   <span aria-hidden="true" className="size-1.5 animate-pulse rounded-full bg-volt motion-reduce:animate-none" />
                   Live

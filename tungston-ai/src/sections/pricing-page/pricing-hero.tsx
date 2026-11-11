@@ -14,7 +14,7 @@ export function PricingHero() {
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-void" />
       <div className="shell">
-        <p className="page-intro font-mono text-xs tracking-[0.2em] text-signal uppercase">
+        <p className="page-intro font-mono text-xs tracking-[0.2em] text-smoke uppercase">
           Transparent pricing. Custom built systems.
         </p>
         <h1

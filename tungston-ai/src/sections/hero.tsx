@@ -81,19 +81,20 @@ export function Hero() {
       <div className="hero-intro shell relative flex min-h-svh flex-col justify-end pt-32 pb-8 sm:pb-10">
         <h1
           id="hero-title"
-          className="max-w-[16ch] font-display text-hero font-semibold text-bone"
+          className="max-w-[18ch] font-display text-hero font-semibold text-bone"
         >
-          <Line index={0}>We Build AI</Line>
-          <Line index={1}>That Works While</Line>
-          <Line index={2}>
-            You{" "}
+          <Line index={0}>{siteConfig.headline.lines[0]}</Line>
+          <Line index={1}>
+            {siteConfig.headline.lines[1]}{" "}
             <span className="relative inline-block">
-              <span className="text-void [paint-order:stroke_fill] [-webkit-text-stroke:2px_rgb(158_10_18/0.9)]">Sleep.</span>
-              {/* The glowing copy comes from CSS content, so the heading text (what search engines read) says "Sleep." once */}
+              <span className="text-void [paint-order:stroke_fill] [-webkit-text-stroke:2px_rgb(158_10_18/0.9)]">
+                {siteConfig.headline.hot}
+              </span>
+              {/* The glowing copy comes from CSS content, so the heading text (what search engines read) says the word once */}
               <span
                 ref={hotRef}
                 data-ignite
-                data-text="Sleep."
+                data-text={siteConfig.headline.hot}
                 aria-hidden="true"
                 className="filament-text absolute inset-0 after:content-[attr(data-text)]"
               >
@@ -101,19 +102,22 @@ export function Hero() {
               </span>
             </span>
           </Line>
+          <Line index={2}>{siteConfig.headline.lines[2]}</Line>
         </h1>
 
         <div className="mt-8 grid items-end gap-8 sm:mt-10 lg:grid-cols-12">
           <p data-rise className="max-w-xl text-lede text-ash lg:col-span-6">
-            AI agents, AI voice agents, chatbots, workflow automation and end-to-end content systems, engineered for your business
-            and shipped in weeks.
+            Calls answered at 2am. Leads chased before they go cold. Data moved between your tools with nobody copying and
+            pasting. Built around how you already work, and live in weeks.
           </p>
           <div data-fade className="flex flex-wrap gap-3 lg:col-span-6 lg:justify-end" style={{ "--i": 0 } as CSSProperties}>
             <ButtonLink href={siteConfig.contact.bookingUrl} size="lg">
               Book a Free AI Audit
             </ButtonLink>
-            <ButtonLink href="#services" variant="ghost" size="lg">
-              See What We Build <span aria-hidden="true">↓</span>
+            {/* The secondary CTA leads to the estimator, not the services list: give a
+                taste of the result before asking for the meeting. */}
+            <ButtonLink href="#estimate" variant="ghost" size="lg">
+              See What You&apos;d Save <span aria-hidden="true">↓</span>
             </ButtonLink>
           </div>
         </div>

@@ -17,8 +17,13 @@ export const metadata: Metadata = {
 };
 
 /**
- * The order is the argument: why this matters now, what we build, the tools it plugs into, what it would save
- * you, how we do it, proof it works, what it costs, who we are, and how to start.
+ * The order is the argument: why this matters now, what we build, what it would save you,
+ * the tools it plugs into, how we do it, proof it works, what it costs, who we are, and
+ * how to start.
+ *
+ * The estimator sits straight after the services rather than below the tool strip: it is
+ * the one thing on the page a visitor can actually use, and burying a working calculator
+ * five screens down wastes it.
  */
 export default function HomePage() {
   return (
@@ -27,8 +32,8 @@ export default function HomePage() {
       <Marquee />
       <WhyNow />
       <Services />
-      <WorksWith />
       <SavingsEstimator />
+      <WorksWith />
       <Process />
       <LiveDemo />
       <Results />
