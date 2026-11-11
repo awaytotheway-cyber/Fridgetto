@@ -114,8 +114,10 @@ export function Hero() {
             <ButtonLink href={siteConfig.contact.bookingUrl} size="lg">
               Book a Free AI Audit
             </ButtonLink>
-            <ButtonLink href="#services" variant="ghost" size="lg">
-              See What We Build <span aria-hidden="true">↓</span>
+            {/* The secondary CTA leads to the estimator, not the services list: give a
+                taste of the result before asking for the meeting. */}
+            <ButtonLink href="#estimate" variant="ghost" size="lg">
+              See What You&apos;d Save <span aria-hidden="true">↓</span>
             </ButtonLink>
           </div>
         </div>
