@@ -460,7 +460,7 @@ export function SavingsEstimator() {
               </div>
               <p className="mt-4 text-[0.8125rem] leading-relaxed text-smoke">
                 {selected.length
-                  ? "Based on typical results from comparable projects. The free audit replaces these with your real numbers."
+                  ? "Modelled estimates, set deliberately low — not measured client results. The free audit replaces them with your real numbers."
                   : "Pick at least one system to see an estimate."}
               </p>
               <p role="status" className="sr-only">
