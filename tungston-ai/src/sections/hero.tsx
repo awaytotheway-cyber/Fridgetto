@@ -4,9 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { DotGrid, type DotGridHandle } from "@/components/fx/dot-grid";
 import { ButtonLink } from "@/components/ui/button";
-import { Counter } from "@/components/fx/counter";
 import { onSiteReady, prefersReducedMotion } from "@/lib/gsap";
-import { heroStats } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 import { blurFor } from "@/lib/image-blur";
 
@@ -79,12 +77,21 @@ export function Hero() {
       />
 
       <div className="hero-intro shell relative flex min-h-svh flex-col justify-end pt-32 pb-8 sm:pb-10">
+        {/* Answers "who is this for" before the headline is read — the other half of
+            the Mirror Test. Rides the same staggered intro as the headline lines. */}
+        <p
+          data-line
+          style={{ "--i": 0 } as CSSProperties}
+          className="mb-5 font-mono text-xs tracking-[0.2em] text-smoke uppercase sm:mb-7"
+        >
+          {siteConfig.audiences.join(" · ")}
+        </p>
         <h1
           id="hero-title"
           className="max-w-[18ch] font-display text-hero font-semibold text-bone"
         >
-          <Line index={0}>{siteConfig.headline.lines[0]}</Line>
-          <Line index={1}>
+          <Line index={1}>{siteConfig.headline.lines[0]}</Line>
+          <Line index={2}>
             {siteConfig.headline.lines[1]}{" "}
             <span className="relative inline-block">
               <span className="text-void [paint-order:stroke_fill] [-webkit-text-stroke:2px_rgb(158_10_18/0.9)]">
@@ -102,7 +109,7 @@ export function Hero() {
               </span>
             </span>
           </Line>
-          <Line index={2}>{siteConfig.headline.lines[2]}</Line>
+          <Line index={3}>{siteConfig.headline.lines[2]}</Line>
         </h1>
 
         <div className="mt-8 grid items-end gap-8 sm:mt-10 lg:grid-cols-12">
@@ -121,17 +128,6 @@ export function Hero() {
             </ButtonLink>
           </div>
         </div>
-
-        <dl data-fade className="mt-12 grid grid-cols-3 gap-4 border-t border-white/[0.08] pt-6 sm:mt-16" style={{ "--i": 1 } as CSSProperties}>
-          {heroStats.map((stat, i) => (
-            <div key={stat.label} className="flex flex-col-reverse gap-1">
-              <dt className="text-[0.8125rem] leading-snug text-smoke sm:text-sm">{stat.label}</dt>
-              <dd className="font-display text-3xl font-medium tracking-[-0.01em] text-bone tabular-nums sm:text-5xl">
-                <Counter value={stat.value} suffix={stat.suffix} delay={0.25 + i * 0.1} />
-              </dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );

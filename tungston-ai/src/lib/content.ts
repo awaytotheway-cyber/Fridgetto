@@ -130,12 +130,6 @@ export const services: Service[] = [
   },
 ];
 
-export const heroStats = [
-  { value: 40, suffix: "+", label: "workflows automated" },
-  { value: 24, suffix: "/7", label: "agents live, every day" },
-  { value: 10, suffix: "x", label: "content output for clients" },
-];
-
 /**
  * The "why now" section. It makes the case by describing moments a visitor
  * recognises from their own week, rather than quoting adoption statistics we
@@ -225,36 +219,63 @@ export const processSteps = [
   },
 ];
 
-export const caseStudies = [
+export type UseCase = {
+  /** Who the system is for. */
+  audience: string;
+  /** Where in their week it sits. */
+  context: string;
+  /** A short capability for the display slot. Never a result we have not achieved. */
+  headline: string;
+  /** What that capability means, in one line. */
+  headlineLabel: string;
+  problem: string;
+  solution: string;
+  services: string[];
+};
+
+/**
+ * The three builds we are set up for, written as what the systems DO rather than as
+ * results achieved for named clients.
+ *
+ * There are deliberately no outcome metrics here. A number on this page has to be one
+ * we can stand behind in a sales call, and until there are real engagement figures with
+ * the client's permission to publish them, the honest version is a description of the
+ * capability. Replace these with real results the moment there are some — and when you
+ * do, say which client and over what period.
+ */
+export const useCases: UseCase[] = [
   {
-    client: "Multi-location dental group",
-    sector: "Healthcare, 14 clinics",
-    problem: "The front desk missed one in four calls at peak hours, and every missed call was a lost booking.",
+    audience: "Clinics and hospitals",
+    context: "Front desk, calls and appointments",
+    headline: "24/7",
+    headlineLabel: "Every call answered, including nights and weekends",
+    problem:
+      "Calls arrive while the desk is busy with the person standing in front of them. A missed call is usually a booking that goes to whoever picks up next.",
     solution:
-      "A voice agent that answers instantly, checks live availability and books straight into their practice software.",
-    metric: "+38%",
-    metricLabel: "booked appointments in 60 days",
+      "A voice agent that answers on the first ring, checks live availability, books into your practice software and leaves the desk a summary of what was said.",
     services: ["Voice Agents", "Workflow Automation"],
   },
   {
-    client: "Direct-to-consumer skincare brand",
-    sector: "E-commerce, 120k orders a year",
-    problem: "Support replies took 19 hours on average, and cart questions went unanswered overnight.",
+    audience: "E-commerce and online stores",
+    context: "Speed to lead",
+    headline: "60 sec",
+    headlineLabel: "From enquiry to first reply, with nobody watching the inbox",
+    problem:
+      "An enquiry that sits overnight gets answered by a competitor first. Most forms are read hours after they are sent, and interest cools in the gap.",
     solution:
-      "A website chatbot trained on their catalog, order data and returns policy, handing off to agents with full context.",
-    metric: "71%",
-    metricLabel: "of tickets resolved without a person",
-    services: ["Website Chatbots", "AI Agents"],
+      "An agent that picks up every enquiry as it lands, answers from your catalogue and policies, qualifies it, and either books the call or hands a person the whole thread.",
+    services: ["AI Agents", "Website Chatbots"],
   },
   {
-    client: "B2B freight brokerage",
-    sector: "Logistics, 30 brokers",
-    problem: "Brokers spent three hours a day copying load details from email into the CRM before they could quote.",
+    audience: "Medical professionals",
+    context: "Research and literature",
+    headline: "Cited",
+    headlineLabel: "Every answer traced back to the paper it came from",
+    problem:
+      "Keeping up with the literature is a job on its own, and a general model asked about clinical evidence will produce something plausible and unsourced, which is worse than no answer.",
     solution:
-      "An agent that reads incoming load emails, drafts the quote from live lane rates and updates the CRM on its own.",
-    metric: "14 hrs",
-    metricLabel: "saved per broker, every week",
-    services: ["Advanced AI Agents", "Workflow Automation"],
+      "A research agent grounded in the papers and guidelines you trust, answering in your own context and showing the source behind every line it writes.",
+    services: ["Advanced AI Agents", "Content Automation"],
   },
 ];
 
