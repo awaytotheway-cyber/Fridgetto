@@ -1,6 +1,26 @@
 @import "tailwindcss";
 
 /*
+ * Tailwind's motion-reduce: variant normally reads the OS media query only, which
+ * would ignore the footer toggle. Point it at data-motion instead — the boot script
+ * seeds that from the OS setting, so default behaviour is unchanged, and an explicit
+ * choice now reaches these utilities too.
+ *
+ * The media-query branch is the no-JS fallback: it applies only when the attribute
+ * was never set, which is the one case where the boot script did not run.
+ */
+@custom-variant motion-reduce {
+  &:where(:root[data-motion="off"] *) {
+    @slot;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &:where(:root:not([data-motion]) *) {
+      @slot;
+    }
+  }
+}
+
+/*
  * Brand tokens. Change a color here and it flows through Tailwind utilities,
  * the scrollbar, text selection and the canvas effects (they read these at runtime).
  */
@@ -540,13 +560,28 @@ html[data-goo] [data-cursor-dot] {
   }
 }
 
+/*
+ * Motion off, from either source: the OS setting, or the footer toggle writing
+ * data-motion="off" on <html>. The toggle can also turn motion back ON for someone
+ * whose OS says reduce, which is why the media query only applies when the
+ * attribute is absent — that is, when the boot script never ran.
+ */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  :root:not([data-motion]) *,
+  :root:not([data-motion]) *::before,
+  :root:not([data-motion]) *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+:root[data-motion="off"] *,
+:root[data-motion="off"] *::before,
+:root[data-motion="off"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
 }

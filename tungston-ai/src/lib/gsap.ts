@@ -36,8 +36,18 @@ export function refreshScrollTriggers() {
   loading?.then(({ ScrollTrigger }) => ScrollTrigger.refresh());
 }
 
-export const prefersReducedMotion = () =>
-  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+/**
+ * True when motion should be suppressed, for any reason: the OS setting, or the
+ * visitor's own choice in the footer toggle. The toggle writes `data-motion` on
+ * <html> and can override the OS setting in either direction, so the attribute is
+ * authoritative whenever it is set.
+ */
+export const prefersReducedMotion = () => {
+  if (typeof window === "undefined") return false;
+  const choice = document.documentElement.dataset.motion;
+  if (choice) return choice === "off";
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+};
 
 /** Fired once the preloader has finished (or was skipped). */
 export const READY_EVENT = "protomation:ready";

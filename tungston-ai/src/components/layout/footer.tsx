@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui/logo";
 import { DotGrid } from "@/components/fx/dot-grid";
+import { MotionToggle } from "@/components/fx/motion-toggle";
 import { services } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
@@ -95,6 +96,7 @@ export function Footer() {
           © {siteConfig.legalName}. All rights reserved.
         </p>
         <p>Built by {siteConfig.name}, with the same tools we use for clients.</p>
+        <MotionToggle />
         {/* Legal lives here rather than in the nav: findable, never the headline. */}
         <nav aria-label="Legal" className="flex gap-5">
           <Link href="/privacy" className="transition-colors hover:text-bone">

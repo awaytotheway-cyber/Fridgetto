@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { motionBootScript } from "@/lib/motion";
 import { siteConfig } from "@/site.config";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -136,6 +137,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+        {/* Sets data-motion before first paint, so motion-off never shows a frame of motion */}
+        <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
       </head>
       <body className="min-h-svh overflow-x-clip">
         <AuthProvider initialUser={user}>
