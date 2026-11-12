@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
+import { faqJsonLd } from "@/components/ui/faq-list";
 import { QuoteModal } from "@/components/pricing/quote-modal";
 import { pricingFaqs } from "@/lib/pricing";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
@@ -19,21 +20,11 @@ export const metadata: Metadata = pageMetadata({
   path: "/pricing",
 });
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: pricingFaqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: { "@type": "Answer", text: faq.answer },
-  })),
-};
-
 export default function PricingPage() {
   return (
     <>
       <JsonLd data={breadcrumbJsonLd("Pricing", "/pricing")} />
-      <JsonLd data={faqJsonLd} />
+      <JsonLd data={faqJsonLd(pricingFaqs)} />
       <PricingHero />
       <ServicePricing />
       <EstimatorSection />
