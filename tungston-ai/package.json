@@ -21,6 +21,15 @@
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
+  "//browserslist": "Floor chosen to drop the polyfills Next was shipping for Array.prototype.at/flat/flatMap and Object.fromEntries/hasOwn (~14 KB). Safari 15.4 is March 2022 and is the binding constraint; lower it if analytics ever show older iOS traffic.",
+  "browserslist": [
+    "chrome >= 100",
+    "edge >= 100",
+    "firefox >= 100",
+    "safari >= 15.4",
+    "ios_saf >= 15.4",
+    "samsung >= 19"
+  ],
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",

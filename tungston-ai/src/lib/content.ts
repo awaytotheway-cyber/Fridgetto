@@ -219,6 +219,43 @@ export const processSteps = [
   },
 ];
 
+/**
+ * Homepage FAQ. These answer the objections that stop someone booking a call —
+ * deliberately NOT the money questions, which `pricingFaqs` in src/lib/pricing.ts
+ * already covers in ten entries. Keep the two sets disjoint: duplicating a question
+ * across two pages helps nobody and splits the search result.
+ *
+ * Every answer here has to be true of how we actually work. If one stops being true,
+ * change it here rather than softening it.
+ */
+export const homeFaqs = [
+  {
+    question: "How soon can something be live?",
+    answer:
+      "A written plan in the first week, and most builds live between weeks two and six. Scope drives that more than anything: one voice agent answering a phone line goes faster than an agent wired into four systems.",
+  },
+  {
+    question: "Do we need technical people on our side?",
+    answer:
+      "No. We hand over with your team trained and a person on call. What we do need is someone who knows how the work actually happens today — the person who does it, not an org chart.",
+  },
+  {
+    question: "Will this replace the tools we already use?",
+    answer:
+      "No. Most of what we build connects the tools you have rather than replacing them, so nobody has to copy data between them by hand. If something genuinely needs replacing we will say so in the audit, and say why.",
+  },
+  {
+    question: "What happens to our data?",
+    answer:
+      "AI usage, telephony and hosting run on your own provider accounts, which you control, so your business data goes to providers you have chosen. What this website itself collects is set out in our Privacy Policy, and there is no analytics or tracking on it.",
+  },
+  {
+    question: "What do we get from the free audit if we do not go ahead?",
+    answer:
+      "A short written summary of where we think AI would pay off in your business, and where it would not. It is yours either way. The call is 45 minutes and there is no obligation at the end of it.",
+  },
+];
+
 export type UseCase = {
   /** Who the system is for. */
   audience: string;

@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/auth/auth-provider";
-import { createClient } from "@/lib/supabase/browser";
 import { useRouter } from "next/navigation";
 
 export function UserMenu() {
@@ -30,9 +29,12 @@ export function UserMenu() {
     .slice(0, 2)
     .toUpperCase();
 
+  // Imported on click rather than at module load: this is the only thing in the
+  // header that needs the Supabase client, and signing out is never the first
+  // thing anyone does.
   async function signOut() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
+    const { createClient } = await import("@/lib/supabase/browser");
+    await createClient().auth.signOut();
     setOpen(false);
     router.refresh();
   }

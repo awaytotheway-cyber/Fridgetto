@@ -22,19 +22,42 @@ export function DotGrid({ className, ref, ...options }: DotGridProps) {
     const canvas = canvasRef.current;
     if (!canvas) return;
     let field: RippleField | null = null;
-    // Build the field only when it's about to be seen, so offscreen grids cost nothing at load
+    let cancelled = false;
+    let scheduled: number | undefined;
+
+    /**
+     * The grid above the fold is on screen the moment the page hydrates, so building
+     * it there puts canvas setup on the main thread at the worst possible time. It is
+     * decoration, and the hero's own intro runs for the first second anyway, so an
+     * idle moment is both cheaper and invisible. The short timeout keeps it well
+     * ahead of the hero's ripple, which fires 700ms after the site reports ready.
+     */
+    const build = () => {
+      if (cancelled) return;
+      field = new RippleField(canvas, JSON.parse(optionsKey) as RippleFieldOptions);
+      fieldRef.current = field;
+    };
+
+    // Build only when it's about to be seen, so offscreen grids cost nothing at load
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         io.disconnect();
-        field = new RippleField(canvas, JSON.parse(optionsKey) as RippleFieldOptions);
-        fieldRef.current = field;
+        scheduled =
+          typeof window.requestIdleCallback === "function"
+            ? window.requestIdleCallback(build, { timeout: 300 })
+            : window.setTimeout(build, 0);
       },
       { rootMargin: "300px 0px" },
     );
     io.observe(canvas);
     return () => {
+      cancelled = true;
       io.disconnect();
+      if (scheduled !== undefined) {
+        if (typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(scheduled);
+        clearTimeout(scheduled);
+      }
       field?.destroy();
       fieldRef.current = null;
     };
