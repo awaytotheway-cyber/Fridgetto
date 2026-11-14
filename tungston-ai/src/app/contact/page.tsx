@@ -1,56 +1,42 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import { seo } from "@/content/seo";
+import { contactHero, onTheCall } from "@/content/contact";
 import { PageHero } from "@/sections/page-hero";
-import { ContactForm } from "@/components/contact-form";
+import { LeadForm } from "@/components/lead-form";
+import { CalendarEmbed } from "@/components/calendar-embed";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
-import { processSteps } from "@/lib/content";
 import { siteConfig } from "@/site.config";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Book a Free AI Audit",
-  description:
-    "Tell us one task that eats your week. We'll reply within one business day with how we'd automate it, free.",
-  path: "/contact",
-});
+export const metadata: Metadata = pageMetadata(seo.contact);
 
 export default function ContactPage() {
-  const audit = processSteps[0];
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd("Contact", "/contact")} />
-      <PageHero title="Book a free AI audit.">
-        Tell us one task that eats your week. We&apos;ll reply within one business day with how we&apos;d automate it.
+      <JsonLd data={breadcrumbJsonLd("Contact", seo.contact.path)} />
+      <PageHero eyebrow="Contact" title={contactHero.title}>
+        {contactHero.lead}
       </PageHero>
-      <section aria-label="Contact form" className="pb-24 sm:pb-32">
+      <section aria-label="Book a free call" className="pb-24 sm:pb-32">
         <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-7">
-            <ContactForm />
+            <LeadForm />
+            <CalendarEmbed />
           </div>
           <aside className="lg:col-span-4 lg:col-start-9">
-            <h2 className="font-display text-title font-semibold text-bone">What happens on the call</h2>
-            <p className="mt-3 text-ash">{audit.body}</p>
-            <p className="mt-3 text-ash">
-              You leave with a short written summary, whether or not we work together.
-            </p>
+            <h2 className="font-display text-title font-semibold text-bone">{onTheCall.title}</h2>
+            <p className="mt-3 text-ash">{onTheCall.body}</p>
             <dl className="mt-10 space-y-6 border-t border-white/[0.08] pt-8">
-              <div>
-                <dt className="text-sm text-smoke">Email</dt>
-                <dd className="mt-1">
-                  <a href={`mailto:${siteConfig.contact.email}`} className="text-bone hover:text-volt">
-                    {siteConfig.contact.email}
-                  </a>
-                </dd>
-              </div>
               {siteConfig.contact.whatsapp && (
                 <div>
                   <dt className="text-sm text-smoke">WhatsApp</dt>
                   <dd className="mt-1">
-                    {/* wa.me wants the number as digits only: country code first, no + or spaces */}
                     <a
-                      href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, "")}`}
+                      href={siteConfig.contact.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-event="whatsapp_click"
                       className="inline-flex items-center gap-2.5 text-bone hover:text-volt"
                     >
                       <WhatsAppIcon className="size-5 shrink-0 text-[#25D366]" />
@@ -60,19 +46,21 @@ export default function ContactPage() {
                   </dd>
                 </div>
               )}
-              {siteConfig.contact.phone && (
-                <div>
-                  <dt className="text-sm text-smoke">Phone</dt>
-                  <dd className="mt-1">
-                    <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="text-bone hover:text-volt">
-                      {siteConfig.contact.phone}
-                    </a>
-                  </dd>
-                </div>
-              )}
+              <div>
+                <dt className="text-sm text-smoke">Email</dt>
+                <dd className="mt-1 [overflow-wrap:anywhere]">
+                  <a href={`mailto:${siteConfig.contact.email}`} className="text-bone hover:text-volt">
+                    {siteConfig.contact.email}
+                  </a>
+                </dd>
+              </div>
               <div>
                 <dt className="text-sm text-smoke">Where</dt>
                 <dd className="mt-1 text-bone">{siteConfig.contact.location}</dd>
+              </div>
+              <div>
+                <dt className="text-sm text-smoke">Reply time</dt>
+                <dd className="mt-1 text-bone">Within 6 working hours (Mon–Sat, 10am–7pm IST)</dd>
               </div>
             </dl>
           </aside>

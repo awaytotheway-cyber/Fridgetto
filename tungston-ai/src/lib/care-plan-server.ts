@@ -1,6 +1,5 @@
 import "server-only";
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { WEBHOOK_URL } from "@/lib/n8n";
 import type { Billing, Provider } from "@/lib/care-plan";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -94,20 +93,26 @@ export async function upsertSubscriber(row: SubscriberRow) {
   if (!res.ok) throw new Error(`Supabase responded ${res.status}: ${(await res.text().catch(() => "")).slice(0, 300)}`);
 }
 
-/** Emails the owner through the same n8n workflow the contact form uses. */
+/**
+ * Tells the owner through the same n8n webhook as new leads (N8N_LEAD_WEBHOOK_URL).
+ * Dormant: Care Plan checkout is off the site. Skipped when no webhook is set.
+ */
 export async function notifyOwner(c: Customer, provider: Provider, billing: Billing) {
-  const params = new URLSearchParams({
-    name: c.name,
-    email: c.email,
-    phone: c.phone || "Not provided",
-    businessName: c.businessName || "Not provided",
-    service: "Care Plan subscription",
-    task: `New Care Plan subscriber (${billing}, paid via ${provider}).`,
-    source: "website",
-    formType: "care_plan_subscription",
-    receivedAt: new Date().toISOString(),
+  const url = process.env.N8N_LEAD_WEBHOOK_URL?.trim();
+  if (!url) return;
+  const secret = process.env.N8N_LEAD_WEBHOOK_SECRET?.trim();
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "content-type": "application/json", ...(secret ? { "x-protomation-secret": secret } : {}) },
+    body: JSON.stringify({
+      event: "care_plan.subscribed",
+      receivedAt: new Date().toISOString(),
+      customer: c,
+      provider,
+      billing,
+    }),
+    signal: AbortSignal.timeout(20_000),
   });
-  const res = await fetch(`${WEBHOOK_URL}?${params.toString()}`, { signal: AbortSignal.timeout(20_000) });
   if (!res.ok) throw new Error(`n8n webhook responded ${res.status}`);
 }
 

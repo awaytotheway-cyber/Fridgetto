@@ -9,6 +9,7 @@ import { SmoothScroll } from "@/components/fx/smooth-scroll";
 import { Cursor } from "@/components/fx/cursor";
 import { Preloader } from "@/components/fx/preloader";
 import { JsonLd } from "@/components/json-ld";
+import { EventTracker } from "@/components/event-tracker";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { createClient } from "@/lib/supabase/server";
 
@@ -181,6 +182,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main">{children}</main>
           <Footer />
           <Cursor />
+          <EventTracker />
           <div aria-hidden="true" className="grain" />
           <JsonLd data={organizationJsonLd} />
           <JsonLd data={websiteJsonLd} />
