@@ -1,27 +1,46 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
+import { SampleReport } from "@/components/sample-report";
+import { SectionIntro } from "@/components/ui/section-intro";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import { seo } from "@/content/seo";
+import { builtAlready, sampleReport, workHero } from "@/content/work";
 import { PageHero } from "@/sections/page-hero";
-import { Results } from "@/sections/results";
 import { LiveDemo } from "@/sections/live-demo";
 import { FinalCta } from "@/sections/final-cta";
 
-export const metadata: Metadata = pageMetadata({
-  title: "What We Build: Voice Agents, Speed to Lead and Research Agents",
-  description:
-    "The three systems we build most: a voice agent that answers every clinic call, speed-to-lead automation for online stores, and a cited research agent for medical professionals.",
-  path: "/work",
-});
+export const metadata: Metadata = pageMetadata(seo.work);
 
 export default function WorkPage() {
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd("Work", "/work")} />
-      <PageHero title="Three systems, and who each one is for.">
-        What we build most often, the problem each one takes off your desk, and what the system does once it is live.
+      <JsonLd data={breadcrumbJsonLd("Work", seo.work.path)} />
+      <PageHero eyebrow={workHero.eyebrow} title={workHero.title}>
+        {workHero.lead}
       </PageHero>
-      <Results withIntro={false} />
       <LiveDemo />
+      <section aria-labelledby="report-title" className="py-24 sm:py-32">
+        <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5">
+            <SectionIntro id="report-title" title={sampleReport.title} />
+            <p className="mt-6 max-w-md text-lede text-ash">
+              Every month on the Managed plan, you get a report like this, with your own numbers and a note on what to
+              change.
+            </p>
+          </div>
+          <div className="lg:col-span-7">
+            <SampleReport />
+          </div>
+        </div>
+      </section>
+      <section aria-labelledby="built-title" className="border-t border-white/[0.08] py-16 sm:py-24">
+        <div className="shell grid gap-6 lg:grid-cols-12 lg:gap-10">
+          <h2 id="built-title" className="font-display text-title font-semibold text-bone lg:col-span-4">
+            {builtAlready.title}
+          </h2>
+          <p className="max-w-2xl text-ash lg:col-span-7 lg:col-start-6">{builtAlready.body}</p>
+        </div>
+      </section>
       <FinalCta />
     </>
   );

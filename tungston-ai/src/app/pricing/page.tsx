@@ -1,40 +1,57 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { faqJsonLd } from "@/components/ui/faq-list";
-import { QuoteModal } from "@/components/pricing/quote-modal";
-import { pricingFaqs } from "@/lib/pricing";
+import { pricingFaqs, PRICES } from "@/content/pricing";
+import { seo } from "@/content/seo";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
-import { CarePlan } from "@/sections/pricing-page/care-plan";
-import { BuildPackages } from "@/sections/pricing-page/build-packages";
-import { EstimatorSection } from "@/sections/pricing-page/estimator-section";
+import { PageHero } from "@/sections/page-hero";
+import { PriceCards } from "@/sections/pricing-page/price-cards";
 import { Ownership } from "@/sections/pricing-page/ownership";
-import { PricingCta } from "@/sections/pricing-page/pricing-cta";
 import { PricingFaq } from "@/sections/pricing-page/pricing-faq";
-import { PricingHero } from "@/sections/pricing-page/pricing-hero";
-import { ServicePricing } from "@/sections/pricing-page/service-pricing";
+import { FinalCta } from "@/sections/final-cta";
+import { siteConfig } from "@/site.config";
 
-export const metadata: Metadata = pageMetadata({
-  title: "AI Agent & Automation Pricing",
-  description:
-    "Clear starting prices for AI agents, voice agents, chatbots, workflow automation and websites. One-time implementation, optional maintenance, and you own the system.",
-  path: "/pricing",
-});
+export const metadata: Metadata = pageMetadata(seo.pricing);
+
+const offersJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "AI front desk pricing",
+  itemListElement: [
+    { "@type": "Offer", name: "Front-Desk Diagnostic", price: PRICES.diagnostic, priceCurrency: "INR" },
+    {
+      "@type": "Offer",
+      name: "Front-Desk Build",
+      priceSpecification: { "@type": "PriceSpecification", minPrice: PRICES.buildFrom, priceCurrency: "INR" },
+    },
+    {
+      "@type": "Offer",
+      name: "Managed Front Desk",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        minPrice: PRICES.managedFrom,
+        priceCurrency: "INR",
+        unitText: "MONTH",
+      },
+    },
+  ],
+  provider: { "@id": `${siteConfig.url}/#organization` },
+};
 
 export default function PricingPage() {
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd("Pricing", "/pricing")} />
+      <JsonLd data={breadcrumbJsonLd("Pricing", seo.pricing.path)} />
       <JsonLd data={faqJsonLd(pricingFaqs)} />
-      <PricingHero />
-      <ServicePricing />
-      <EstimatorSection />
-      <BuildPackages />
-      <CarePlan />
+      <JsonLd data={offersJsonLd} />
+      <PageHero eyebrow="Pricing" title="Clear starting prices. A fixed quote before you commit.">
+        There are three things you can buy. The diagnostic tells you exactly what your clinic needs, and what it will
+        cost.
+      </PageHero>
+      <PriceCards />
       <Ownership />
       <PricingFaq />
-      <PricingCta />
-      {/* One quote form for the whole page, opened by any "quote" button */}
-      <QuoteModal />
+      <FinalCta />
     </>
   );
 }

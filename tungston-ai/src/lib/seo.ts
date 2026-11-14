@@ -66,3 +66,18 @@ export function breadcrumbTrailJsonLd(trail: Crumb[]) {
 export function breadcrumbJsonLd(name: string, path: string) {
   return breadcrumbTrailJsonLd([{ name, path }]);
 }
+
+/** One of our services as schema.org Service JSON-LD, for the page that describes it. */
+export function serviceJsonLd({ name, description, path, areaServed }: { name: string; description: string; path: string; areaServed: object | string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    serviceType: "AI receptionist",
+    description,
+    url: `${siteConfig.url}${path}`,
+    areaServed,
+    availableLanguage: ["English", "Hindi", "Marathi"],
+    provider: { "@id": `${siteConfig.url}/#organization` },
+  };
+}

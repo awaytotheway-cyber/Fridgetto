@@ -2,7 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { field } from "@/components/contact-form";
+import { field } from "@/components/ui/field";
 import { GoogleButton } from "./google-button";
 import { login, signup } from "./actions";
 
@@ -25,8 +25,8 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
         </h1>
         <p className="mt-2 text-sm text-ash">
           {tab === "signin"
-            ? "Sign in to subscribe to the Care Plan and unlock subscriber pricing."
-            : "Create an account to subscribe to the Care Plan and unlock subscriber pricing."}
+            ? "Sign in to your Protomation account."
+            : "Create a Protomation account."}
         </p>
 
         {/* Tab toggle */}
