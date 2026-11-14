@@ -1,30 +1,17 @@
-/** /about copy (COPY.md §10). */
+/** /about copy, kept short. */
 
 export const aboutHero = {
   title: "A front desk you can trust, from a founder you can reach.",
-  lead: "Protomation is a founder-led practice in Mumbai. We do one thing: install and run AI front desks for clinics and education businesses.",
+  lead: "A founder-led practice in Mumbai.",
 };
 
 export const founderBio =
-  "Pratik Naragude is the founder of Protomation. He helps businesses use AI as a catalyst for growth and reach. Today he focuses on one problem that costs clinics more than they realise: enquiries that arrive when nobody can answer. He designs every front desk himself and stays your contact from the first call.";
+  "Pratik Naragude helps businesses use AI to grow their reach. Today he focuses on one problem: enquiries that arrive when nobody can answer. He builds every front desk himself and stays your contact from the first call.";
 
 export const principles = [
-  {
-    title: "Measured in booked consultations",
-    body: "Not in features or call minutes. Every month you see how many consults the front desk booked.",
-  },
-  {
-    title: "People stay in charge",
-    body: "Your team sets the rules, approves every answer and can take over any conversation.",
-  },
-  {
-    title: "Honest about what we can show",
-    body: "There are no invented results on this site. When we have client numbers, we'll publish them with permission.",
-  },
-  {
-    title: "You deal with the founder",
-    body: "No account managers. You talk to the person who builds your front desk.",
-  },
+  { title: "Measured in bookings", body: "Every month you see how many consults it booked." },
+  { title: "People stay in charge", body: "Your team sets the rules and can take over anytime." },
+  { title: "No invented results", body: "We publish client numbers only with permission." },
 ];
 
 export type TeamMember = {
@@ -43,17 +30,17 @@ export const team: TeamMember[] = [
     role: "Founder",
     image: "/assets/team-orchestrator.webp",
     alt: "Illustrated portrait of Pratik Naragude conducting glowing tiles for calls, chat, email, calendar and documents",
-    bio: "Designs, builds and runs every front desk, from the first call with your clinic to the monthly report.",
-    focus: ["Front-desk design", "Voice and WhatsApp", "Reporting"],
+    bio: "Designs, builds and runs every front desk.",
+    focus: ["Front-desk design", "Voice and WhatsApp"],
   },
   {
     name: "Shrawani",
     role: "Design Analyst",
     image: "/assets/team-designer.webp",
     alt: "Illustrated portrait of Shrawani sketching a layout on a tablet with a glowing stylus",
-    bio: "Shapes how each front desk looks and reads: the chat on your website, the WhatsApp messages patients receive and the monthly report your team reads.",
-    focus: ["Conversation design", "Patient messages", "Report design"],
+    bio: "Shapes how each front desk looks and reads, from chat to the monthly report.",
+    focus: ["Conversation design", "Report design"],
   },
 ];
 
-export const where = "Based in Mumbai, India. Working with clients worldwide.";
+export const where = "Mumbai, India. Working with clients worldwide.";

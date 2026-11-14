@@ -9,7 +9,7 @@ export function Faq({ items = homeFaqs, title = "Before you book." }: { items?: 
     <section aria-labelledby="faq-title" className="py-16 sm:py-24">
       <div className="shell">
         <SectionIntro id="faq-title" title={title}>
-          The things people ask before the first call. Questions about money are answered on the{" "}
+          Money questions are on the{" "}
           <a
             href="/pricing#pricing-faq-title"
             className="text-bone underline decoration-filament/50 underline-offset-4 transition-colors hover:decoration-volt"

@@ -40,7 +40,7 @@ type Field = { key: keyof CalculatorInputs; label: string; help?: string; max: n
 
 const shared = {
   disclaimer:
-    "Illustrative estimate based on your inputs, not a guarantee or a measured client result. It assumes missed enquiries would have booked at the same rate as the ones you answer.",
+    "Illustrative estimate based on your inputs, not a guarantee or a measured client result.",
   cta: { label: "Get your real numbers with a Front-Desk Diagnostic", href: "/diagnostic" },
 };
 
@@ -56,25 +56,25 @@ export const calculatorCopy: Record<
     riskLabel: "Revenue at risk each month",
     breakEvenLabel: "Patients needed each month to cover the Managed plan",
     fields: [
-      { key: "enquiries", label: "Enquiries per month", help: "Calls, WhatsApp messages and form leads, across all channels.", max: 5_000, step: 10 },
-      { key: "missedPct", label: "Missed or answered after 5 minutes", help: "Not sure? Try 30% and see what changes.", max: 100, step: 1, unit: "%" },
-      { key: "bookingPct", label: "Answered enquiries that book a consult", max: 100, step: 1, unit: "%" },
-      { key: "conversionPct", label: "Consults that go on to treatment", max: 100, step: 1, unit: "%" },
+      { key: "enquiries", label: "Enquiries per month", max: 5_000, step: 10 },
+      { key: "missedPct", label: "Missed or slow to answer", max: 100, step: 1, unit: "%" },
+      { key: "bookingPct", label: "Answered enquiries that book", max: 100, step: 1, unit: "%" },
+      { key: "conversionPct", label: "Consults that start treatment", max: 100, step: 1, unit: "%" },
       { key: "avgValue", label: "Average treatment value", max: 5_00_000, step: 1_000, unit: "₹" },
     ],
   },
   education: {
     ...shared,
     presetLabel: "Business type",
-    lostLabel: "Enrolments lost each month",
-    lostUnit: "enrolments",
+    lostLabel: "Enrollments lost each month",
+    lostUnit: "enrollments",
     riskLabel: "Fees at risk each month",
-    breakEvenLabel: "Enrolments needed each month to cover the Managed plan",
+    breakEvenLabel: "Enrollments needed each month to cover the Managed plan",
     fields: [
-      { key: "enquiries", label: "Leads per month", help: "Ad leads, website forms, calls and WhatsApp messages.", max: 10_000, step: 10 },
-      { key: "missedPct", label: "Not called within 10 minutes", help: "Not sure? Try 50% and see what changes.", max: 100, step: 1, unit: "%" },
-      { key: "bookingPct", label: "Leads that book a counselling session", max: 100, step: 1, unit: "%" },
-      { key: "conversionPct", label: "Sessions that enrol", max: 100, step: 1, unit: "%" },
+      { key: "enquiries", label: "Leads per month", max: 10_000, step: 10 },
+      { key: "missedPct", label: "Not called within 10 minutes", max: 100, step: 1, unit: "%" },
+      { key: "bookingPct", label: "Leads that book a session", max: 100, step: 1, unit: "%" },
+      { key: "conversionPct", label: "Sessions that enroll", max: 100, step: 1, unit: "%" },
       { key: "avgValue", label: "Average fee", max: 10_00_000, step: 1_000, unit: "₹" },
     ],
   },

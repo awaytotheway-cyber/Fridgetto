@@ -38,7 +38,7 @@ export default function ClinicsPage() {
             href={`#${s.id}`}
             className="rounded-full border border-white/12 px-4 py-2.5 text-[0.9375rem] text-ash transition-colors hover:border-filament hover:text-bone"
           >
-            {s.title.split(/,| and /)[0]}
+            {s.short}
           </Link>
         ))}
       </nav>

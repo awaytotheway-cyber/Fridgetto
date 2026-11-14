@@ -28,8 +28,7 @@ export function Footer() {
         <div className="min-w-0 md:col-span-5">
           <Logo />
           <p className="mt-6 max-w-sm text-ash">
-            AI front desks for clinics. Every call, missed call and WhatsApp enquiry answered, qualified and booked, in
-            Hindi or English, with Marathi on request.
+            AI front desks for clinics. Every enquiry answered, qualified and booked.
           </p>
           <a
             href={`mailto:${siteConfig.contact.email}`}

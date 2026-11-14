@@ -23,10 +23,7 @@ export default function WorkPage() {
         <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
             <SectionIntro id="report-title" title={sampleReport.title} />
-            <p className="mt-6 max-w-md text-lede text-ash">
-              Every month on the Managed plan, you get a report like this, with your own numbers and a note on what to
-              change.
-            </p>
+            <p className="mt-6 max-w-sm text-lede text-ash">On the managed plan, every month.</p>
           </div>
           <div className="lg:col-span-7">
             <SampleReport />

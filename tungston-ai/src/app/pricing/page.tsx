@@ -44,10 +44,7 @@ export default function PricingPage() {
       <JsonLd data={breadcrumbJsonLd("Pricing", seo.pricing.path)} />
       <JsonLd data={faqJsonLd(pricingFaqs)} />
       <JsonLd data={offersJsonLd} />
-      <PageHero eyebrow="Pricing" title="Clear starting prices. A fixed quote before you commit.">
-        There are three things you can buy. The diagnostic tells you exactly what your clinic needs, and what it will
-        cost.
-      </PageHero>
+      <PageHero eyebrow="Pricing" title="Clear prices. A fixed quote before you commit." />
       <PriceCards />
       <Ownership />
       <PricingFaq />

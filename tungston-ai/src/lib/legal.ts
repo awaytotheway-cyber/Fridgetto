@@ -163,7 +163,7 @@ export const termsOfService: LegalDoc = {
       heading: "What you own",
       blocks: [
         "Once a project is complete and paid for, you own the agreed custom deliverables, and we hand over access, documentation and source code where that was in the scope.",
-        "Third-party software, platforms and libraries stay subject to their own licences. We keep the right to reuse our own general knowledge, tools and techniques on other work — that does not include anything specific to your business.",
+        "Third-party software, platforms and libraries stay subject to their own licenses. We keep the right to reuse our own general knowledge, tools and techniques on other work — that does not include anything specific to your business.",
       ],
     },
     {
@@ -200,7 +200,7 @@ export const termsOfService: LegalDoc = {
       heading: "About AI output",
       blocks: [
         "Worth saying plainly, since it is what we build: AI models can be wrong, and they can be confidently wrong.",
-        "We test what we ship, but AI output is not a substitute for professional judgement. You are responsible for reviewing it before it is relied on, and for decisions made on the basis of it.",
+        "We test what we ship, but AI output is not a substitute for professional judgment. You are responsible for reviewing it before it is relied on, and for decisions made on the basis of it.",
         "We do not guarantee any particular business result. The missed-enquiry calculator on this site is an illustration built from the numbers you enter, not a promise.",
       ],
     },
