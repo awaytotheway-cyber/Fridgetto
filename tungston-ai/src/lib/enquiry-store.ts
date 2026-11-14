@@ -37,7 +37,8 @@ export async function insertRow(table: string, row: Record<string, unknown>) {
     method: "POST",
     headers: {
       apikey: key,
-      Authorization: `Bearer ${key}`,
+      // Legacy anon keys are JWTs and go in Authorization too; new sb_publishable_ keys are not JWTs
+      ...(key.startsWith("eyJ") ? { Authorization: `Bearer ${key}` } : {}),
       "Content-Type": "application/json",
       Prefer: "return=minimal",
     },
