@@ -30,7 +30,7 @@ export function pageMetadata({ title, description, path }: PageSeo): Metadata {
     openGraph: {
       type: "website",
       siteName: siteConfig.name,
-      locale: "en_US",
+      locale: "en_IN",
       url: path,
       title: fullTitle,
       description,

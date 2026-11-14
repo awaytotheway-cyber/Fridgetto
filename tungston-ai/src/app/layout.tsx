@@ -9,7 +9,6 @@ import { SmoothScroll } from "@/components/fx/smooth-scroll";
 import { Cursor } from "@/components/fx/cursor";
 import { Preloader } from "@/components/fx/preloader";
 import { JsonLd } from "@/components/json-ld";
-import { services } from "@/lib/content";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { createClient } from "@/lib/supabase/server";
 
@@ -38,7 +37,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   // Titles stay under Google's ~580px and leave the domain out (search results show it anyway)
   title: {
-    default: `AI Agents, Voice AI & Workflow Automation | ${siteConfig.shortName}`,
+    default: `AI Front Desk for Clinics in India | ${siteConfig.shortName}`,
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
@@ -52,7 +51,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     title: `${headlineText} | ${siteConfig.shortName}`,
     description: siteConfig.description,
-    locale: "en_US",
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
@@ -79,25 +78,53 @@ const organizationJsonLd = {
   description: siteConfig.description,
   email: siteConfig.contact.email,
   telephone: siteConfig.contact.phone ?? undefined,
-  areaServed: "Worldwide",
+  founder: { "@type": "Person", name: siteConfig.founder.name },
+  address: { "@type": "PostalAddress", addressLocality: "Mumbai", addressRegion: "Maharashtra", addressCountry: "IN" },
+  areaServed: [
+    { "@type": "City", name: "Mumbai" },
+    { "@type": "Country", name: "India" },
+  ],
+  availableLanguage: ["English", "Hindi", "Marathi"],
   // What we are an authority on, in the words people search for it
   knowsAbout: [
-    "AI agents",
-    "AI voice agents",
-    "Workflow automation",
-    "Business process automation",
-    "Website chatbots",
-    "Retrieval-augmented generation",
-    "Large language model integration",
+    "AI receptionist",
+    "Patient enquiry handling",
+    "Appointment booking",
+    "WhatsApp Business messaging",
+    "Voice AI in Hindi and Marathi",
+    "Speed-to-lead calling",
+    "DPDP Act data handling",
   ],
   sameAs: siteConfig.socials.map((s) => s.href),
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "AI services",
-    itemListElement: services.map((s) => ({
-      "@type": "Offer",
-      itemOffered: { "@type": "Service", name: s.title, description: s.hook },
-    })),
+    name: "AI front desk",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "AI front desk for clinics",
+          serviceType: "AI receptionist",
+          description:
+            "Every call, missed call and WhatsApp enquiry answered in Hindi, Marathi or English, qualified, booked into the clinic's calendar and followed up.",
+          url: `${siteConfig.url}/clinics`,
+          areaServed: { "@type": "Country", name: "India" },
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "AI admissions front desk for education businesses",
+          serviceType: "AI receptionist",
+          description:
+            "New leads called within minutes, counselling sessions booked and followed up on WhatsApp, for study-abroad, upskilling and exam-coaching businesses.",
+          url: `${siteConfig.url}/education`,
+          areaServed: "Worldwide",
+        },
+      },
+    ],
   },
 };
 

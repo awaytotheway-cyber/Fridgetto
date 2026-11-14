@@ -2,8 +2,23 @@ import Link from "next/link";
 import { Logo } from "@/components/ui/logo";
 import { DotGrid } from "@/components/fx/dot-grid";
 import { MotionToggle } from "@/components/fx/motion-toggle";
-import { services } from "@/lib/content";
+import { UserMenu } from "@/components/auth/user-menu";
 import { siteConfig } from "@/site.config";
+
+const product = [
+  { label: "Clinics", href: "/clinics" },
+  { label: "Education", href: "/education" },
+  { label: "How it works", href: "/how-it-works" },
+  { label: "Front-Desk Diagnostic", href: "/diagnostic" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Security & data", href: "/security" },
+];
+
+const company = [
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
 
 export function Footer() {
   return (
@@ -13,27 +28,23 @@ export function Footer() {
         <div className="min-w-0 md:col-span-5">
           <Logo />
           <p className="mt-6 max-w-sm text-ash">
-            AI agents, voice agents, chatbots, automations and content systems, built for your business and shipped in
-            weeks.
+            AI front desks for clinics. Every call, missed call and WhatsApp enquiry answered, qualified and booked, in
+            Hindi, Marathi or English.
           </p>
           <a
             href={`mailto:${siteConfig.contact.email}`}
-            className="mt-8 inline-block max-w-full font-display text-lg font-medium [overflow-wrap:anywhere] min-[400px]:text-xl tracking-[-0.005em] text-bone underline decoration-filament/50 decoration-2 underline-offset-8 transition-colors hover:decoration-volt sm:text-2xl md:text-3xl"
+            className="mt-8 inline-block max-w-full font-display text-lg font-medium [overflow-wrap:anywhere] min-[400px]:text-xl tracking-[-0.005em] text-bone underline decoration-filament/50 decoration-2 underline-offset-8 transition-colors hover:decoration-volt sm:text-2xl"
           >
             {siteConfig.contact.email}
           </a>
+          <p className="mt-4 text-sm text-smoke">We reply {siteConfig.contact.responseTime}.</p>
         </div>
 
         <nav aria-label="Footer" className="grid min-w-0 grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-x-10 md:col-span-7">
           <div className="min-w-0 break-words">
-            <p className="text-sm font-medium text-smoke">Studio</p>
+            <p className="text-sm font-medium text-smoke">Product</p>
             <ul className="mt-4 space-y-2.5">
-              <li>
-                <Link href="/" className="text-ash transition-colors hover:text-bone">
-                  Home
-                </Link>
-              </li>
-              {siteConfig.nav.map((item) => (
+              {product.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-ash transition-colors hover:text-bone">
                     {item.label}
@@ -43,15 +54,32 @@ export function Footer() {
             </ul>
           </div>
           <div className="min-w-0 break-words">
-            <p className="text-sm font-medium text-smoke">Services</p>
+            <p className="text-sm font-medium text-smoke">Company</p>
             <ul className="mt-4 space-y-2.5">
-              {services.map((s) => (
-                <li key={s.slug}>
-                  <Link href={`/services/${s.slug}`} className="text-ash transition-colors hover:text-bone">
-                    {s.title}
+              {company.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-ash transition-colors hover:text-bone">
+                    {item.label}
                   </Link>
                 </li>
               ))}
+              {siteConfig.contact.whatsapp && (
+                <li>
+                  <a
+                    href={siteConfig.contact.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-event="whatsapp_click"
+                    className="text-ash transition-colors hover:text-bone"
+                  >
+                    WhatsApp<span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </li>
+              )}
+              <li>
+                {/* "Log in" for visitors, the account menu once signed in. Moved here from the header. */}
+                <UserMenu variant="footer" />
+              </li>
             </ul>
           </div>
           <div className="min-w-0 break-words">
@@ -65,17 +93,7 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <p className="mt-8 text-sm text-smoke">
-              {siteConfig.contact.location}
-              {siteConfig.contact.phone && (
-                <>
-                  <br />
-                  <a href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`} className="hover:text-bone">
-                    {siteConfig.contact.phone}
-                  </a>
-                </>
-              )}
-            </p>
+            <p className="mt-8 text-sm text-smoke">{siteConfig.contact.location}</p>
           </div>
         </nav>
       </div>
@@ -92,10 +110,7 @@ export function Footer() {
       </div>
 
       <div className="shell relative flex flex-col gap-3 border-t border-white/[0.07] py-6 text-sm text-smoke sm:flex-row sm:items-center sm:justify-between">
-        <p>
-          © {siteConfig.legalName}. All rights reserved.
-        </p>
-        <p>Built by {siteConfig.name}, with the same tools we use for clients.</p>
+        <p>© {siteConfig.legalName}. All rights reserved.</p>
         <MotionToggle />
         {/* Legal lives here rather than in the nav: findable, never the headline. */}
         <nav aria-label="Legal" className="flex gap-5">

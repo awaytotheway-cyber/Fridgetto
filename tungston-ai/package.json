@@ -9,7 +9,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit",
+    "check:routes": "node scripts/check-routes.ts",
+    "check:copy": "node scripts/check-copy.ts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
@@ -18,8 +21,10 @@
     "lenis": "^1.3.27",
     "lucide-react": "^1.61.0",
     "next": "16.4.2",
+    "qrcode": "^1.5.4",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "zod": "^3.25.76"
   },
   "//browserslist": "Floor chosen to drop the polyfills Next was shipping for Array.prototype.at/flat/flatMap and Object.fromEntries/hasOwn (~14 KB). Safari 15.4 is March 2022 and is the binding constraint; lower it if analytics ever show older iOS traffic.",
   "browserslist": [
@@ -33,12 +38,14 @@
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.7"
   },
   "engines": {
     "node": ">=20.9.0"
