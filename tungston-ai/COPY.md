@@ -1,6 +1,6 @@
 # COPY.md — draft copy for the AI front desk site
 
-Status: **draft for founder review** (Phase 1). Nothing here is on the site yet.
+Status: **built** (14 Nov 2026). The words below are on the branch, in `src/content/`. Where this file says [CONFIRM], the default chosen is listed in `LAUNCH_CHECKLIST.md` §C, and the facts still to verify are in §B. If this file and `src/content/` ever disagree, the code is what's live.
 
 How to review:
 - Approve, strike or rewrite anything.
