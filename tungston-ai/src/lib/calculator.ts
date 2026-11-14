@@ -16,7 +16,7 @@ export type CalculatorInputs = {
 };
 
 export type CalculatorResult = {
-  /** Patients (or enrolments) a month lost to missed or slow replies. */
+  /** Patients (or enrollments) a month lost to missed or slow replies. */
   patientsLost: number;
   /** Rupees a month, rounded to the rupee. */
   revenueAtRisk: number;

@@ -12,7 +12,6 @@ import { LiveDemo } from "@/sections/live-demo";
 import { CalculatorSection } from "@/sections/home/calculator-section";
 import { WhoItsFor } from "@/sections/home/who-its-for";
 import { Process } from "@/sections/process";
-import { Monthly } from "@/sections/home/monthly";
 import { DataTrust } from "@/sections/home/data-trust";
 import { Pricing } from "@/sections/pricing";
 import { About } from "@/sections/about";
@@ -37,7 +36,6 @@ export default function HomePage() {
       <CalculatorSection />
       <WhoItsFor />
       <Process />
-      <Monthly />
       <DataTrust />
       <Pricing />
       <About />

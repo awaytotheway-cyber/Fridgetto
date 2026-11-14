@@ -8,7 +8,7 @@ type FinalCtaProps = { title?: string; lead?: string };
 /** Every page ends here: one headline, the CTA pair, and the direct ways to reach us (COPY.md §2.13). */
 export function FinalCta({
   title = "Find out how many patients you're missing.",
-  lead = "Book a free 20-minute call. We'll look at how enquiries reach you today and tell you honestly whether a front desk would pay for itself.",
+  lead = "A free 20-minute call. We'll tell you honestly whether it would pay for itself.",
 }: FinalCtaProps) {
   return (
     <section aria-labelledby="cta-title" className="relative overflow-hidden py-24 sm:py-36">

@@ -46,7 +46,7 @@ export default function AboutPage() {
           <h2 id="principles-title" className="font-display text-display font-semibold text-bone">
             How we work
           </h2>
-          <ul className="mt-12 grid gap-10 border-t border-white/[0.08] pt-10 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+          <ul className="mt-12 grid gap-10 border-t border-white/[0.08] pt-10 md:grid-cols-3 md:gap-8">
             {principles.map((p) => (
               <li key={p.title}>
                 <h3 className="font-display text-title font-semibold text-bone">{p.title}</h3>

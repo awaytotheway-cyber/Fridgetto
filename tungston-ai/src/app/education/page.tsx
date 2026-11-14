@@ -64,8 +64,8 @@ export default function EducationPage() {
       <CalculatorSection vertical="education" title={educationCalculator.title} lead={educationCalculator.lead} />
       <Faq items={educationFaqs} title="Questions from admissions teams." />
       <FinalCta
-        title="Find out how many enrolments you're missing."
-        lead="Book a free 20-minute call. We'll look at how leads reach you today and tell you honestly whether a front desk would pay for itself."
+        title="Find out how many enrollments you're missing."
+        lead="A free 20-minute call. We'll tell you honestly whether it would pay for itself."
       />
     </>
   );

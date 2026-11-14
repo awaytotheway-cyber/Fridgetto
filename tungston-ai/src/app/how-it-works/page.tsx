@@ -35,7 +35,7 @@ export default function HowItWorksPage() {
           key={part.id}
           id={part.id}
           aria-labelledby={`${part.id}-title`}
-          className="scroll-mt-24 border-t border-white/[0.08] py-16 sm:py-24"
+          className="scroll-mt-24 border-t border-white/[0.08] py-20 sm:py-28"
         >
           <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-4">
@@ -50,7 +50,7 @@ export default function HowItWorksPage() {
                 {part.title}
               </h2>
             </div>
-            <dl className="grid gap-8 sm:grid-cols-2 lg:col-span-8">
+            <dl className="grid gap-8 sm:grid-cols-3 lg:col-span-8">
               {part.points.map((point) => (
                 <div key={point.title}>
                   <dt className="font-medium text-bone">{point.title}</dt>

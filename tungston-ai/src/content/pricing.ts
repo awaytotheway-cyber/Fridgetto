@@ -43,43 +43,25 @@ export const priceCards: PriceCard[] = [
     name: "Front-Desk Diagnostic",
     price: inr(PRICES.diagnostic),
     cadence: "One-time · credited against your build",
-    includes: [
-      "Test calls and WhatsApp messages across a week",
-      "Response-time baseline and lead-source review",
-      "Missed-enquiry estimate with your numbers",
-      "Written report, walkthrough and a fixed quote",
-    ],
+    includes: ["A week of test calls and messages", "Your response times, measured", "A written plan and a fixed quote"],
     cta: { label: "Start with a free call", href: "/contact" },
   },
   {
     id: "build",
     name: "Front-Desk Build",
     price: `from ${inr(PRICES.buildFrom)}`,
-    cadence: "One-time · single location",
-    includes: [
-      "Voice line, WhatsApp and website chat",
-      "Booking into your calendar or clinic software",
-      "Knowledge base written with you",
-      "Reminders, follow-ups and human handoff rules",
-      "Pilot on one channel with one agreed number",
-      "30 days of fixes after go-live",
-    ],
-    note: "Chains and multi-location clinics are quoted individually.",
+    cadence: "One-time · one location",
+    includes: ["Calls, WhatsApp and website chat", "Booking into your calendar", "Reminders and follow-ups", "30 days of fixes after launch"],
+    note: "Chains are quoted individually.",
     cta: { label: "Book a free 20-min call", href: "/contact" },
   },
   {
     id: "managed",
     name: "Managed Front Desk",
     price: `from ${inr(PRICES.managedFrom)}`,
-    cadence: "per month · optional · month to month",
+    cadence: "per month · optional",
     badge: "Recommended",
-    includes: [
-      "Monitoring and alerts",
-      "Updates when your fees, doctors or timings change",
-      "Test calls after every change",
-      "Monthly report on consults booked",
-      "Support within 6 working hours",
-    ],
+    includes: ["Monitoring and alerts", "Updates when anything changes", "A monthly report", "Support within 6 working hours"],
     cta: { label: "Book a free 20-min call", href: "/contact" },
   },
 ];
@@ -92,59 +74,35 @@ export const pricingTeaser = [
 ];
 
 export const pricingNotes = [
-  "Call minutes, WhatsApp messages and AI usage are billed by the providers directly to your own accounts, so you see every rupee. We estimate them for you in the diagnostic.",
-  "Outside India? We quote in USD. Ask on the call.",
-  "Prices exclude GST where applicable.",
+  "Call and message charges are billed by the providers to your own accounts.",
+  "Prices exclude GST where applicable. Outside India? We quote in USD.",
 ];
 
 export const ownershipPoints = [
-  {
-    title: "Your accounts",
-    body: "Phone number, WhatsApp Business account and AI provider accounts are set up in your name wherever possible.",
-  },
-  { title: "Your data", body: "Enquiries, recordings and reports belong to your clinic." },
-  {
-    title: "No lock-in",
-    body: "Stop the Managed plan with 30 days' notice, and we hand over everything you need to run it yourself.",
-  },
-  { title: "A fixed quote", body: "The build price is fixed after the diagnostic." },
+  { title: "Your accounts", body: "Set up in your name wherever possible." },
+  { title: "Your data", body: "Enquiries and reports belong to your clinic." },
+  { title: "No lock-in", body: "Stop the managed plan with 30 days' notice." },
 ];
 
 export const pricingFaqs = [
   {
     question: "Why is the diagnostic paid?",
-    answer: `It's a week of real work: test calls, a response-time baseline and a written plan. The fee comes off your build if you go ahead within ${CREDIT_WINDOW_DAYS} days.`,
+    answer: `It's a week of real work, and it comes off your build if you go ahead within ${CREDIT_WINDOW_DAYS} days.`,
   },
   {
-    question: "Is the Managed plan required?",
-    answer:
-      "No. Without it, you get a full handover and 30 days of fixes after go-live. With it, we monitor the front desk, keep it up to date and report every month.",
+    question: "Is the managed plan required?",
+    answer: "No. It's optional, month to month.",
   },
   {
-    question: "What do call minutes and messages cost?",
-    answer:
-      "They're billed by the telephony, WhatsApp and AI providers to your own accounts, based on how much you use. We estimate your monthly usage in the diagnostic so there are no surprises.",
-  },
-  {
-    question: "Who owns the accounts and the data?",
-    answer:
-      "You do, wherever possible. Your phone number, WhatsApp Business account, calendar and AI provider accounts are in your name, and we work in them with access you can remove.",
-  },
-  {
-    question: "How long is the contract?",
-    answer: "The build is a one-time project. The Managed plan is month to month, with 30 days' notice.",
+    question: "What do calls and messages cost?",
+    answer: "The providers bill your own accounts for what you use. We estimate it in the diagnostic.",
   },
   {
     question: "How do payments work?",
-    answer:
-      "The diagnostic is paid upfront. The build is paid in two halves: half to start, and half when the pilot hits the number we agreed. The Managed plan is billed monthly in advance. We take UPI or bank transfer.",
-  },
-  {
-    question: "Do you work outside India?",
-    answer: "Yes. We quote in USD for clients outside India. Ask on the call.",
+    answer: "Diagnostic upfront. The build in two halves: half to start, half when the pilot meets its target. UPI or bank transfer.",
   },
   {
     question: "Do prices include GST?",
-    answer: "No. Prices exclude GST where it applies.",
+    answer: "No. GST is extra where it applies.",
   },
 ];

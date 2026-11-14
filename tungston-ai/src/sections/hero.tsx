@@ -120,9 +120,6 @@ export function Hero({ actions }: { actions: ReactNode }) {
             <p data-rise className="max-w-2xl text-lede text-ash">
               {hero.subhead}
             </p>
-            <p data-rise className="mt-4 text-sm text-smoke">
-              {hero.worksWith}
-            </p>
           </div>
           <div data-fade className="lg:col-span-5 lg:justify-self-end" style={{ "--i": 0 } as CSSProperties}>
             {actions}

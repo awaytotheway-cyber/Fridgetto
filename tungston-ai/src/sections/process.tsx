@@ -53,7 +53,7 @@ export function Process() {
       <div aria-hidden="true" className="ambient top-1/3 -left-60 h-[30rem] w-[40rem] opacity-40" />
       <div className="shell relative">
         <SectionIntro id="process-title" title={processIntro.title}>
-          {processIntro.lead}
+          {processIntro.lead || undefined}
         </SectionIntro>
 
         <ol
