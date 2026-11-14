@@ -6,7 +6,7 @@ import { ArrowUp } from "lucide-react";
 import { LogoMark } from "@/components/ui/logo";
 import { greeting, replyTo, suggestions, type BotReply } from "@/lib/demo-bot";
 
-type Message = { id: number; from: "bot" | "user"; text: string; cta?: BotReply["cta"]; streaming?: boolean };
+type Message = { id: number; from: "bot" | "user"; text: string; cta?: BotReply["cta"]; chips?: string[]; streaming?: boolean };
 
 export function ChatDemo() {
   const [messages, setMessages] = useState<Message[]>([{ id: 0, from: "bot", text: greeting }]);
@@ -44,7 +44,7 @@ export function ChatDemo() {
       setTyping(false);
       const id = nextId.current++;
       if (reduced) {
-        setMessages((m) => [...m, { id, from: "bot", text: reply.text, cta: reply.cta }]);
+        setMessages((m) => [...m, { id, from: "bot", text: reply.text, cta: reply.cta, chips: reply.chips }]);
         return;
       }
       // Stream the answer in word by word, like a model would
@@ -56,7 +56,7 @@ export function ChatDemo() {
           setMessages((m) =>
             m.map((msg) =>
               msg.id === id
-                ? { ...msg, text: words.slice(0, i + 1).join(" "), streaming: !done, cta: done ? reply.cta : undefined }
+                ? { ...msg, text: words.slice(0, i + 1).join(" "), streaming: !done, cta: done ? reply.cta : undefined, chips: done ? reply.chips : undefined }
                 : msg,
             ),
           );
@@ -70,7 +70,9 @@ export function ChatDemo() {
     send(draft);
   };
 
-  const remaining = suggestions.filter((s) => !asked.includes(s));
+  // The last reply's own quick replies come first; otherwise the standing suggestions not yet asked
+  const last = messages[messages.length - 1];
+  const remaining = last?.from === "bot" && last.chips?.length ? last.chips : suggestions.filter((s) => !asked.includes(s));
 
   return (
     <div className="relative flex h-[34rem] flex-col overflow-hidden rounded-panel border border-white/[0.09] bg-carbon shadow-[0_40px_120px_-40px_rgb(232_16_26/0.45)] sm:h-[36rem]">
@@ -79,10 +81,10 @@ export function ChatDemo() {
           <LogoMark height={20} className="h-5 w-auto" />
         </span>
         <div className="min-w-0">
-          <p className="font-medium text-bone">Protomation assistant</p>
+          <p className="font-medium text-bone">Protomation Demo Clinic</p>
           <p className="flex items-center gap-1.5 text-[0.8125rem] text-ash">
             <span aria-hidden="true" className="size-1.5 rounded-full bg-volt shadow-[0_0_8px_rgb(255_212_0/0.8)]" />
-            Live demo with scripted replies
+            Demo — fictional clinic
           </p>
         </div>
       </div>
@@ -150,13 +152,13 @@ export function ChatDemo() {
 
       <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-white/[0.07] p-3">
         <label htmlFor="demo-chat-input" className="sr-only">
-          Ask the demo assistant a question
+          Ask the demo clinic a question
         </label>
         <input
           id="demo-chat-input"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
-          placeholder="Ask about pricing, voice agents, timelines…"
+          placeholder="Ask about timings, fees or booking…"
           autoComplete="off"
           maxLength={240}
           className="h-12 min-w-0 flex-1 rounded-full bg-white/[0.04] px-5 text-[0.9375rem] text-bone ring-1 ring-white/[0.08] outline-none placeholder:text-smoke focus-visible:ring-filament"

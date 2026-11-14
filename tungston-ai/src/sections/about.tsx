@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { DotGrid } from "@/components/fx/dot-grid";
 import { loadGsap, prefersReducedMotion, whenNear, type GsapModule } from "@/lib/gsap";
-import { manifesto, manifestoHot, principles } from "@/lib/content";
+import { founderNote } from "@/content/home";
 import { siteConfig } from "@/site.config";
 import { blurFor } from "@/lib/image-blur";
 
@@ -51,14 +51,14 @@ function Manifesto() {
   return (
     <p
       ref={ref}
-      className="font-display text-[clamp(1.75rem,1.15rem+2.3vw,3.4rem)] leading-[1.08] font-medium tracking-[-0.005em] text-bone"
+      className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2.6rem)] leading-[1.15] font-medium tracking-[-0.005em] text-bone"
     >
-      {manifesto.split(" ").map((word, i) => (
+      {founderNote.text.split(" ").map((word, i) => (
         <span
           key={i}
           data-word
-          data-hot={manifestoHot.includes(word) || undefined}
-          className={manifestoHot.includes(word) ? "text-filament" : undefined}
+          data-hot={founderNote.hot.includes(word) || undefined}
+          className={founderNote.hot.includes(word) ? "text-filament" : undefined}
         >
           {word}{" "}
         </span>
@@ -67,28 +67,32 @@ function Manifesto() {
   );
 }
 
+/** The founder note (COPY.md §2.11): a short paragraph that warms up as you scroll, signed, with a portrait. */
 export function About() {
+  const portrait = founderNote.image ?? siteConfig.assets.aboutImage;
   return (
     <section aria-labelledby="about-title" className="relative overflow-hidden py-24 sm:py-32">
       <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7">
-          <h2 id="about-title" className="sr-only">
-            About {siteConfig.name}
+          <h2 id="about-title" className="font-mono text-xs font-normal tracking-[0.2em] text-smoke uppercase">
+            {founderNote.eyebrow}
           </h2>
-          <Manifesto />
+          <div className="mt-6">
+            <Manifesto />
+          </div>
+          <p className="mt-8 text-ash">{founderNote.signature}</p>
         </div>
 
         <figure className="relative lg:col-span-4 lg:col-start-9">
           <div className="relative aspect-[4/5] overflow-hidden rounded-card border border-white/[0.07] bg-[radial-gradient(80%_60%_at_70%_40%,rgb(232_16_26/0.12),transparent)]">
-            {siteConfig.assets.aboutImage ? (
+            {portrait ? (
               <Image
-                src={siteConfig.assets.aboutImage}
-                alt="A human profile rendered in red light, merging with a machine grid"
+                src={portrait}
+                alt={founderNote.imageAlt}
                 fill
                 sizes="(min-width: 1024px) 33vw, 100vw"
-                loading="eager"
                 placeholder="blur"
-                blurDataURL={blurFor(siteConfig.assets.aboutImage)}
+                blurDataURL={blurFor(portrait)}
                 className="object-cover"
               />
             ) : (
@@ -104,19 +108,7 @@ export function About() {
               />
             )}
           </div>
-          <figcaption className="mt-4 text-sm text-smoke">Human judgment, machine stamina.</figcaption>
         </figure>
-      </div>
-
-      <div className="shell mt-20 sm:mt-28">
-        <ul className="grid gap-10 border-t border-white/[0.08] pt-10 md:grid-cols-3 md:gap-8">
-          {principles.map((p) => (
-            <li key={p.title}>
-              <h3 className="font-display text-title font-semibold text-bone">{p.title}</h3>
-              <p className="mt-3 max-w-sm text-ash">{p.body}</p>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

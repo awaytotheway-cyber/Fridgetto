@@ -1,97 +1,106 @@
 /**
- * Scripted replies for the live demo chatbot. No network calls: intents are
- * matched by keyword, in order, and the first match answers.
+ * Scripted replies for the demo chat: the front desk of "Protomation Demo Clinic", a
+ * clinic made up for the demo (COPY.md §13). No network calls: intents are matched by
+ * keyword, in order, and the first match answers. Every clinic detail here is invented
+ * and says so, so nobody mistakes it for a real clinic.
  */
+import { PRICES } from "@/content/pricing";
 
-export type BotReply = { text: string; cta?: { label: string; href: string } };
+export type BotReply = {
+  text: string;
+  cta?: { label: string; href: string };
+  /** Quick replies to offer next, in place of the standing suggestions. */
+  chips?: string[];
+};
 
-const AUDIT_CTA = { label: "Book a free AI audit", href: "/contact" };
+const inr = (n: number) => `₹${new Intl.NumberFormat("en-IN").format(n)}`;
+const SLOTS = ["Tomorrow at 11am", "Tomorrow at 5:30pm", "Saturday at 10am"];
 
 const intents: { test: RegExp; reply: BotReply }[] = [
   {
-    test: /\b(price|pricing|cost|costs|how much|budget|expensive|cheap|rate)\b|\$/i,
+    // A slot picked after the booking prompt (or typed straight away)
+    test: /\b(11 ?am|5[:.]30|saturday at 10|sat(urday)? 10 ?am)/i,
     reply: {
-      text: "Single projects start at $2,900. The Growth retainer is $4,500 a month and ships a new system every month. Larger multi-agent or app builds get a fixed quote after the free audit, so you know the number before we start.",
+      text: "Done. You're booked with Dr Demo. In a real setup you'd now get a WhatsApp confirmation and a reminder the day before, and the booking would already be in the clinic's calendar.",
     },
   },
   {
-    test: /\b(how (fast|long|quick|soon)|timeline|weeks?|days?|launch|go live|turnaround)\b/i,
+    test: /[ऀ-ॿ]|\bhindi\b/i,
+    reply: { text: "हाँ, हिंदी में भी बात हो सकती है। आप क्या जानना चाहेंगे? (Yes, we can talk in Hindi too. What would you like to know?)" },
+  },
+  {
+    test: /\b(protomation|your (price|pricing|cost)|for this|build (one|this)|for my clinic)\b/i,
     reply: {
-      text: "Most first systems go live in two to six weeks. You get a written blueprint within a week of the audit call, and weekly demos while we build.",
+      text: `Protomation's own prices: a Front-Desk Diagnostic is ${inr(PRICES.diagnostic)} (credited against the build), builds start at ${inr(PRICES.buildFrom)}, and the optional Managed Front Desk starts at ${inr(PRICES.managedFrom)} a month.`,
+      cta: { label: "See pricing", href: "/pricing" },
     },
   },
   {
-    test: /\b(book|audit|talk|human|person|meeting|contact|consult|schedule|sign ?up|get started|start)\b/i,
+    test: /\b(medicine|medication|dose|dosage|pain|symptoms?|reports?|results?|is it safe|side effects?|bleeding)\b/i,
     reply: {
-      text: "The free AI audit is a 45-minute call where we map your workflows and find the three places AI pays off fastest. No cost and no obligation.",
-      cta: AUDIT_CTA,
+      text: "I can't give medical advice, but our doctor can. Shall I book you a consultation, or ask the clinic to call you back?",
+      chips: ["Book a consultation", "Please call me back"],
     },
   },
   {
-    test: /\b(voice|phone|calls?|receptionist|ivr)\b/i,
+    test: /\b(fee|fees|cost|costs|price|prices|charges?|how much|expensive|emi)\b/i,
     reply: {
-      text: "Our voice agents answer every call, qualify the caller and book them straight into your calendar, day or night. Each call is transcribed and summarized in your CRM, and anything tricky is transferred to your team.",
+      text: "A first consultation is ₹800 (a made-up demo fee). Treatment costs depend on what the doctor recommends, so we'd book you a consult first. Shall I find you a slot?",
+      chips: ["Book a consultation"],
     },
   },
   {
-    test: /\b(rag|knowledge|documents?|docs|pdfs?|search|advanced|multi.?step|tools?)\b/i,
+    test: /\b(ivf|fertility|pregnan\w*|conceiv\w*|iui)\b/i,
     reply: {
-      text: "Advanced agents read from your private knowledge (docs, tickets, contracts), use tools like your CRM or database, and cite where every answer came from. We test them against real questions before they go live.",
+      text: "We'd be glad to help. A first consultation with our fertility specialist takes about 45 minutes, and it helps if both partners can come. Shall I book one?",
+      chips: ["Book a consultation"],
     },
   },
   {
-    test: /\b(content|blogs?|seo|social|posts?|newsletters?|linkedin|instagram)\b/i,
+    test: /\b(book|appointment|consult\w*|slot|visit|schedule)\b/i,
     reply: {
-      text: "Content systems turn one idea into a month of blogs, social posts and newsletters in your voice, with SEO briefs and scheduling handled. A person on your team approves everything before it goes out.",
+      text: "Happy to help. Which suits you: tomorrow at 11am, tomorrow at 5:30pm, or Saturday at 10am? (Demo only: nothing is really booked.)",
+      chips: SLOTS,
     },
   },
   {
-    test: /\b(website|web ?site|web ?app|apps?|mobile|ios|android|landing page|next\.?js|react)\b/i,
+    test: /\b(timings?|open|hours|close|closing|sunday|today)\b/i,
     reply: {
-      text: "We design and build marketing sites, web apps and mobile apps, usually on Next.js, React Native, Supabase and Stripe. This site is one of ours.",
+      text: "We're open Monday to Saturday, 9am to 8pm, and Sunday 10am to 2pm. (Made-up timings for this demo clinic.)",
     },
   },
   {
-    test: /\b(what|which).*(do|build|offer|make|automate|sell)\b|\b(services?|offer|capabilities|help)\b/i,
+    test: /\b(where|address|location|directions?|parking)\b/i,
+    reply: { text: "We're at 1 Demo Road, Andheri West, Mumbai. That address is made up: this is a demo clinic." },
+  },
+  {
+    test: /\b(human|person|staff|doctor|someone|call me|call back|callback|talk to)\b/i,
     reply: {
-      text: "We build seven kinds of systems: AI agents, voice agents, website chatbots like me, workflow automation, advanced RAG agents, content pipelines, and full websites and apps. Most clients start with whichever one saves the most hours.",
+      text: "Of course. In a real clinic I'd pass this conversation to the front desk now, with everything you've told me, so you don't have to repeat yourself.",
     },
   },
   {
-    test: /\b(automat\w*|workflows?|zapier|make\.com|n8n|crm|hubspot|salesforce|invoic\w*|ops)\b/i,
+    test: /\b(are you|ai|bot|robot|real|what is this|who are you)\b/i,
     reply: {
-      text: "We wire your tools together so busywork runs on its own: lead routing, CRM updates, invoicing, reporting, onboarding. Built on n8n, Make, Zapier or custom code, and monitored so you hear about problems before your customers do.",
+      text: "I'm a demo AI front desk built by Protomation. A real one answers a clinic's calls, WhatsApp and website chat like this, from the clinic's own approved answers.",
     },
   },
   {
-    test: /\b(secure|security|privacy|private|data|gdpr|hipaa|soc ?2|safe)\b/i,
-    reply: {
-      text: "Your data stays in your own accounts wherever possible. We use enterprise model APIs that don't train on your data, and add access controls and audit logs for regulated teams.",
-    },
+    test: /\b(hi|hello|hey|namaste|good (morning|afternoon|evening))\b/i,
+    reply: { text: "Hello! How can I help you today? I can share timings and fees, or book a consultation." },
   },
   {
-    test: /\b(chat ?bots?|bots?|assistant|are you|who are you|you real)\b/i,
+    test: /\b(thanks|thank you|ok|okay|great|perfect)\b/i,
     reply: {
-      text: "I'm scripted for this demo. The chatbots we ship are trained on your docs, pricing and policies, capture leads, book meetings right in the chat and hand off to your team with the whole conversation attached.",
-    },
-  },
-  {
-    test: /\b(hi|hello|hey|yo|hiya|good (morning|afternoon|evening))\b/i,
-    reply: {
-      text: "Hi! I'm a demo of the assistants we build. Ask me what we automate, what it costs or how fast we launch.",
-    },
-  },
-  {
-    test: /\b(thanks|thank you|cheers|cool|great|awesome|nice|perfect)\b/i,
-    reply: {
-      text: "Anytime. If you'd like one of these working on your own site, the free audit is the place to start.",
-      cta: AUDIT_CTA,
+      text: "You're welcome. Want one of these answering your own clinic's enquiries?",
+      cta: { label: "Book a free 20-min call", href: "/contact" },
     },
   },
 ];
 
 const fallback: BotReply = {
-  text: "Good question. A real assistant would be trained on your business and answer that properly. In this demo, try asking what we build, what it costs or how fast we launch.",
+  text: "I'm a short demo, so I only know the basics: timings, fees, location and booking. A real front desk knows everything your clinic approves. Try \"book a consultation\".",
+  chips: ["Book a consultation"],
 };
 
 export function replyTo(message: string): BotReply {
@@ -99,11 +108,11 @@ export function replyTo(message: string): BotReply {
 }
 
 export const greeting =
-  "Hi, I'm the Protomation demo assistant. Ask me what we build, what it costs or how fast we ship.";
+  "Hi, I'm the front desk for Protomation Demo Clinic, a made-up clinic for this demo. I can share timings and fees, and book a consultation. What would you like to know?";
 
 export const suggestions = [
-  "What can you automate?",
-  "How much does it cost?",
-  "How fast can you launch?",
-  "Book a free audit",
+  "What are your timings?",
+  "How much is a consultation?",
+  "Book a consultation",
+  "Can I speak to a doctor?",
 ];

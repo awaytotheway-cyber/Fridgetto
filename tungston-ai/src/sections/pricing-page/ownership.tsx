@@ -1,12 +1,12 @@
 import { SectionIntro } from "@/components/ui/section-intro";
-import { ownershipPoints, ownershipQualification } from "@/lib/pricing";
+import { ownershipPoints } from "@/content/pricing";
 
 export function Ownership() {
   return (
     <section aria-labelledby="ownership-title" className="py-16 sm:py-24">
       <div className="shell">
-        <SectionIntro id="ownership-title" title="Your system. Your data. Your ownership.">
-          We build your system. You own your system. You pay for your usage. We maintain it when you want us to.
+        <SectionIntro id="ownership-title" title="Your accounts. Your data. No lock-in.">
+          We build it in your name wherever we can, so you keep everything whether or not we keep running it.
         </SectionIntro>
         <ol className="mt-12 grid gap-px overflow-hidden rounded-card border border-white/[0.08] bg-white/[0.08] sm:mt-16 md:grid-cols-2">
           {ownershipPoints.map((point, i) => (
@@ -17,7 +17,6 @@ export function Ownership() {
             </li>
           ))}
         </ol>
-        <p className="mt-6 max-w-3xl text-sm text-smoke">{ownershipQualification}</p>
       </div>
     </section>
   );

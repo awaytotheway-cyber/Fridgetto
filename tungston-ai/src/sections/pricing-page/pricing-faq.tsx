@@ -1,6 +1,6 @@
 import { SectionIntro } from "@/components/ui/section-intro";
 import { FaqList } from "@/components/ui/faq-list";
-import { pricingFaqs } from "@/lib/pricing";
+import { pricingFaqs } from "@/content/pricing";
 
 /** <details>, so the answers work with JavaScript switched off. */
 export function PricingFaq() {

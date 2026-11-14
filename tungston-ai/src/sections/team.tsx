@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { TiltCard } from "@/components/fx/tilt-card";
-import { team, type TeamMember } from "@/lib/content";
+import { team, type TeamMember } from "@/content/about";
 import { blurFor } from "@/lib/image-blur";
 
 function MemberCard({ member, index }: { member: TeamMember; index: number }) {
@@ -39,9 +39,9 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
             <span className="mx-2 text-white/20">/</span>
             {member.role}
           </p>
-          <h2 className="mt-3 font-display text-[clamp(2.25rem,1.6rem+2.2vw,3.5rem)] leading-[0.95] font-semibold tracking-[-0.015em] text-bone">
+          <h3 className="mt-3 font-display text-[clamp(2.25rem,1.6rem+2.2vw,3.5rem)] leading-[0.95] font-semibold tracking-[-0.015em] text-bone">
             {member.name}
-          </h2>
+          </h3>
           <p className="mt-5 max-w-lg text-bone/85">{member.bio}</p>
           <ul className="mt-6 flex flex-wrap gap-2" aria-label={`${member.name}'s focus`}>
             {member.focus.map((f) => (

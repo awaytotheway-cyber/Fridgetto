@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { DotGrid, type DotGridHandle } from "@/components/fx/dot-grid";
-import { ButtonLink } from "@/components/ui/button";
 import { onSiteReady, prefersReducedMotion } from "@/lib/gsap";
 import { siteConfig } from "@/site.config";
 import { blurFor } from "@/lib/image-blur";
+import { hero } from "@/content/home";
 
 function Line({ children, index }: { children: ReactNode; index: number }) {
   return (
@@ -19,8 +19,11 @@ function Line({ children, index }: { children: ReactNode; index: number }) {
 /**
  * The intro is CSS (see .hero-intro in globals.css), so the headline paints with the
  * first frame instead of waiting for JavaScript; that keeps the page's largest paint fast.
+ *
+ * `actions` is the CTA pair, rendered on the server (it checks which demo exists) and
+ * passed in, since this component runs in the browser.
  */
-export function Hero() {
+export function Hero({ actions }: { actions: ReactNode }) {
   const gridRef = useRef<DotGridHandle>(null);
   const hotRef = useRef<HTMLSpanElement>(null);
   // The texture is decoration: fetch it once the page is up, so it never competes with the first paint.
@@ -88,7 +91,7 @@ export function Hero() {
         </p>
         <h1
           id="hero-title"
-          className="max-w-[18ch] font-display text-hero font-semibold text-bone"
+          className="max-w-[20ch] font-display text-[clamp(2.6rem,0.9rem+6.6vw,8.25rem)] leading-[0.92] tracking-[-0.02em] font-semibold text-bone"
         >
           <Line index={1}>{siteConfig.headline.lines[0]}</Line>
           <Line index={2}>
@@ -113,19 +116,16 @@ export function Hero() {
         </h1>
 
         <div className="mt-8 grid items-end gap-8 sm:mt-10 lg:grid-cols-12">
-          <p data-rise className="max-w-xl text-lede text-ash lg:col-span-6">
-            Calls answered at 2am. Leads chased before they go cold. Data moved between your tools with nobody copying and
-            pasting. Built around how you already work, and live in weeks.
-          </p>
-          <div data-fade className="flex flex-wrap gap-3 lg:col-span-6 lg:justify-end" style={{ "--i": 0 } as CSSProperties}>
-            <ButtonLink href={siteConfig.contact.bookingUrl} size="lg">
-              Book a Free AI Audit
-            </ButtonLink>
-            {/* The secondary CTA leads to the estimator, not the services list: give a
-                taste of the result before asking for the meeting. */}
-            <ButtonLink href="#estimate" variant="ghost" size="lg">
-              See What You&apos;d Save <span aria-hidden="true">↓</span>
-            </ButtonLink>
+          <div className="lg:col-span-7">
+            <p data-rise className="max-w-2xl text-lede text-ash">
+              {hero.subhead}
+            </p>
+            <p data-rise className="mt-4 text-sm text-smoke">
+              {hero.worksWith}
+            </p>
+          </div>
+          <div data-fade className="lg:col-span-5 lg:justify-self-end" style={{ "--i": 0 } as CSSProperties}>
+            {actions}
           </div>
         </div>
       </div>

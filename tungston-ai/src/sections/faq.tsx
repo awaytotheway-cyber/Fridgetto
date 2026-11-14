@@ -1,13 +1,14 @@
 import { SectionIntro } from "@/components/ui/section-intro";
 import { FaqList } from "@/components/ui/faq-list";
-import { homeFaqs } from "@/lib/content";
+import type { FaqItem } from "@/components/ui/faq-list";
+import { homeFaqs } from "@/content/faqs";
 
 /** Sits immediately before the final CTA: answer the objection, then make the ask. */
-export function Faq() {
+export function Faq({ items = homeFaqs, title = "Before you book." }: { items?: FaqItem[]; title?: string }) {
   return (
     <section aria-labelledby="faq-title" className="py-16 sm:py-24">
       <div className="shell">
-        <SectionIntro id="faq-title" title="Before you book.">
+        <SectionIntro id="faq-title" title={title}>
           The things people ask before the first call. Questions about money are answered on the{" "}
           <a
             href="/pricing#pricing-faq-title"
@@ -17,7 +18,7 @@ export function Faq() {
           </a>
           .
         </SectionIntro>
-        <FaqList items={homeFaqs} />
+        <FaqList items={items} />
       </div>
     </section>
   );
