@@ -1,7 +1,7 @@
 /**
  * First-party event counting. No cookies, no third-party script, no IP address kept:
  * each event is a name, an optional label and the page, sent to /api/event and
- * stored in the site_events table (supabase/2026-11-site-events.sql).
+ * stored in the protomation_site_events table (supabase/2026-11-protomation-site-events.sql).
  *
  * Safe to call anywhere: it does nothing on the server and never throws.
  */

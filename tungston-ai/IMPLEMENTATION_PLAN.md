@@ -15,7 +15,7 @@
 **Phases 2–5 are built**, on the branch, by the founder's instruction to "do the work yourself". The founder's open [CONFIRM] items were decided with sensible defaults; they are listed in `LAUNCH_CHECKLIST.md` §C so any of them can be changed. **Phase 6** shipped only `DEMO_AGENT_SPEC.md`. The optional 60-second callback is left out until TRAI/DLT rules are checked. **Phase 7** results are in `LAUNCH_CHECKLIST.md` §E. **Phase 8** (production) waits for explicit approval.
 
 Changes from the plan below:
-- **Analytics:** the founder is on Vercel's free plan, so events go to a first-party table (`site_events` via `/api/event`) instead of `@vercel/analytics`. There are still no cookies and nothing identifying.
+- **Analytics:** the founder is on Vercel's free plan, so events go to a first-party table (`protomation_site_events` via `/api/event`) instead of `@vercel/analytics`. There are still no cookies and nothing identifying.
 - `scripts/check-copy.ts` and the demo-bot tests were added. `lib/care-plan-server.ts` keeps its own limiter; its notification uses the new webhook variable.
 - The homepage's `DemoCallCard` renders nothing until a demo number or recording exists, so the secondary CTA is "See how it works" for now.
 
@@ -38,7 +38,7 @@ Changes from the plan below:
 | Contact email | `hello@protomation.ai` doesn't exist yet. Keep the Gmail address in `site.config.ts` and switch it in one line when the mailbox exists. |
 | WhatsApp | +91 74999 07619 (keep) |
 | Calendar | none yet. "Book a free 20-min call" goes to `/contact` (form + WhatsApp). Setting `NEXT_PUBLIC_CALENDAR_URL` switches the embed on. |
-| Analytics | ~~Vercel Web Analytics~~ → **first-party counts in Supabase** (`site_events`), because the founder is on the free plan. Cookieless, no banner. The Privacy Policy changed to match. |
+| Analytics | ~~Vercel Web Analytics~~ → **first-party counts in Supabase** (`protomation_site_events`), because the founder is on the free plan. Cookieless, no banner. The Privacy Policy changed to match. |
 | Supabase | The production project is in another account the founder will connect. New fields **extend `protomation_enquiries`**. `/security` names no region until it's verified. |
 | n8n | The old webhook is dead. The form posts JSON to `N8N_LEAD_WEBHOOK_URL`, and when that's unset it is skipped. The hard-coded URL is deleted. |
 | Education reach | No country list. Say it's available worldwide (wording in COPY.md). |

@@ -81,9 +81,9 @@ The form on `/contact` posts to the `submitLead` server action (`src/app/actions
 
 With JavaScript the form keeps the visitor's answers after an error; without JavaScript it still posts as a plain HTML form.
 
-**Counting** is first-party: buttons marked `data-event="…"` and a few components call `trackEvent()` (`src/lib/analytics.ts`), which posts to `/api/event`. That stores the event name, a short label and the page path in `public.site_events`, with no cookies and no IP address. To read the counts, use the query at the bottom of `supabase/2026-11-site-events.sql`.
+**Counting** is first-party: buttons marked `data-event="…"` and a few components call `trackEvent()` (`src/lib/analytics.ts`), which posts to `/api/event`. That stores the event name, a short label and the page path in `public.protomation_site_events`, with no cookies and no IP address. To read the counts, use the query at the bottom of `supabase/2026-11-protomation-site-events.sql`.
 
-**Database setup:** run `supabase/protomation_enquiries.sql`, then `2026-11-front-desk-leads.sql`, then `2026-11-site-events.sql`. All three can be re-run safely.
+**Database setup:** run `supabase/protomation_enquiries.sql`, then `2026-11-front-desk-leads.sql`, then `2026-11-protomation-site-events.sql`. All three can be re-run safely.
 
 ## Project structure
 

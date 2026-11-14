@@ -3,7 +3,7 @@ import { insertRow } from "@/lib/enquiry-store";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 /**
- * Receives one first-party event from trackEvent() and stores it in site_events.
+ * Receives one first-party event from trackEvent() and stores it in protomation_site_events.
  * Stores the event name, a short label and the page path, and nothing that identifies
  * the visitor. Always answers 204, so a counting problem never surfaces in the page.
  */
@@ -21,13 +21,13 @@ export async function POST(req: Request) {
   if (!isAnalyticsEvent(name)) return done;
 
   try {
-    await insertRow("site_events", {
+    await insertRow("protomation_site_events", {
       name,
       label: typeof label === "string" ? label.slice(0, 60) : null,
       path: typeof path === "string" && path.startsWith("/") ? path.slice(0, 200) : null,
     });
   } catch (error) {
-    // Usually: the site_events table hasn't been created yet (supabase/2026-11-site-events.sql)
+    // Usually: the protomation_site_events table hasn't been created yet (supabase/2026-11-protomation-site-events.sql)
     console.error("[event] not stored", error instanceof Error ? error.message : error);
   }
   return done;

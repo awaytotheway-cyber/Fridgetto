@@ -6,7 +6,7 @@ Everything here is on the branch `claude/protomation-ai-front-desk-j8lsmt`. Noth
 
 | # | What | Where | Why |
 |---|---|---|---|
-| 1 | Connect the Protomation Supabase account to Claude, or run the two SQL files yourself | Supabase → SQL editor: run `supabase/2026-11-front-desk-leads.sql`, then `supabase/2026-11-site-events.sql` | Without these, form leads and button counts can't be saved |
+| 1 | Connect the Protomation Supabase account to Claude, or run the two SQL files yourself | Supabase → SQL editor: run `supabase/2026-11-front-desk-leads.sql`, then `supabase/2026-11-protomation-site-events.sql` | Without these, form leads and button counts can't be saved |
 | 2 | Add the Supabase variables to **Preview** as well as Production | Vercel → tungston → Settings → Environment Variables: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | So the preview link can save test leads |
 | 3 | Send the new n8n webhook URL; I'll tell you where to put it | Vercel env `N8N_LEAD_WEBHOOK_URL` (+ `N8N_LEAD_WEBHOOK_SECRET`). The workflow's Webhook node must accept **POST** with a JSON body. | So you're notified about new leads. Without it, leads only sit in Supabase. |
 | 4 | Turn off the old n8n webhook | n8n | It's public in this repo's history, so anyone can trigger it |
