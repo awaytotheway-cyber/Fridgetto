@@ -18,7 +18,7 @@ export const siteConfig = {
   legalName: "Protomation AI",
   /** The one canonical address. The site is served on www; the bare domain should 301 to it. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.protomation.ai",
-  tagline: "AI front desks for clinics",
+  tagline: "AI automation for clinics",
   /**
    * The hero headline, split as it is set on the page. The share card draws the same
    * words, so the two cannot drift apart.
@@ -27,23 +27,23 @@ export const siteConfig = {
    * Both renderers follow that rule; change it in one and change it in the other.
    */
   headline: {
-    lines: ["Every Patient Enquiry", "Answered In", "Every Consult Booked."],
-    hot: "Seconds.",
+    lines: ["Every Patient", "Booked And", "Automatically."],
+    hot: "Followed Up.",
   },
   /** Who the site says it is for, shown above the headline. Keep in step with src/content/clinics.ts. */
   audiences: ["IVF", "Dermatology & Hair", "Dental", "Diagnostic labs"],
   /** Meta description: keep it under about 150 characters so search results show all of it. */
   description:
-    "Every call, missed call and WhatsApp enquiry answered in Hindi or English, qualified and booked. For IVF, skin, hair and dental clinics.",
+    "AI automation for clinics in India: appointment booking, reminders, WhatsApp chat, patient follow-ups and hospital-software workflows.",
   keywords: [
-    "AI front desk",
-    "AI receptionist for clinics",
+    "clinic automation",
+    "AI automation for clinics",
     "clinic appointment booking",
-    "IVF clinic enquiries",
-    "dental clinic receptionist",
-    "WhatsApp booking for clinics",
-    "Hindi voice receptionist",
-    "missed call management",
+    "patient follow-up automation",
+    "WhatsApp automation for clinics",
+    "hospital management software automation",
+    "AI voice receptionist",
+    "lab reports on WhatsApp",
   ],
   contact: {
     /** Switch to hello@protomation.ai once that mailbox exists. */
@@ -90,8 +90,8 @@ export const siteConfig = {
   ],
   nav: [
     { label: "Clinics", href: "/clinics" },
+    { label: "Solutions", href: "/solutions" },
     { label: "Education", href: "/education" },
-    { label: "How it works", href: "/how-it-works" },
     { label: "Pricing", href: "/pricing" },
     { label: "Work", href: "/work" },
     { label: "About", href: "/about" },

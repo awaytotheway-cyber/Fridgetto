@@ -8,8 +8,8 @@ import { siteConfig } from "@/site.config";
 const product = [
   { label: "Clinics", href: "/clinics" },
   { label: "Education", href: "/education" },
-  { label: "How it works", href: "/how-it-works" },
-  { label: "Front-Desk Diagnostic", href: "/diagnostic" },
+  { label: "Solutions", href: "/solutions" },
+  { label: "Clinic Automation Audit", href: "/audit" },
   { label: "Pricing", href: "/pricing" },
   { label: "Security & data", href: "/security" },
 ];
@@ -28,7 +28,7 @@ export function Footer() {
         <div className="min-w-0 md:col-span-5">
           <Logo />
           <p className="mt-6 max-w-sm text-ash">
-            AI front desks for clinics. Every enquiry answered, qualified and booked.
+            AI automation for clinics. Bookings, follow-ups and admin, handled.
           </p>
           <a
             href={`mailto:${siteConfig.contact.email}`}

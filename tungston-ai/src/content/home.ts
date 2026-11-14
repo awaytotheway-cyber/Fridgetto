@@ -1,46 +1,41 @@
 /**
  * Homepage copy. Kept deliberately short: one idea per section, one line per item.
+ * The solutions themselves live in content/solutions.ts.
  * The hero headline and audiences live in site.config.ts (the share image draws them
  * too); prices live in content/pricing.ts.
  */
 
 export const hero = {
   subhead:
-    "Every call, missed call and WhatsApp enquiry answered, qualified and booked into your calendar. Day and night, in Hindi or English.",
+    "Appointment booking, reminders, WhatsApp chat, follow-ups, reports and the admin inside your hospital software. Done by AI, set up by us.",
 };
 
 export const leaks = {
-  eyebrow: "Where patients slip away",
-  title: "Most clinics don't lack enquiries. They lose them.",
-  lead: "Patients contact two or three clinics at once. The first to answer usually gets the consult.",
+  eyebrow: "Where clinics lose patients",
+  title: "Small gaps, every day.",
+  lead: "An unanswered enquiry. A forgotten follow-up. A report nobody sent.",
   moments: [
     {
-      when: "A couple calls about IVF at 9:40pm",
-      without: "No answer. They book elsewhere.",
-      with: "Answered, and a consult booked for tomorrow.",
+      when: "A patient enquires at 9:40pm",
+      without: "Seen next morning. They booked elsewhere.",
+      with: "Answered and booked in minutes.",
     },
     {
-      when: "The phone rings in the lunch rush",
-      without: "Missed, and nobody calls back.",
-      with: "Answered, qualified and booked.",
+      when: "A patient is due for a follow-up",
+      without: "Nobody remembers to call.",
+      with: "Reminded on WhatsApp, and rebooked.",
     },
     {
-      when: "A WhatsApp message asks “how much?”",
-      without: "Answered the next day. Too late.",
-      with: "Answered in seconds, with a consult offered.",
+      when: "A lab report is ready",
+      without: "The patient queues to collect it.",
+      with: "Sent on WhatsApp, automatically.",
     },
   ],
 };
 
-export const fiveJobs = {
-  title: "One front desk. Five jobs.",
-  jobs: [
-    { title: "Answer", body: "Calls, missed calls, WhatsApp and website chat." },
-    { title: "Qualify", body: "Asks what your front desk would ask." },
-    { title: "Book", body: "Books real slots in your calendar." },
-    { title: "Remind", body: "Reminds patients and follows up." },
-    { title: "Report", body: "Shows you what it booked, every month." },
-  ],
+export const whatWeAutomate = {
+  title: "What we automate.",
+  link: { label: "See all solutions", href: "/solutions" },
 };
 
 export const demo = {
@@ -68,7 +63,7 @@ export const whoItsFor = {
   ],
   education: {
     text: "Run a study-abroad or coaching business?",
-    link: "See the education front desk",
+    link: "See automation for education",
     href: "/education",
   },
 };
@@ -80,16 +75,16 @@ export const processIntro = {
 
 export const processSteps = [
   { title: "Free 20-minute call", when: "Day 1", body: "We see if we can help." },
-  { title: "Diagnostic", when: "Week 1", body: "We test your front desk and give you a fixed quote." },
-  { title: "Pilot", when: "Weeks 2–3", body: "One channel, one agreed target. The second half of the build is due when it's met." },
-  { title: "Go live", when: "Weeks 3–5", body: "All channels, your calendar, your rules." },
+  { title: "Clinic Automation Audit", when: "Week 1", body: "We map how your clinic runs and give you a plan and a fixed quote." },
+  { title: "Pilot", when: "Weeks 2–3", body: "One automation first, with an agreed target. The second half of the build is due when it's met." },
+  { title: "Go live", when: "Weeks 3–6", body: "Rolled out across your clinic." },
   { title: "Managed", when: "Optional", body: "We monitor it and report every month." },
 ];
 
 export const dataTrust = {
   title: "Patient data, handled properly.",
   points: [
-    "Callers are told they're speaking with an AI.",
+    "Patients are told when they're talking to an AI.",
     "Your data stays in accounts you own.",
     "We never train AI on your patients' data.",
     "A data processing agreement with every clinic, built to support the DPDP Act.",
@@ -104,9 +99,9 @@ export const pricingIntro = {
 
 export const founderNote = {
   eyebrow: "From the founder",
-  text: "I'm Pratik Naragude. I started Protomation in Mumbai because the enquiry nobody answers goes to whoever answers first. We build front desks that answer every one, and you deal with me directly.",
+  text: "I'm Pratik Naragude. I started Protomation in Mumbai because clinics lose patients in small gaps: an enquiry nobody answered, a follow-up nobody made. We automate those gaps, and you deal with me directly.",
   /** Words that stay lit red once the scroll reaches them. */
-  hot: ["every", "one,"],
+  hot: ["small", "gaps:"],
   signature: "Pratik Naragude, Founder · Mumbai",
   /** The clay portrait stands in until a photo arrives (ASSETS.md). */
   image: "/assets/team-orchestrator.webp",

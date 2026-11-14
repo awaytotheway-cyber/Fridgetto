@@ -1,43 +1,43 @@
 /**
- * Title and description for every page (COPY.md §14). Titles get "| Protomation"
- * appended by the layout's template; keep the whole thing under about 60 characters,
- * and descriptions under about 155.
+ * Title and description for every page. Titles get "| Protomation" appended by the
+ * layout's template; keep the whole thing under about 60 characters, and descriptions
+ * under about 155.
  */
 export const seo = {
   home: {
-    title: "AI Front Desk for Clinics in India",
+    title: "AI Automation for Clinics in India",
     description:
-      "Every call, missed call and WhatsApp enquiry answered in Hindi or English, qualified and booked. For IVF, skin, hair and dental clinics.",
+      "Appointment booking, reminders, WhatsApp chat, patient follow-ups and hospital-software workflows, automated. For IVF, skin, dental clinics and labs.",
     path: "/",
   },
   clinics: {
-    title: "AI Front Desk for IVF, Skin, Hair & Dental",
+    title: "Automation for IVF, Skin, Dental Clinics & Labs",
     description:
-      "Answer every patient enquiry in seconds and book more consults. For IVF centres, skin and hair clinics, dental chains and diagnostic labs.",
+      "Book more consults and cut admin. Automation for IVF centres, skin and hair clinics, dental chains and diagnostic labs in India.",
     path: "/clinics",
   },
+  solutions: {
+    title: "Clinic Automation Solutions",
+    description:
+      "Booking, reminders, follow-ups, WhatsApp and website chat, AI voice, ad leads, reports on WhatsApp and hospital-software workflows.",
+    path: "/solutions",
+  },
   education: {
-    title: "AI Admissions Front Desk for Education",
+    title: "AI Automation for Education Businesses",
     description:
       "Call every lead within minutes, book counselling sessions and follow up on WhatsApp. For study-abroad, upskilling and exam-coaching businesses.",
     path: "/education",
   },
-  howItWorks: {
-    title: "How the AI Front Desk Works",
+  audit: {
+    title: "Clinic Automation Audit",
     description:
-      "Voice, WhatsApp and website chat, booking into your calendar, your clinic's knowledge base, and monitoring with a monthly report. One system.",
-    path: "/how-it-works",
-  },
-  diagnostic: {
-    title: "Front-Desk Diagnostic for Clinics",
-    description:
-      "A fixed-price check of how your clinic answers calls, WhatsApp and ad leads, with a written plan and quote. ₹15,000, credited against your build.",
-    path: "/diagnostic",
+      "We map how your clinic runs, find what to automate first, and give you a written plan and a fixed quote. ₹15,000, credited against your build.",
+    path: "/audit",
   },
   pricing: {
-    title: "AI Front Desk Pricing",
+    title: "Clinic Automation Pricing",
     description:
-      "Diagnostic ₹15,000, builds from ₹2,00,000, and an optional Managed Front Desk from ₹39,500 a month. A fixed quote before you commit.",
+      "Audit ₹15,000, single automations from ₹50,000, a full clinic system from ₹2,00,000, and an optional Managed Plan from ₹39,500 a month.",
     path: "/pricing",
   },
   security: {
@@ -47,21 +47,21 @@ export const seo = {
     path: "/security",
   },
   work: {
-    title: "Demo Front Desk & Sample Report",
+    title: "Demo & Sample Report",
     description:
-      "Try our demo AI front desk and see the monthly report your clinic would get. No invented case studies, only what you can check yourself.",
+      "Try our demo clinic chat and see the monthly report your clinic would get. No invented case studies, only what you can check yourself.",
     path: "/work",
   },
   about: {
     title: "About Protomation",
     description:
-      "A founder-led practice in Mumbai that installs and runs AI front desks for clinics and education businesses. Meet founder Pratik Naragude.",
+      "A founder-led practice in Mumbai that builds AI automation for clinics and education businesses. Meet founder Pratik Naragude.",
     path: "/about",
   },
   contact: {
     title: "Book a Free 20-Minute Call",
     description:
-      "Tell us about your clinic. We reply within 6 working hours to fix a time, and you'll leave knowing whether an AI front desk would pay off.",
+      "Tell us about your clinic. We reply within 6 working hours to fix a time, and you'll leave knowing what's worth automating first.",
     path: "/contact",
   },
 } as const;

@@ -8,5 +8,5 @@ export const contactHero = {
 
 export const onTheCall = {
   title: "On the call",
-  body: "20 minutes, no slides. You'll find out whether an AI front desk makes sense for your clinic.",
+  body: "20 minutes, no slides. You'll find out what's worth automating first in your clinic.",
 };

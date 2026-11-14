@@ -1,4 +1,4 @@
-/** /clinics copy. Each specialty's id is its anchor and its calculator preset. One sentence and three points each. */
+/** /clinics copy. Each specialty's id is its anchor and its calculator preset. One sentence and three automations each. */
 
 export type Specialty = {
   id: string;
@@ -14,8 +14,8 @@ export type Specialty = {
 
 export const clinicsHero = {
   eyebrow: "For clinics",
-  title: "An AI front desk for clinics where every patient counts.",
-  lead: "Every enquiry answered, qualified and booked. Day and night.",
+  title: "AI automation for clinics where every patient counts.",
+  lead: "Bookings, follow-ups, reports and admin, automated for your specialty."
 };
 
 export const specialties: Specialty[] = [
@@ -26,9 +26,9 @@ export const specialties: Specialty[] = [
     title: "IVF & fertility centres",
     intro: "Couples call several centres in one evening. The first kind, clear answer wins the visit.",
     does: [
-      "Answers warmly, after hours too",
-      "Shares only the fees and process you approve",
-      "Books the first consult and sends reminders",
+      "Answers enquiries warmly, after hours too",
+      "Books consults and sends reminders",
+      "Follows up between appointments",
     ],
     cta: "Run the numbers for IVF",
   },
@@ -39,9 +39,9 @@ export const specialties: Specialty[] = [
     title: "Dermatology & hair clinics",
     intro: "Most enquiries start on Instagram with two words: “how much?”",
     does: [
-      "Replies in seconds, day or night",
-      "Answers price questions, then offers a consult",
-      "Follows up while patients are deciding",
+      "Replies to Instagram and WhatsApp leads in seconds",
+      "Books consults and sends reminders",
+      "Follows up after treatment",
     ],
     cta: "Run the numbers for skin and hair",
   },
@@ -52,9 +52,9 @@ export const specialties: Specialty[] = [
     title: "Dental clinics and chains",
     intro: "Implant and aligner patients compare two or three clinics before they book.",
     does: [
-      "Answers for every branch",
-      "Explains your EMI options and consult fee",
+      "Books appointments for every branch",
       "Follows up on treatment plans",
+      "Sends recall reminders",
     ],
     cta: "Run the numbers for dental",
   },
@@ -65,9 +65,9 @@ export const specialties: Specialty[] = [
     title: "Diagnostic labs",
     intro: "Home collection is booked early, often for a parent. A fast, confirmed slot wins.",
     does: [
-      "Books collection slots by area",
-      "Shares the preparation steps you approve",
-      "Sends reminders and rebooks cancellations",
+      "Books home collection by area",
+      "Sends reports on WhatsApp automatically",
+      "Reminds patients and rebooks cancellations",
     ],
     cta: "Run the numbers for labs",
   },

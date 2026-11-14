@@ -12,7 +12,7 @@ export function Pricing() {
         <SectionIntro id="pricing-title" title={pricingIntro.title}>
           {pricingIntro.line}
         </SectionIntro>
-        <dl className="mt-14 grid gap-4 sm:mt-20 lg:grid-cols-3">
+        <dl className="mt-14 grid gap-4 sm:mt-20 sm:grid-cols-2 xl:grid-cols-4">
           {pricingTeaser.map((item) => (
             <div key={item.name} className="flex flex-col-reverse rounded-card border border-white/[0.08] bg-white/[0.02] p-7 sm:p-9">
               <dt className="mt-3">

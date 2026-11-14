@@ -4,7 +4,7 @@ import { RevealText } from "@/components/fx/reveal-text";
 import { currentDemoMode } from "@/lib/demo-assets";
 import { demo } from "@/content/home";
 
-/** Try the front desk: the demo call or recording when there is one, and the demo clinic's chat. */
+/** Try it: the demo call or recording when there is one, and the demo clinic's chat. */
 export function LiveDemo({ id = "demo" }: { id?: string }) {
   const mode = currentDemoMode().kind;
   return (

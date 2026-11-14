@@ -1,7 +1,7 @@
 import { SectionIntro } from "@/components/ui/section-intro";
 import { leaks } from "@/content/home";
 
-/** Where patients slip away: three moments, each shown today and with the front desk. */
+/** Where clinics lose patients: three moments, each shown today and with automation. */
 export function WhyNow() {
   return (
     // overflow-hidden clips the ambient glow below: it is wider than a phone, and

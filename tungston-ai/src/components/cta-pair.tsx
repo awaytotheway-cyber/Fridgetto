@@ -4,7 +4,7 @@ import { siteConfig } from "@/site.config";
 
 /**
  * The two buttons every page ends on (COPY.md §1). The secondary one calls the demo
- * front desk when a demo number is set, and otherwise explains how it works.
+ * clinic when a demo number is set, and otherwise shows what we automate.
  *
  * Clicks are counted by the `data-event` attributes (see components/event-tracker.tsx).
  */
@@ -22,11 +22,11 @@ export function CtaPair({ note = true, className }: { note?: boolean; className?
             data-event="demo_call_click"
             className="inline-flex h-14 items-center justify-center rounded-full border border-white/15 px-7 font-medium text-bone transition-colors hover:border-white/40 hover:bg-white/[0.04] sm:h-16 sm:px-8 sm:text-[1.0625rem]"
           >
-            Call our demo front desk
+            Call our demo clinic
           </a>
         ) : (
-          <ButtonLink href="/how-it-works" variant="ghost" size="lg">
-            See how it works
+          <ButtonLink href="/solutions" variant="ghost" size="lg">
+            See what we automate
           </ButtonLink>
         )}
       </div>

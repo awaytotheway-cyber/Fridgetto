@@ -142,8 +142,8 @@ export const termsOfService: LegalDoc = {
     {
       heading: "What we do",
       blocks: [
-        "We set up and run AI front desks: systems that answer calls, WhatsApp messages and website chats, qualify enquiries, book appointments and follow up, for clinics and education businesses.",
-        "We offer three things: a Front-Desk Diagnostic, a Front-Desk Build and an optional Managed Front Desk plan.",
+        "We build and run AI automations for clinics and education businesses: appointment booking, reminders and follow-ups, WhatsApp and website chat, voice calls, ad lead handling, reports on WhatsApp and workflows connected to your software.",
+        "We offer a Clinic Automation Audit, automation builds (a single automation or a full clinic system) and an optional Managed Plan.",
         "Prices and estimates on this site are indicative. Nothing here is a binding offer: work starts once we have both agreed the scope and the price in writing.",
       ],
     },
@@ -151,9 +151,9 @@ export const termsOfService: LegalDoc = {
       heading: "Money",
       blocks: [
         [
-          "The Front-Desk Diagnostic is paid upfront. It is not refundable once test calls have started. Its fee is credited in full against a build that starts within 30 days of the diagnostic report.",
-          "Every build has a one-time fee, fixed after the diagnostic. It is paid in two halves: half to start, and half once the pilot meets the metric we agreed in writing. Every build includes 30 days of fixes after go-live.",
-          "The Managed Front Desk plan is optional. You never have to buy it to own what we built for you.",
+          "The Clinic Automation Audit is paid upfront. It is not refundable once test calls have started. Its fee is credited in full against a build that starts within 30 days of the audit report.",
+          "Every build has a one-time fee, fixed after the audit. It is paid in two halves: half to start, and half once the pilot meets the metric we agreed in writing. Every build includes 30 days of fixes after go-live.",
+          "The Managed Plan is optional. You never have to buy it to own what we built for you.",
           "AI usage, telephone calls, hosting and other third-party services are billed to your own provider accounts, not by us. You keep control of those accounts.",
           "Prices are in Indian rupees unless we agree otherwise, and exclude taxes unless we say so.",
         ],
@@ -167,21 +167,21 @@ export const termsOfService: LegalDoc = {
       ],
     },
     {
-      heading: "The Managed Front Desk plan",
+      heading: "The Managed Plan",
       blocks: [
         [
           "Billed monthly, in advance.",
           "Runs month to month. Either of us can stop it with 30 days' notice; payments already made are not refunded, unless the law requires it.",
-          "When it stops, we hand over everything you need to run the front desk yourself. Your systems and accounts remain yours whether or not you subscribe.",
+          "When it stops, we hand over everything you need to run the automations yourself. Your systems and accounts remain yours whether or not you subscribe.",
         ],
       ],
     },
     {
       heading: "Patient and student data",
       blocks: [
-        "You decide what the front desk may say and approve its answers. You are responsible for having a lawful basis to process the personal data of your patients, students or customers.",
+        "You decide what the automations may say and approve their answers. You are responsible for having a lawful basis to process the personal data of your patients, students or customers.",
         "We process that data only on your behalf and on your instructions, under a data processing agreement we sign before any of it is handled.",
-        "The front desk must not be used to give medical advice. It is set up to pass clinical questions to your doctors.",
+        "The automations must not be used to give medical advice. It is set up to pass clinical questions to your doctors.",
       ],
     },
     {

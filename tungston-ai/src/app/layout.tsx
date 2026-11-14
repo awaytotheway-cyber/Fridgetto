@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   // Titles stay under Google's ~580px and leave the domain out (search results show it anyway)
   title: {
-    default: `AI Front Desk for Clinics in India | ${siteConfig.shortName}`,
+    default: `AI Automation for Clinics in India | ${siteConfig.shortName}`,
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
@@ -99,13 +99,13 @@ const organizationJsonLd = {
   sameAs: siteConfig.socials.map((s) => s.href),
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "AI front desk",
+    name: "AI automation for clinics",
     itemListElement: [
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "AI front desk for clinics",
+          name: "AI automation for clinics",
           serviceType: "AI receptionist",
           description:
             "Every call, missed call and WhatsApp enquiry answered in Hindi or English, qualified, booked into the clinic's calendar and followed up.",
@@ -117,7 +117,7 @@ const organizationJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "AI admissions front desk for education businesses",
+          name: "AI automation for education businesses",
           serviceType: "AI receptionist",
           description:
             "New leads called within minutes, counselling sessions booked and followed up on WhatsApp, for study-abroad, upskilling and exam-coaching businesses.",

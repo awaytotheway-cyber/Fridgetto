@@ -1,36 +1,41 @@
 import { inr } from "@/lib/pricing";
-import { PRICES } from "@/content/pricing";
+import { AUDIT_NAME, PRICES } from "@/content/pricing";
+import { solutions } from "@/content/solutions";
 import { siteConfig } from "@/site.config";
 
 /**
- * A plain-language summary for AI assistants and search tools (COPY.md §15).
+ * A plain-language summary for AI assistants and search tools.
  * Nothing here reads request data, so it is prerendered at build time.
  */
 export function GET() {
   const url = siteConfig.url;
   const body = `# Protomation
 
-> Protomation installs and runs AI front desks for high-ticket clinics in India, with education businesses as a second focus. Every call, missed call and WhatsApp enquiry is answered in Hindi or English (Marathi on request), qualified, booked into the clinic's calendar and followed up. An optional managed plan adds monitoring and a monthly report on consultations booked.
+> Protomation builds and runs AI automation for clinics in India, with education businesses as a second focus: appointment booking, reminders and follow-ups (WhatsApp, email or voice), WhatsApp and website chat, an AI voice receptionist, ad lead handling, reports on WhatsApp, and workflows connected to hospital or clinic software. An optional managed plan adds monitoring and a monthly report.
 
 Based in Mumbai, India, working with clients worldwide. Founder: ${siteConfig.founder.name}.
 
 ## Who it is for
 - IVF and fertility centres
 - Dermatology and hair transplant clinics
-- Dental implant and aligner clinics, and dental chains
-- Diagnostic labs with home sample collection
-- Education businesses for adult learners: study-abroad consultancies, upskilling academies, professional-exam coaching
+- Dental clinics and dental chains
+- Diagnostic labs
+- Education businesses for adult learners: study-abroad consultancies, upskilling academies, exam coaching
+
+## What we automate
+${solutions.map((s) => `- ${s.title}: ${s.line}`).join("\n")}
 
 ## Prices (INR, excluding GST where applicable)
-- Front-Desk Diagnostic: ${inr(PRICES.diagnostic)}, credited in full against the build
-- Front-Desk Build: from ${inr(PRICES.buildFrom)}, one-time, single location
-- Managed Front Desk: from ${inr(PRICES.managedFrom)} per month, optional
+- ${AUDIT_NAME}: ${inr(PRICES.audit)}, credited in full against the build
+- Single automation: from ${inr(PRICES.singleFrom)}, one-time
+- Full clinic system: from ${inr(PRICES.systemFrom)}, one-time, one location
+- Managed Plan: from ${inr(PRICES.managedFrom)} per month, optional
 
 ## Pages
 - Clinics: ${url}/clinics
+- Solutions: ${url}/solutions
 - Education: ${url}/education
-- How it works: ${url}/how-it-works
-- Front-Desk Diagnostic: ${url}/diagnostic
+- ${AUDIT_NAME}: ${url}/audit
 - Pricing: ${url}/pricing
 - Security and data: ${url}/security
 - Contact: ${url}/contact

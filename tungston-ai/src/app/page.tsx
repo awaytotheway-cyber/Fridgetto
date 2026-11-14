@@ -7,7 +7,7 @@ import { seo } from "@/content/seo";
 import { pageMetadata } from "@/lib/seo";
 import { Hero } from "@/sections/hero";
 import { WhyNow } from "@/sections/why-now";
-import { FiveJobs } from "@/sections/home/five-jobs";
+import { WhatWeAutomate } from "@/sections/home/what-we-automate";
 import { LiveDemo } from "@/sections/live-demo";
 import { CalculatorSection } from "@/sections/home/calculator-section";
 import { WhoItsFor } from "@/sections/home/who-its-for";
@@ -31,7 +31,7 @@ export default function HomePage() {
       <JsonLd data={faqJsonLd(homeFaqs)} />
       <Hero actions={<CtaPair note={false} />} />
       <WhyNow />
-      <FiveJobs />
+      <WhatWeAutomate />
       <LiveDemo />
       <CalculatorSection />
       <WhoItsFor />
