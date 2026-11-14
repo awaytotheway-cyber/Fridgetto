@@ -1,40 +1,32 @@
 import { ChatDemo } from "@/components/chat-demo";
+import { DemoCallCard } from "@/components/demo-call-card";
 import { RevealText } from "@/components/fx/reveal-text";
-import { ButtonLink } from "@/components/ui/button";
-import { siteConfig } from "@/site.config";
+import { currentDemoMode } from "@/lib/demo-assets";
+import { demo } from "@/content/home";
 
-const facts = [
-  "Answers from your own docs, prices and policies",
-  "Captures the lead and books the meeting in the chat",
-  "Passes the conversation to your team when it should",
-];
-
-export function LiveDemo() {
+/** Try the front desk (COPY.md §2.4): the demo call or recording when there is one, and the demo clinic's chat. */
+export function LiveDemo({ id = "demo" }: { id?: string }) {
+  const mode = currentDemoMode().kind;
   return (
-    <section aria-labelledby="demo-title" className="relative overflow-hidden py-24 sm:py-32">
+    <section id={id} aria-labelledby={`${id}-title`} className="relative scroll-mt-24 overflow-hidden py-24 sm:py-32">
       <div aria-hidden="true" className="ambient top-1/4 right-[-10%] h-[36rem] w-[44rem] opacity-60" />
-      <div className="shell relative grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
+      <div className="shell relative grid items-start gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
-          <RevealText id="demo-title" className="font-display text-display font-semibold text-bone">
-            This chatbot was built by us.
+          <RevealText id={`${id}-title`} className="font-display text-display font-semibold text-bone">
+            {demo.title}
           </RevealText>
-          <p className="mt-6 max-w-md text-lede text-ash">
-            Imagine one working for <span className="font-semibold text-bone">YOUR</span> business 24/7, answering
-            questions, capturing leads and booking calls while your team is offline. Go ahead, ask it something.
-          </p>
+          <p className="mt-6 max-w-md text-lede text-ash">{demo.lead[mode]}</p>
+          <div className="mt-8">
+            <DemoCallCard />
+          </div>
           <ul className="mt-10 space-y-4 border-t border-white/[0.08] pt-8">
-            {facts.map((fact) => (
+            {demo.facts.map((fact) => (
               <li key={fact} className="flex gap-4 text-bone/90">
                 <span aria-hidden="true" className="mt-[0.55em] size-2 shrink-0 rounded-full bg-filament/35" />
                 {fact}
               </li>
             ))}
           </ul>
-          <div className="mt-10">
-            <ButtonLink href={siteConfig.contact.bookingUrl} variant="ghost">
-              Get one for your site
-            </ButtonLink>
-          </div>
         </div>
         <div className="lg:col-span-6 lg:col-start-7">
           <ChatDemo />

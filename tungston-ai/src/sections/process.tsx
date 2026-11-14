@@ -3,10 +3,10 @@
 import { useEffect, useRef } from "react";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { loadGsap, prefersReducedMotion, whenNear } from "@/lib/gsap";
-import { processSteps } from "@/lib/content";
+import { processIntro, processSteps } from "@/content/home";
 
 /**
- * The four steps hang off one filament. Scrolling through the section heats it
+ * The five steps hang off one filament. Scrolling through the section heats it
  * from left to right (top to bottom on phones); each step lights as the heat reaches it.
  */
 export function Process() {
@@ -52,13 +52,13 @@ export function Process() {
     <section aria-labelledby="process-title" className="relative overflow-hidden py-24 sm:py-32">
       <div aria-hidden="true" className="ambient top-1/3 -left-60 h-[30rem] w-[40rem] opacity-40" />
       <div className="shell relative">
-        <SectionIntro id="process-title" title="From first call to a running system in weeks.">
-          No six-month discovery phase. Four steps, with a clear deliverable and a decision point at the end of each.
+        <SectionIntro id="process-title" title={processIntro.title}>
+          {processIntro.lead}
         </SectionIntro>
 
         <ol
           ref={trackRef}
-          className="relative mt-16 grid gap-12 pl-10 [--p:1] sm:mt-24 lg:grid-cols-4 lg:gap-8 lg:pt-14 lg:pl-0"
+          className="relative mt-16 grid gap-12 pl-10 [--p:1] sm:mt-24 lg:grid-cols-5 lg:gap-8 lg:pt-14 lg:pl-0"
         >
           {/* The filament */}
           <li aria-hidden="true" className="absolute top-2 bottom-2 left-[0.6875rem] w-px bg-white/10 lg:top-[0.6875rem] lg:right-0 lg:bottom-auto lg:left-0 lg:h-px lg:w-auto">

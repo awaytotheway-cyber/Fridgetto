@@ -30,7 +30,7 @@ export function pageMetadata({ title, description, path }: PageSeo): Metadata {
     openGraph: {
       type: "website",
       siteName: siteConfig.name,
-      locale: "en_US",
+      locale: "en_IN",
       url: path,
       title: fullTitle,
       description,
@@ -65,4 +65,19 @@ export function breadcrumbTrailJsonLd(trail: Crumb[]) {
 /** The Home › Page trail for an inner page, as schema.org JSON-LD. */
 export function breadcrumbJsonLd(name: string, path: string) {
   return breadcrumbTrailJsonLd([{ name, path }]);
+}
+
+/** One of our services as schema.org Service JSON-LD, for the page that describes it. */
+export function serviceJsonLd({ name, description, path, areaServed }: { name: string; description: string; path: string; areaServed: object | string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    serviceType: "AI receptionist",
+    description,
+    url: `${siteConfig.url}${path}`,
+    areaServed,
+    availableLanguage: ["English", "Hindi"],
+    provider: { "@id": `${siteConfig.url}/#organization` },
+  };
 }

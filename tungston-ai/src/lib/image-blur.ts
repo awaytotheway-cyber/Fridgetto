@@ -8,20 +8,6 @@ export const imageBlur: Record<string, string> = {
     "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAAAwAQCdASoMAA8AA8BgJZwAA3AA/vSPenYIMc2VP0du6AAA",
   "/assets/hero-texture.webp":
     "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoMAAcAA8BgJZwAAudNnzYAAP74TwL4qmkLRbLUAAA=",
-  "/assets/service-advanced-agents.webp":
-    "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAAAwAQCdASoMAAcAA8BgJZwAA3AA/vP0mVbn50dMuhGvUWy6D8kAAA==",
-  "/assets/service-ai-agents.webp":
-    "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoMAAwAA8BgJZQAAudg8FkaAAD++E8I2CJeDnhPNLSgXaB6AJHKvXerAAA=",
-  "/assets/service-content-automation.webp":
-    "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoMAAcAA8BgJZwAAlvTPdEAAP722TmfBd/oPlVzYNsiIcVjZoAAAA==",
-  "/assets/service-custom-automations.webp":
-    "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAAAwAQCdASoMAAcAA8BgJZwAA3AA/vSVXf705+44qTpKVoRTS00cAA==",
-  "/assets/service-voice-agents.webp":
-    "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAAAwAQCdASoMAAcAA8BgJZwAA3AA/vSUpezrH924+8vJ2QAA",
-  "/assets/service-web-and-app.webp":
-    "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoMAAcAA8BgJZwAAucmc2CAAP73wB3jONvauKvHqHM+Rscp0L5OyAAA",
-  "/assets/service-website-chatbots.webp":
-    "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAAAwAQCdASoMAAcAA8BgJZwAA3AA/vTK010CamP/0U6B98GwAAA=",
   "/assets/team-designer.webp":
     "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoMAA8AA8BgJZACdADb6RUHoMAA/vhWXlToZsXvfnMvRTqKbkG4IupMUWydKVEwtlZc8/JZLBLtJ765fUA/KSwXwMSQDfUAAAA=",
   "/assets/team-orchestrator.webp":

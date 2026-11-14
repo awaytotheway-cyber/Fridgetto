@@ -5,7 +5,11 @@ import Link from "next/link";
 import { useAuth } from "@/components/auth/auth-provider";
 import { useRouter } from "next/navigation";
 
-export function UserMenu() {
+/**
+ * "Log in" for visitors, initials and a sign-out menu once signed in. The footer
+ * variant is a plain text link; the menu opens upwards there.
+ */
+export function UserMenu({ variant = "header" }: { variant?: "header" | "footer" }) {
   const { user } = useAuth();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -15,7 +19,11 @@ export function UserMenu() {
     return (
       <Link
         href="/login"
-        className="rounded-full px-4 py-2 text-[0.9375rem] font-medium whitespace-nowrap text-ash transition-colors duration-300 hover:text-bone"
+        className={
+          variant === "footer"
+            ? "text-ash transition-colors hover:text-bone"
+            : "rounded-full px-4 py-2 text-[0.9375rem] font-medium whitespace-nowrap text-ash transition-colors duration-300 hover:text-bone"
+        }
       >
         Log in
       </Link>
@@ -54,7 +62,7 @@ export function UserMenu() {
         <>
           {/* Backdrop to close on outside click */}
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-panel border border-white/[0.12] bg-carbon p-1 shadow-lg">
+          <div className={`absolute z-50 w-48 ${variant === "footer" ? "bottom-full left-0 mb-2" : "right-0 top-full mt-2"} rounded-panel border border-white/[0.12] bg-carbon p-1 shadow-lg`}>
             <p className="truncate px-3 py-2 text-xs text-smoke">{user.email}</p>
             <button
               type="button"

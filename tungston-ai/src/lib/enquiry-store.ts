@@ -1,27 +1,17 @@
-export type Enquiry = {
-  name: string;
-  email: string;
-  phone: string;
-  businessName: string;
-  service: string;
-  task: string;
-};
+import type { Lead } from "@/lib/lead-schema";
 
 /**
- * Enquiries live in the Protomation Supabase project — the same one that handles user
- * auth, so an enquiry sits beside the accounts rather than in a borrowed project. The
- * table is created by supabase/protomation_enquiries.sql.
+ * Leads live in the Protomation Supabase project, in public.protomation_enquiries
+ * (supabase/protomation_enquiries.sql, extended by supabase/2026-11-front-desk-leads.sql).
  *
- * The project is read from the auth env vars, so there is one project to configure and
- * nothing hard-coded here. SUPABASE_URL / SUPABASE_PUBLISHABLE_KEY override them when
- * enquiries should go somewhere else.
+ * The site writes with the publishable/anon key, which is meant to be public. The
+ * table's only policy lets it INSERT, so it can't read leads back, change or delete
+ * them; reading needs the service role, i.e. the Supabase dashboard.
  *
- * The key is Supabase's publishable/anon key, which is meant to be public — it is what
- * browser apps ship. The table's only policy lets it INSERT, so it cannot read
- * enquiries back, change them or delete them; reading needs the service role, i.e. the
- * Supabase dashboard.
+ * SUPABASE_URL / SUPABASE_PUBLISHABLE_KEY override the auth project's variables when
+ * leads should go to a different project.
  */
-function target(): { url: string; key: string } {
+export function supabaseTarget(): { url: string; key: string } {
   const pick = (...names: string[]) => {
     for (const name of names) {
       const value = process.env[name]?.trim();
@@ -34,43 +24,52 @@ function target(): { url: string; key: string } {
   if (!url || !key) {
     throw new Error(
       "Supabase is not configured: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY " +
-        "(or SUPABASE_URL / SUPABASE_PUBLISHABLE_KEY to record enquiries in a different project)",
+        "(or SUPABASE_URL / SUPABASE_PUBLISHABLE_KEY to record leads in a different project)",
     );
   }
   return { url, key };
 }
 
-/**
- * Records one enquiry. Throws when Supabase rejects it, so the caller can log that
- * the record was lost even if the email went out. Optional answers are stored as
- * NULL rather than the placeholder the n8n workflow needs.
- */
-export async function saveEnquiry(values: Enquiry) {
-  const { url, key } = target();
-  const res = await fetch(`${url}/rest/v1/protomation_enquiries`, {
+/** Inserts one row without asking for it back (the insert-only policy would refuse to return it). */
+export async function insertRow(table: string, row: Record<string, unknown>) {
+  const { url, key } = supabaseTarget();
+  const res = await fetch(`${url}/rest/v1/${table}`, {
     method: "POST",
     headers: {
       apikey: key,
-      Authorization: `Bearer ${key}`,
+      // Legacy anon keys are JWTs and go in Authorization too; new sb_publishable_ keys are not JWTs
+      ...(key.startsWith("eyJ") ? { Authorization: `Bearer ${key}` } : {}),
       "Content-Type": "application/json",
-      // Don't ask for the row back: the insert-only policy would refuse to return it
       Prefer: "return=minimal",
     },
-    body: JSON.stringify({
-      name: values.name,
-      email: values.email,
-      phone: values.phone || null,
-      business_name: values.businessName || null,
-      service: values.service,
-      task: values.task || null,
-      source: "website",
-      form_type: "consultation_enquiry",
-    }),
+    body: JSON.stringify(row),
     signal: AbortSignal.timeout(10_000),
   });
-
   if (!res.ok) {
     const body = await res.text().catch(() => "");
     throw new Error(`Supabase responded ${res.status}: ${body.slice(0, 300)}`);
   }
+}
+
+/** Records one lead from the "Book a free call" form. Throws when Supabase rejects it. */
+export async function saveLead(lead: Lead) {
+  await insertRow("protomation_enquiries", {
+    name: lead.name,
+    email: lead.email,
+    phone: lead.phone,
+    business_name: lead.businessName,
+    business_type: lead.businessType,
+    city: lead.city,
+    monthly_enquiries: lead.monthlyEnquiries,
+    task: lead.message,
+    consent: lead.consent,
+    consent_at: lead.consentAt,
+    consent_text: lead.consentText,
+    source_path: lead.sourcePath,
+    utm_source: lead.utm.source,
+    utm_medium: lead.utm.medium,
+    utm_campaign: lead.utm.campaign,
+    source: "website",
+    form_type: "front_desk_enquiry",
+  });
 }

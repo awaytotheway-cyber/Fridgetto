@@ -1,8 +1,10 @@
 # Protomation.ai website
 
-Marketing site for Protomation.ai, an AI agency that builds AI agents, voice agents, website chatbots, automations, content systems, and websites and apps.
+Marketing site for Protomation, which installs and runs **AI front desks for high-ticket clinics** (IVF, dermatology and hair, dental, diagnostic labs), with education businesses as a second vertical. Every page argues one offer: calls, missed calls and WhatsApp enquiries answered in Hindi, Marathi or English, qualified, booked and reported on.
 
-The centerpiece is the hero's **water-ripple dot grid**: a canvas of dots that behaves like a liquid surface. Moving the cursor pushes ripples through it, and disturbed dots heat up from dim ember red to filament yellow, the way a filament glows. The same engine draws the dot-matrix portrait in the About section and the "PROTOMATION" wordmark in the footer.
+Planning documents: `AUDIT.md` (where the site started), `IMPLEMENTATION_PLAN.md` (decisions and phases), `COPY.md` (the approved words), `LAUNCH_CHECKLIST.md` (what's left before going live) and `DEMO_AGENT_SPEC.md` (the demo phone agent).
+
+The hero keeps the **water-ripple dot grid**: a canvas of dots that behaves like a liquid surface. Moving the cursor pushes ripples through it, and disturbed dots heat up from ember red to filament yellow. The same engine draws the "PROTOMATION" wordmark in the footer.
 
 ## Stack
 
@@ -15,50 +17,45 @@ The centerpiece is the hero's **water-ripple dot grid**: a canvas of dots that b
 
 ## Run it
 
-Requires Node.js 20.9 or newer. `npm run dev` and `npm run build` first download the two brand fonts from Fontshare into `src/assets/fonts/fontshare/` (see [Fonts](#fonts)), so the first run needs network access to api.fontshare.com.
+Requires Node.js 20.9 or newer (the two check scripts need 22.18+). `npm run dev` and `npm run build` first download the two brand fonts from Fontshare into `src/assets/fonts/fontshare/` (see [Fonts](#fonts)), so the first run needs network access to api.fontshare.com.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
-npm run build      # production build (every route is prerendered as static)
-npm start          # serve the production build
+npm run dev            # http://localhost:3000
+npm run build          # production build
+npm start              # serve the production build
 npm run lint
 npm run typecheck
+npm test               # unit tests: calculator, lead form, rate limit, demo chat, demo card
+npm run check:copy     # copy rules: banned words, "30+ languages", $ prices, certification claims
+npm run check:routes   # against a running server: redirects, pages, sitemap (default http://localhost:3000)
 ```
 
-Copy `.env.example` to `.env.local` and fill in what you need:
-
-| Variable | What it does |
-| --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL used for metadata, the sitemap, robots.txt and JSON-LD. Defaults to `https://www.protomation.ai`; the bare domain redirects there (see `next.config.ts`). |
-| `CONTACT_WEBHOOK_URL` | Optional. The n8n webhook the contact form calls. Falls back to the production workflow hard-coded in `src/app/actions.ts`. See [Contact form](#contact-form). |
-| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | The Protomation Supabase project. Auth, enquiries and Care Plan subscribers all live in it. Create its tables with the files in `supabase/`. See [Contact form](#contact-form). |
-| `SUPABASE_URL` / `SUPABASE_PUBLISHABLE_KEY` | Optional. Only to record enquiries and subscribers in a *different* project from auth. Leave empty and the two above are used. |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Optional. The Web OAuth client ID. Set it and Google sign-in uses an ID token issued on this page, so the consent screen names this site; leave it empty and it falls back to the Supabase OAuth redirect, which shows `<project-ref>.supabase.co`. See [Google sign-in](#google-sign-in). |
+Copy `.env.example` to `.env.local` and fill in what you need. Every variable is explained there.
 
 ## Where to change things
 
+All visitor-facing words live in typed files under `src/content/`, so copy can change without touching components.
+
 | To change | Edit |
 | --- | --- |
-| Brand name, URL, email, phone, socials, nav, booking link | `src/site.config.ts` |
-| Logo | `src/assets/brand/logo-mark.png` (header, footer, chat, preloader, share image). Icons are in `src/app/` (`favicon.ico`, `icon.png`, `apple-icon.png`) and `public/` (manifest icons, `logo.png` for structured data). See [ASSETS.md](./ASSETS.md#logo). |
-| Page titles, descriptions and social cards | `pageMetadata()` in each page (from `src/lib/seo.ts`). Site-wide defaults and structured data are in `src/app/layout.tsx`. |
-| Colors, type scale, radii, glows | The `@theme` block in `src/app/globals.css`. The canvas effects read `--color-ember`, `--color-filament-deep`, `--color-filament` and `--color-volt` at runtime, so they follow automatically. |
-| Fonts | `src/app/layout.tsx` (`next/font/local`) and `scripts/fetch-fonts.mjs`. The OG image reads the static Clash Display TTFs from the same folder. See [Fonts](#fonts). |
-| All page copy: services, process, use cases, manifesto | `src/lib/content.ts`. The three audiences named above the hero headline are `audiences` in `src/site.config.ts` — keep them in step with `useCases`. |
-| Every price on the site: service cards, estimator bands, packages, maintenance, the Pricing FAQs (also the three plans on the home page) | `src/lib/pricing.ts`. Change a number in `PRICES` and the cards, estimator and lists follow. The estimator's bands are `estimatorServices`. |
-| The long copy on each service page (problem, what you get, FAQs, timeline) | `src/lib/service-details.ts`, keyed by the same slug as `services` |
-| Which tools a service page shows, how they are grouped, and the "What we need from you" list | `toolGroups` and `needs` in `src/lib/service-details.ts` |
-| The tools themselves: names, and which have a logo | `src/lib/tools.json`. After adding a tool with an `icon`, run `node scripts/make-tool-icons.mjs` to regenerate `src/lib/tool-icons.ts`. A tool with no `icon` shows its name only. Every tool needs a `url` (its official site): tool names link out to it. |
-| Demo chatbot answers | `src/lib/demo-bot.ts` (keyword intents, first match wins) |
-| The Privacy Policy and Terms of Service text | `src/lib/legal.ts`. The entity wording, the jurisdiction city and the "Last updated" date are `legal` in `src/site.config.ts`. Both pages are linked from the footer's bottom bar only, never the nav. |
-| Savings estimator: what each service saves, slider defaults | `src/lib/estimator.ts` (`serviceModels`, `defaultInputs`) |
-| Team members: names, roles, bios, portraits | `team` in `src/lib/content.ts`. Portraits are in `public/assets/` (see [ASSETS.md](./ASSETS.md#team-portraits)). |
-| Images | Rendered art is in `public/assets/`, set in `src/site.config.ts` (hero, About) and `src/lib/content.ts` (service cards). See [ASSETS.md](./ASSETS.md) for sizes, prompts and how to fall back to the drawn versions. |
-| Dot-grid physics (wave speed, damping, heat) | Constants at the top of `src/lib/ripple-field.ts` |
-| Liquid "Reach out to us" button: grab distance, release distance, blob size | Constants at the top of `src/components/fx/liquid-button.tsx`. Keep its padded field clear of other controls. |
+| Brand, URL, email, WhatsApp, reply-time promise, nav, hero headline, audiences above it | `src/site.config.ts` |
+| Every price (diagnostic, build, managed plan), price cards, pricing FAQs, ownership points | `src/content/pricing.ts` |
+| Homepage sections: hero subhead, leaks, five jobs, demo, process, monthly plan, data points, founder note | `src/content/home.ts` |
+| FAQs (homepage, clinics, education) | `src/content/faqs.ts` |
+| Clinic specialties on /clinics | `src/content/clinics.ts` |
+| /education, /how-it-works, /diagnostic, /security, /work, /about, /contact | `src/content/<page>.ts` |
+| Calculator presets, labels and disclaimer | `src/content/calculator.ts` (maths in `src/lib/calculator.ts`) |
+| Page titles and descriptions | `src/content/seo.ts` |
+| Old URLs and where they redirect; the list of public pages | `src/redirects.ts` |
+| The demo chat's answers | `src/lib/demo-bot.ts` |
+| The demo phone line | `NEXT_PUBLIC_DEMO_PHONE`, or drop `public/audio/sample-call.mp3` (+ `.txt` transcript) |
+| Form fields, options and messages | `src/lib/lead-schema.ts`, `src/components/lead-form.tsx` |
+| Privacy Policy and Terms | `src/lib/legal.ts` |
+| Colours, type scale, radii, glows | the `@theme` block in `src/app/globals.css` |
+| Images | `public/assets/`, see [ASSETS.md](./ASSETS.md) |
 
-> **On proof:** the site currently claims no client results anywhere, on purpose. `useCases` in `src/lib/content.ts` describes what each system *does* rather than what it achieved for someone, and the hero stats row was removed rather than keep numbers nobody could stand behind. When there are real engagement figures — and permission to publish them — put them in `useCases`, name the client and say over what period. Prices are real and live in `src/lib/pricing.ts`. The savings estimator's per-service rates in `src/lib/estimator.ts` are still placeholders: tune them to real client results.
+> **On proof:** the site claims no client results. The sample report on /work is labelled dummy data; `src/components/case-study.tsx` is ready for a real case study and rendered nowhere until there is one, with the client's permission. Calculator outputs are labelled illustrative estimates.
 
 ## Google sign-in
 
@@ -74,55 +71,36 @@ To set it up:
 
 Until the variable is set, `GoogleButton` falls back to the old redirect, so sign-in keeps working either way. Google requires its own rendered button for this flow, so it cannot be restyled; it is themed `filled_black` and clipped to the site's panel radius. One Tap is deliberately not shown — the login page asks for an explicit click.
 
-## Contact form
+## Lead form and counting
 
-The form on `/contact` and at the foot of the home page runs the `submitContact` server action in `src/app/actions.ts`. After validation a submission goes two places at once:
+The form on `/contact` posts to the `submitLead` server action (`src/app/actions.ts`):
 
-- **n8n workflow** — emails the enquiry to you (see below).
-- **Supabase** — recorded in `protomation_enquiries` by `src/lib/enquiry-store.ts`.
+1. Bots are dropped quietly: a hidden honeypot field, a 3-second minimum fill time, and 5 attempts per 10 minutes per IP.
+2. `parseLead` (`src/lib/lead-schema.ts`, zod) validates the fields, normalises the phone to E.164 and refuses any lead without consent. The exact consent sentence and its timestamp are stored with the lead.
+3. `deliverLead` saves the lead to Supabase (`public.protomation_enquiries`, insert-only RLS) and POSTs it to the n8n webhook in `N8N_LEAD_WEBHOOK_URL` **at the same time**. The visitor sees success if either worked, and an error only when neither did.
 
-The database is the safety net for an enquiry the email never delivered, so the visitor is told it failed only when *both* fail. Whichever half fails is named in the server log (`[contact] n8n email failed` / `[contact] Supabase save failed`), so you can tell whether a missing enquiry is sitting in the database or was lost entirely.
+With JavaScript the form keeps the visitor's answers after an error; without JavaScript it still posts as a plain HTML form.
 
-The **Pricing page** has a second form, the quote request (`submitQuote` in the same file). It uses the same two destinations through the same delivery code. Neither the n8n workflow nor the table has a budget field, so the estimated budget, the estimate and the requirements are written into the enquiry's message under the heading `[Pricing page: custom quote request]`. If you add a budget column or a workflow field later, change `submitQuote` to send it there.
+**Counting** is first-party: buttons marked `data-event="…"` and a few components call `trackEvent()` (`src/lib/analytics.ts`), which posts to `/api/event`. That stores the event name, a short label and the page path in `public.protomation_site_events`, with no cookies and no IP address. To read the counts, use the query at the bottom of `supabase/2026-11-protomation-site-events.sql`.
 
-### Reading the enquiries
-
-They are in the Protomation Supabase project — the same one that handles user auth — in `public.protomation_enquiries`, newest first. Create the table with `supabase/protomation_enquiries.sql`.
-
-The site writes with Supabase's **publishable/anon** key, which is meant to be public — browser apps ship it. The table's single policy lets that key `INSERT` and nothing else, so it cannot read enquiries back, change them or delete them. Reading needs the service role, which in practice means the Supabase dashboard. Keep it that way — adding a `SELECT` policy for `anon` would publish every enquirer's contact details.
-
-Enquiries used to be recorded in the separate project that hosts LifeShield, because there was no other project to put them in. That project still holds the enquiries received before the move; it is no longer written to.
-
-The workflow's webhook node is set to **GET**, so the fields travel as query parameters, not as a JSON body. Posting to it returns `404 This webhook is not registered for POST requests`. If you switch the node to POST, change `sendToN8n` to match.
-
-Two details the workflow depends on:
-
-- **No field may arrive empty.** The workflow answers `500 Error in workflow` if one does, which would lose the enquiry of anyone who skipped an optional question. `sendToN8n` therefore substitutes `Not provided` for a blank phone, business name or message. Keep that if you edit the workflow, or make the workflow tolerate blanks.
-- **The call has a 20-second timeout**, so a stalled workflow shows the visitor an error instead of an endless spinner.
-
-> **Security:** the fallback webhook URL is committed in `src/app/actions.ts`, so anyone reading this public repo can trigger that workflow and send mail through it. To close that off, rotate the webhook path in n8n and set the new URL as `CONTACT_WEBHOOK_URL` in Vercel instead of committing it. Removing it from the code alone does not help, since it stays in git history.
+**Database setup:** run `supabase/protomation_enquiries.sql`, then `2026-11-front-desk-leads.sql`, then `2026-11-protomation-site-events.sql`. All three can be re-run safely.
 
 ## Project structure
 
 ```
 src/
-  app/                 routes, metadata, sitemap, robots, icons, OG image, server action
-    page.tsx           home page (the priority page)
-    services/ pricing/ work/ about/ team/ contact/
-    services/[slug]/  one page per service, prerendered from `services`
-  sections/            page sections (hero, marquee, services bento, savings estimator, process, demo, results, pricing, about, CTA)
-  components/
-    fx/                motion and interaction: dot grid, cursor, magnetic, liquid button, tilt, reveals, preloader, smooth scroll
-    layout/            header and footer
-    ui/                buttons, logo, section intro
-  lib/
-    ripple-field.ts    the water-ripple dot grid engine (framework-free canvas)
-    content.ts         site copy
-    demo-bot.ts        scripted demo chatbot
-    estimator.ts       savings estimator rates and maths
-    gsap.ts            on-demand GSAP loader, the "site ready" event and whenNear()
-    seo.ts             per-page metadata and breadcrumb structured data
-  site.config.ts       brand configuration
+  app/            routes (/, clinics, education, how-it-works, diagnostic, pricing, security, work,
+                  about, contact, privacy, terms), llms.txt, sitemap, robots, OG image, server action,
+                  /api/event, dormant Care Plan checkout routes
+  content/        every page's words and data, typed
+  sections/       page sections (hero, leaks, five jobs, demo, calculator, process, pricing, FAQ, CTA…)
+  components/     CTA pair, calculator, demo call card, chat demo, lead form, sample report, case study,
+                  layout (header, footer), fx (dot grid, reveals, motion toggle), ui
+  lib/            calculator, lead schema, delivery, rate limit, analytics, demo bot, legal, SEO helpers
+  redirects.ts    old → new URLs, and the list of public pages
+  site.config.ts  brand configuration
+scripts/          check-routes.ts, check-copy.ts, fetch-fonts.mjs, make-image-blur.mjs
+supabase/         table definitions and migrations
 ```
 
 ## How the ripple grid works
@@ -140,14 +118,14 @@ Performance guards:
 
 ## Performance and SEO
 
-Lighthouse scores 97–100 for performance on phones and 100 on desktop on every page, and 100 for accessibility, best practices and SEO, measured over HTTP/2 with Brotli the way a host like Vercel serves it. What keeps it there:
+Mobile Lighthouse on a local production build scores 94–95 for performance and 100 for accessibility, best practices and SEO on `/` and `/clinics`; Vercel's HTTP/2 and Brotli usually add a few points. What keeps it there:
 
 - Nothing above the fold waits for JavaScript. The preloader and the hero intro are CSS, and page headlines are never hidden, so the largest paint lands with the first frame.
 - GSAP loads only when an effect needs it (see `loadGsap()` and `whenNear()` in `src/lib/gsap.ts`). On phones nothing loads it until you scroll; the desktop-only effects never load it there.
 - Decorative extras wait: the hero texture is fetched after the page is up (and skipped on phones), and the dot grid's ambient ripples on touch screens start with the first touch.
 - Images are served as AVIF where supported, and images on screen at load are fetched eagerly with high priority.
 
-Every page has its own title, description, canonical URL and social card (`src/lib/seo.ts`), and structured data covers the business, the website, breadcrumbs and the team. Keep those in place when adding a page: export `pageMetadata({ title, description, path })`, render `<JsonLd data={breadcrumbJsonLd(...)} />` and add the route to `src/app/sitemap.ts`.
+Every page has its own title, description, canonical URL and social card (`src/content/seo.ts` + `src/lib/seo.ts`). Structured data covers the business (ProfessionalService, Mumbai/India), each vertical (Service), FAQs (FAQPage), prices (Offer), breadcrumbs and the team. `/llms.txt` summarises the business for AI tools. When adding a page: export `pageMetadata(seo.<page>)`, render `<JsonLd data={breadcrumbJsonLd(...)} />`, and add the path to `publicRoutes` in `src/redirects.ts` (the sitemap and route checker read it).
 
 ## Accessibility and motion
 
@@ -156,7 +134,6 @@ Every page has its own title, description, canonical URL and social card (`src/l
 - `prefers-reduced-motion` turns off the preloader, the intro, reveals, the marquee and the canvas animation, and leaves all content visible.
 - Without JavaScript, the preloader is hidden and every section renders.
 - The custom cursor appears only on devices with a fine pointer. Touch devices keep native behavior.
-- The liquid "Reach out to us" button is a plain link underneath. Touch devices and reduced motion get a normal pill, and the slime lets go of the cursor the moment it is over any other control.
 
 ## Fonts
 
