@@ -16,7 +16,7 @@ export type Specialty = {
 export const clinicsHero = {
   eyebrow: "For clinics",
   title: "An AI front desk for clinics where every patient counts.",
-  lead: "IVF and fertility centres, dermatology and hair transplant clinics, dental chains and diagnostic labs. Every enquiry answered in seconds, qualified and booked, in Hindi, Marathi or English.",
+  lead: "IVF and fertility centres, dermatology and hair transplant clinics, dental chains and diagnostic labs. Every enquiry answered in seconds, qualified and booked, in Hindi or English, with Marathi on request.",
 };
 
 export const specialties: Specialty[] = [
@@ -34,7 +34,7 @@ export const specialties: Specialty[] = [
       "First consults booked but not confirmed, so the couple doesn't come",
     ],
     does: [
-      "Answers warmly in Hindi, Marathi or English",
+      "Answers warmly in Hindi or English, with Marathi on request",
       "Shares only what you approve: consult fee, process, timings, documents to bring",
       "Books the first consultation, and asks whether both partners will attend",
       "Sends reminders and handles reschedules",

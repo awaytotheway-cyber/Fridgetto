@@ -77,7 +77,7 @@ export function serviceJsonLd({ name, description, path, areaServed }: { name: s
     description,
     url: `${siteConfig.url}${path}`,
     areaServed,
-    availableLanguage: ["English", "Hindi", "Marathi"],
+    availableLanguage: ["English", "Hindi"],
     provider: { "@id": `${siteConfig.url}/#organization` },
   };
 }

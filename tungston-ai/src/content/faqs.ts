@@ -18,7 +18,7 @@ const sounds: FaqItem = {
 const languages: FaqItem = {
   question: "Which languages does it speak?",
   answer:
-    "Hindi, Marathi and English, and it switches if the caller does. Other Indian languages are available on request; we test them with you before they go live.",
+    "Hindi and English, and it switches if the caller does. Marathi and other Indian languages are available on request; we test them with you before they go live.",
 };
 const human: FaqItem = {
   question: "What if a patient wants to speak to a person?",
@@ -33,7 +33,7 @@ const medical: FaqItem = {
 const integrations: FaqItem = {
   question: "Does it work with my calendar, clinic software and WhatsApp?",
   answer:
-    "Usually, yes. It books into Google Calendar or your clinic software if that software can connect, and it replies on your WhatsApp Business number. If something can't connect, the diagnostic tells you before you spend anything on a build.",
+    "Usually, yes. It books into Google Calendar or your clinic software if that software can connect, and it can reply on WhatsApp once your WhatsApp Business account is connected. If something can't connect, the diagnostic tells you before you spend anything on a build.",
 };
 const safe: FaqItem = {
   question: "Is patient data safe?",

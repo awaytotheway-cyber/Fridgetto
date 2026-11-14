@@ -85,14 +85,14 @@ const organizationJsonLd = {
     { "@type": "City", name: "Mumbai" },
     { "@type": "Country", name: "India" },
   ],
-  availableLanguage: ["English", "Hindi", "Marathi"],
+  availableLanguage: ["English", "Hindi"],
   // What we are an authority on, in the words people search for it
   knowsAbout: [
     "AI receptionist",
     "Patient enquiry handling",
     "Appointment booking",
     "WhatsApp Business messaging",
-    "Voice AI in Hindi and Marathi",
+    "Voice AI in Hindi",
     "Speed-to-lead calling",
     "DPDP Act data handling",
   ],
@@ -108,7 +108,7 @@ const organizationJsonLd = {
           name: "AI front desk for clinics",
           serviceType: "AI receptionist",
           description:
-            "Every call, missed call and WhatsApp enquiry answered in Hindi, Marathi or English, qualified, booked into the clinic's calendar and followed up.",
+            "Every call, missed call and WhatsApp enquiry answered in Hindi or English, qualified, booked into the clinic's calendar and followed up.",
           url: `${siteConfig.url}/clinics`,
           areaServed: { "@type": "Country", name: "India" },
         },

@@ -52,7 +52,7 @@ export async function DemoCallCard() {
       <div className="flex items-start justify-between gap-6">
         <div>
           <p className="font-display text-title font-semibold text-bone">Call our demo front desk</p>
-          <p className="mt-2 text-sm text-ash">Hindi · Marathi · English</p>
+          <p className="mt-2 text-sm text-ash">Hindi · English</p>
           <a
             href={demo.tel}
             data-event="demo_call_click"

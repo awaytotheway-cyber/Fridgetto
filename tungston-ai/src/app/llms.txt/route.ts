@@ -10,7 +10,7 @@ export function GET() {
   const url = siteConfig.url;
   const body = `# Protomation
 
-> Protomation installs and runs AI front desks for high-ticket clinics in India, with education businesses as a second focus. Every call, missed call and WhatsApp enquiry is answered in Hindi, Marathi or English, qualified, booked into the clinic's calendar and followed up. An optional managed plan adds monitoring and a monthly report on consultations booked.
+> Protomation installs and runs AI front desks for high-ticket clinics in India, with education businesses as a second focus. Every call, missed call and WhatsApp enquiry is answered in Hindi or English (Marathi on request), qualified, booked into the clinic's calendar and followed up. An optional managed plan adds monitoring and a monthly report on consultations booked.
 
 Based in Mumbai, India, working with clients worldwide. Founder: ${siteConfig.founder.name}.
 

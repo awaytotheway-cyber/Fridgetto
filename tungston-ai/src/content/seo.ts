@@ -7,7 +7,7 @@ export const seo = {
   home: {
     title: "AI Front Desk for Clinics in India",
     description:
-      "Every call, missed call and WhatsApp enquiry answered in Hindi, Marathi or English, qualified and booked. For IVF, skin, hair and dental clinics.",
+      "Every call, missed call and WhatsApp enquiry answered in Hindi or English, qualified and booked. For IVF, skin, hair and dental clinics.",
     path: "/",
   },
   clinics: {

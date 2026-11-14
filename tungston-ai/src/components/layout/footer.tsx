@@ -29,7 +29,7 @@ export function Footer() {
           <Logo />
           <p className="mt-6 max-w-sm text-ash">
             AI front desks for clinics. Every call, missed call and WhatsApp enquiry answered, qualified and booked, in
-            Hindi, Marathi or English.
+            Hindi or English, with Marathi on request.
           </p>
           <a
             href={`mailto:${siteConfig.contact.email}`}

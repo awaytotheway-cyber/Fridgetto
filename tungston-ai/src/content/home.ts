@@ -5,7 +5,7 @@
 
 export const hero = {
   subhead:
-    "Protomation answers every call, missed call and WhatsApp enquiry in Hindi, Marathi or English. It qualifies the patient, books the consult into your calendar and follows up until they arrive. Set up in weeks. We can run it for you, with a report every month on the consults it booked.",
+    "Protomation answers every call, missed call and WhatsApp enquiry in Hindi or English, with Marathi on request. It qualifies the patient, books the consult into your calendar and follows up until they arrive. Set up in weeks. We can run it for you, with a report every month on the consults it booked.",
   worksWith: "Works with your calendar, WhatsApp, phone line and CRM.",
 };
 
@@ -17,7 +17,7 @@ export const leaks = {
     {
       when: "A couple calls about IVF at 9:40pm",
       without: "Nobody picks up. By morning they've booked a consult elsewhere.",
-      with: "Answered on the first ring, questions handled kindly, first consult booked for tomorrow.",
+      with: "Answered straight away, questions handled kindly, first consult booked for tomorrow.",
     },
     {
       when: "The phone rings during the lunch rush",
@@ -27,7 +27,7 @@ export const leaks = {
     {
       when: "A Meta ad lead fills in your form",
       without: "Someone calls back the next day. They don't pick up.",
-      with: "Called within a minute, while they're still on their phone, and booked.",
+      with: "Called back within minutes, while they're still interested, and booked.",
     },
     {
       when: "A WhatsApp message asks “how much?”",
@@ -50,7 +50,7 @@ export const fiveJobs = {
   jobs: [
     {
       title: "Answer",
-      body: "Every call, missed call, WhatsApp message and website chat, answered in seconds, day or night, in Hindi, Marathi or English.",
+      body: "Every call, missed call, WhatsApp message and website chat, answered in seconds, day or night, in Hindi or English, with Marathi on request.",
       parts: "Voice line · WhatsApp · Website chat",
       href: "/how-it-works#voice",
     },
@@ -84,7 +84,7 @@ export const fiveJobs = {
 export const demo = {
   title: "Try the front desk yourself.",
   lead: {
-    call: "Call our demo clinic and book a pretend consult. It takes about two minutes, in Hindi, Marathi or English.",
+    call: "Call our demo clinic and book a pretend consult. It takes about two minutes, in Hindi or English.",
     recording: "Listen to a call with our demo clinic, then ask its chat a question.",
     none: "Ask our demo clinic's chat a question, the way a patient would.",
   },
@@ -151,7 +151,7 @@ export const processSteps = [
   {
     title: "Pilot with one agreed number",
     when: "Weeks 2–3",
-    body: "We switch on one channel first and agree one number to hit, for example 95% of calls answered within a minute. You pay the second half of the build only when the pilot hits it.",
+    body: "We switch on one channel first and agree one number to hit, for example, how many calls are answered and how fast. You pay the second half of the build only when the pilot hits it.",
   },
   {
     title: "Go live",

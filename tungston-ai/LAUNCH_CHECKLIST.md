@@ -20,7 +20,7 @@ Everything here is on the branch `claude/protomation-ai-front-desk-j8lsmt`. Noth
 
 ## B. Facts the site states that you must be able to back up
 
-If any of these isn't true yet, tell me and I'll soften or remove it before launch.
+**Softened for launch (14 Nov), until you confirm them:** languages now read "Hindi or English, with Marathi on request"; "on the first ring" became "straight away"; "within a minute" became "within minutes"; "on your WhatsApp Business number" became "on WhatsApp once your WhatsApp Business account is connected". Once you've tested one of them, tell me and I'll restore the stronger wording.
 
 - [ ] **Hindi, Marathi and English**, including switching mid-call. Test Marathi on your voice provider.
 - [ ] Calls answered "on the first ring", and WhatsApp answered "in seconds".

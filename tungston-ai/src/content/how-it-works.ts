@@ -11,9 +11,9 @@ export const parts = [
     title: "Every call answered",
     label: "Voice",
     points: [
-      { title: "Inbound calls", body: "Answers your clinic number or a dedicated line, on the first ring, at any hour." },
-      { title: "Missed-call callback", body: "If your desk misses a call, it calls the patient back within a minute." },
-      { title: "New leads", body: "Calls ad and website leads within a minute of the form being sent." },
+      { title: "Inbound calls", body: "Answers your clinic number or a dedicated line straight away, at any hour." },
+      { title: "Missed-call callback", body: "If your desk misses a call, it calls the patient back within minutes." },
+      { title: "New leads", body: "Calls ad and website leads within minutes of the form being sent." },
       { title: "Reminders", body: "Calls or messages before appointments, and handles reschedules." },
       { title: "Disclosure", body: "Every call starts by saying it's an AI assistant and that the call may be recorded." },
     ],
@@ -23,7 +23,7 @@ export const parts = [
     title: "WhatsApp and website chat",
     label: "Chat",
     points: [
-      { title: "Where", body: "Replies on your WhatsApp Business number and in a chat window on your website." },
+      { title: "Where", body: "Replies on WhatsApp and in a chat window on your website. We confirm the WhatsApp setup your account needs in the diagnostic." },
       { title: "What", body: "Answers from your approved FAQs, offers slots and books inside the conversation." },
       { title: "Handover", body: "Passes to your team, with the whole conversation, when a patient asks for a person." },
     ],

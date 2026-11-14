@@ -44,4 +44,4 @@ export const educationCalculator = {
 };
 
 export const worldwide =
-  "Based in Mumbai. We set up and run front desks for education businesses anywhere in the world, in English, Hindi or Marathi.";
+  "Based in Mumbai. We set up and run front desks for education businesses anywhere in the world, in English or Hindi, with Marathi on request.";

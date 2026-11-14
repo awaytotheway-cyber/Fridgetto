@@ -34,7 +34,7 @@ export const siteConfig = {
   audiences: ["IVF", "Dermatology & Hair", "Dental", "Diagnostic labs"],
   /** Meta description: keep it under about 150 characters so search results show all of it. */
   description:
-    "Every call, missed call and WhatsApp enquiry answered in Hindi, Marathi or English, qualified and booked. For IVF, skin, hair and dental clinics.",
+    "Every call, missed call and WhatsApp enquiry answered in Hindi or English, qualified and booked. For IVF, skin, hair and dental clinics.",
   keywords: [
     "AI front desk",
     "AI receptionist for clinics",
