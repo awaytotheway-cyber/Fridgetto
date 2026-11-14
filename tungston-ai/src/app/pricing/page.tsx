@@ -16,17 +16,22 @@ export const metadata: Metadata = pageMetadata(seo.pricing);
 const offersJsonLd = {
   "@context": "https://schema.org",
   "@type": "OfferCatalog",
-  name: "AI front desk pricing",
+  name: "Clinic automation pricing",
   itemListElement: [
-    { "@type": "Offer", name: "Front-Desk Diagnostic", price: PRICES.diagnostic, priceCurrency: "INR" },
+    { "@type": "Offer", name: "Clinic Automation Audit", price: PRICES.audit, priceCurrency: "INR" },
     {
       "@type": "Offer",
-      name: "Front-Desk Build",
-      priceSpecification: { "@type": "PriceSpecification", minPrice: PRICES.buildFrom, priceCurrency: "INR" },
+      name: "Single automation",
+      priceSpecification: { "@type": "PriceSpecification", minPrice: PRICES.singleFrom, priceCurrency: "INR" },
     },
     {
       "@type": "Offer",
-      name: "Managed Front Desk",
+      name: "Full clinic system",
+      priceSpecification: { "@type": "PriceSpecification", minPrice: PRICES.systemFrom, priceCurrency: "INR" },
+    },
+    {
+      "@type": "Offer",
+      name: "Managed Plan",
       priceSpecification: {
         "@type": "UnitPriceSpecification",
         minPrice: PRICES.managedFrom,

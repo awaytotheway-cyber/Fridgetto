@@ -19,7 +19,7 @@ export default function EducationPage() {
       <JsonLd data={breadcrumbJsonLd("Education", seo.education.path)} />
       <JsonLd
         data={serviceJsonLd({
-          name: "AI admissions front desk for education businesses",
+          name: "AI automation for education businesses",
           description: educationHero.lead,
           path: seo.education.path,
           areaServed: "Worldwide",

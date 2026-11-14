@@ -11,10 +11,10 @@ function transcript(): string | null {
 }
 
 /**
- * The demo front desk (COPY.md §2.4), in whichever form exists right now:
+ * The demo clinic's phone line, in whichever form exists right now:
  *  - a demo number is set: a call button, a QR code on desktop, and the ground rules
  *  - only a sample recording: an audio player with a transcript toggle
- *  - neither: nothing at all (the CTA pair then says "See how it works")
+ *  - neither: nothing at all (the CTA pair then says "See what we automate")
  */
 export async function DemoCallCard() {
   const demo = currentDemoMode();
@@ -25,7 +25,7 @@ export async function DemoCallCard() {
     return (
       <div className="rounded-panel border border-white/[0.09] bg-carbon p-6 sm:p-7">
         <p className="font-display text-title font-semibold text-bone">Listen to a sample call</p>
-        <p className="mt-2 text-sm text-ash">A call with our demo clinic. Fictional clinic, real front desk.</p>
+        <p className="mt-2 text-sm text-ash">A call with our demo clinic. Fictional clinic, real AI.</p>
         <audio controls preload="none" src={SAMPLE_CALL_PATH} className="mt-5 w-full">
           Your browser can&apos;t play this recording.
         </audio>
@@ -51,7 +51,7 @@ export async function DemoCallCard() {
     <div className="rounded-panel border border-white/[0.09] bg-carbon p-6 sm:p-7">
       <div className="flex items-start justify-between gap-6">
         <div>
-          <p className="font-display text-title font-semibold text-bone">Call our demo front desk</p>
+          <p className="font-display text-title font-semibold text-bone">Call our demo clinic</p>
           <p className="mt-2 text-sm text-ash">Hindi · English</p>
           <a
             href={demo.tel}

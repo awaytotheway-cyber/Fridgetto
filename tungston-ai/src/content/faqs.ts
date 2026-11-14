@@ -9,7 +9,7 @@ import { PRICES } from "@/content/pricing";
 const inr = (n: number) => `₹${new Intl.NumberFormat("en-IN").format(n)}`;
 
 const sounds: FaqItem = {
-  question: "Does it sound robotic?",
+  question: "Do the AI calls sound robotic?",
   answer: "No. It sounds like a calm receptionist, and callers can interrupt or change their mind. Try the demo and judge for yourself.",
 };
 const languages: FaqItem = {
@@ -25,23 +25,23 @@ const medical: FaqItem = {
   answer: "No. It only shares what you approve, like timings and fees. Medical questions go to your doctors.",
 };
 const integrations: FaqItem = {
-  question: "Does it work with my calendar and WhatsApp?",
-  answer: "Usually, yes. The diagnostic checks your setup before you spend anything on a build.",
+  question: "Does it work with our hospital software?",
+  answer: "Often, yes, if your software allows connections or exports. The audit checks yours before you spend anything on a build.",
 };
 const speed: FaqItem = {
   question: "How fast can we go live?",
-  answer: "Usually 3–5 weeks after the diagnostic.",
+  answer: "A single automation in 1–3 weeks. A full clinic system in 3–6 weeks.",
 };
 const cost: FaqItem = {
   question: "What does it cost?",
-  answer: `Diagnostic ${inr(PRICES.diagnostic)}, builds from ${inr(PRICES.buildFrom)}, and an optional managed plan from ${inr(PRICES.managedFrom)} a month.`,
+  answer: `The audit is ${inr(PRICES.audit)}. Single automations from ${inr(PRICES.singleFrom)}, a full clinic system from ${inr(PRICES.systemFrom)}, and an optional Managed Plan from ${inr(PRICES.managedFrom)} a month.`,
 };
 const stop: FaqItem = {
   question: "What if we want to stop?",
   answer: "Give 30 days' notice. Your number, accounts and data stay yours.",
 };
 
-export const homeFaqs: FaqItem[] = [sounds, languages, human, medical, speed, stop];
+export const homeFaqs: FaqItem[] = [integrations, speed, human, medical, languages, stop];
 
 export const clinicFaqs: FaqItem[] = [
   sounds,
@@ -67,7 +67,7 @@ export const educationFaqs: FaqItem[] = [
   },
   {
     question: "Does it work with our CRM?",
-    answer: "Usually. The diagnostic confirms yours.",
+    answer: "Usually. The audit confirms yours.",
   },
   {
     question: "Will it pressure students?",

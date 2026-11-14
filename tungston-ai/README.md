@@ -1,6 +1,6 @@
 # Protomation.ai website
 
-Marketing site for Protomation, which installs and runs **AI front desks for high-ticket clinics** (IVF, dermatology and hair, dental, diagnostic labs), with education businesses as a second vertical. Every page argues one offer: calls, missed calls and WhatsApp enquiries answered in Hindi, Marathi or English, qualified, booked and reported on.
+Marketing site for Protomation, which builds and runs **AI automation for clinics** (IVF, dermatology and hair, dental, diagnostic labs), with education businesses as a second vertical: appointment booking, reminders and follow-ups, WhatsApp and website chat, an AI voice receptionist, ad lead handling, reports on WhatsApp and hospital-software workflows. The paid first step is the **Clinic Automation Audit** (`/audit`).
 
 Planning documents: `AUDIT.md` (where the site started), `IMPLEMENTATION_PLAN.md` (decisions and phases), `COPY.md` (the approved words), `LAUNCH_CHECKLIST.md` (what's left before going live) and `DEMO_AGENT_SPEC.md` (the demo phone agent).
 

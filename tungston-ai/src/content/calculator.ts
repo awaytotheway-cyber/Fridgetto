@@ -41,7 +41,7 @@ type Field = { key: keyof CalculatorInputs; label: string; help?: string; max: n
 const shared = {
   disclaimer:
     "Illustrative estimate based on your inputs, not a guarantee or a measured client result.",
-  cta: { label: "Get your real numbers with a Front-Desk Diagnostic", href: "/diagnostic" },
+  cta: { label: "Get your real numbers with a Clinic Automation Audit", href: "/audit" },
 };
 
 export const calculatorCopy: Record<

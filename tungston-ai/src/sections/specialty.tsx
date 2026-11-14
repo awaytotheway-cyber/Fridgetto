@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import type { Specialty } from "@/content/clinics";
 
-/** One specialty on /clinics: a sentence on how patients behave, and three things the front desk does. */
+/** One specialty on /clinics: a sentence on how patients behave, and three things we automate. */
 export function SpecialtySection({ specialty, calculatorHref }: { specialty: Specialty; calculatorHref?: string }) {
   return (
     <section id={specialty.id} aria-labelledby={`${specialty.id}-title`} className="scroll-mt-24 border-t border-white/[0.08] py-20 sm:py-28">

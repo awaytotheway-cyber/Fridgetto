@@ -7,7 +7,7 @@ export function PriceCards() {
   return (
     <section aria-label="Prices" className="pb-16 sm:pb-24">
       <div className="shell">
-        <div className="grid gap-4 lg:grid-cols-3 lg:items-stretch">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 lg:items-stretch">
           {priceCards.map((card) => {
             const featured = Boolean(card.badge);
             return (

@@ -1,8 +1,8 @@
 /**
- * What the demo front desk card can offer right now:
+ * What the demo phone card can offer right now:
  *  - "call": a live demo number is set (NEXT_PUBLIC_DEMO_PHONE)
  *  - "recording": no number, but public/audio/sample-call.mp3 exists
- *  - "none": neither, so the card hides and CTAs point to /how-it-works instead
+ *  - "none": neither, so the card hides and CTAs point to /solutions instead
  *
  * Imports nothing, so client and server code can both use it.
  */

@@ -1,5 +1,5 @@
 /**
- * Scripted replies for the demo chat: the front desk of "Protomation Demo Clinic", a
+ * Scripted replies for the demo chat: the AI assistant of "Protomation Demo Clinic", a
  * clinic made up for the demo (COPY.md §13). No network calls: intents are matched by
  * keyword, in order, and the first match answers. Every clinic detail here is invented
  * and says so, so nobody mistakes it for a real clinic.
@@ -31,7 +31,7 @@ const intents: { test: RegExp; reply: BotReply }[] = [
   {
     test: /\b(protomation|your (price|pricing|cost)|for this|build (one|this)|for my clinic)\b/i,
     reply: {
-      text: `Protomation's own prices: a Front-Desk Diagnostic is ${inr(PRICES.diagnostic)} (credited against the build), builds start at ${inr(PRICES.buildFrom)}, and the optional Managed Front Desk starts at ${inr(PRICES.managedFrom)} a month.`,
+      text: `Protomation's own prices: a Clinic Automation Audit is ${inr(PRICES.audit)} (credited against the build), single automations start at ${inr(PRICES.singleFrom)}, a full clinic system at ${inr(PRICES.systemFrom)}, and the optional Managed Plan at ${inr(PRICES.managedFrom)} a month.`,
       cta: { label: "See pricing", href: "/pricing" },
     },
   },
@@ -82,7 +82,7 @@ const intents: { test: RegExp; reply: BotReply }[] = [
   {
     test: /\b(are you|ai|bot|robot|real|what is this|who are you)\b/i,
     reply: {
-      text: "I'm a demo AI front desk built by Protomation. A real one answers a clinic's calls, WhatsApp and website chat like this, from the clinic's own approved answers.",
+      text: "I'm a demo AI assistant built by Protomation. A real one answers a clinic's WhatsApp, website chat and calls like this, books appointments and sends reminders, from the clinic's own approved answers.",
     },
   },
   {
@@ -99,7 +99,7 @@ const intents: { test: RegExp; reply: BotReply }[] = [
 ];
 
 const fallback: BotReply = {
-  text: "I'm a short demo, so I only know the basics: timings, fees, location and booking. A real front desk knows everything your clinic approves. Try \"book a consultation\".",
+  text: "I'm a short demo, so I only know the basics: timings, fees, location and booking. A real one knows everything your clinic approves. Try \"book a consultation\".",
   chips: ["Book a consultation"],
 };
 
@@ -108,7 +108,7 @@ export function replyTo(message: string): BotReply {
 }
 
 export const greeting =
-  "Hi, I'm the front desk for Protomation Demo Clinic, a made-up clinic for this demo. I can share timings and fees, and book a consultation. What would you like to know?";
+  "Hi, I'm the assistant for Protomation Demo Clinic, a made-up clinic for this demo. I can share timings and fees, and book a consultation. What would you like to know?";
 
 export const suggestions = [
   "What are your timings?",

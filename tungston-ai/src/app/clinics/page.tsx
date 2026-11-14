@@ -20,7 +20,7 @@ export default function ClinicsPage() {
       <JsonLd data={breadcrumbJsonLd("Clinics", seo.clinics.path)} />
       <JsonLd
         data={serviceJsonLd({
-          name: "AI front desk for clinics",
+          name: "AI automation for clinics",
           description: clinicsHero.lead,
           path: seo.clinics.path,
           areaServed: { "@type": "Country", name: "India" },
